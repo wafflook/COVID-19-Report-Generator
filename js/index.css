@@ -1,0 +1,30 @@
+@import url("dat.gui/0.7.7-custom.css");
+@import url("vue/vue-json-pretty/1.8.0-custom.css");
+.vjs-tree {
+  font: 12px "M+2VM+IPAG circle Regular";
+  font-weight: normal;
+}
+
+.dg {
+  width: 100% !important;
+  font: 11px "M+2VM+IPAG circle Regular";
+}
+.dg li.cr,
+.dg li.folder {
+  border-left: none !important;
+}
+.dg li.title {
+  margin-left: 0 !important;
+}
+.dg li.cr select {
+  font-family: "Meiryo";
+}
+.dg li.cr.number input[type=text] {
+  font-family: "Gidole Regular";
+}
+.dg li.cr:last-child {
+  border-bottom: none !important;
+}
+.dg > .close-button {
+  display: none;
+}
