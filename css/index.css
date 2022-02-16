@@ -41,6 +41,43 @@ p {
   border-radius: 0 0.28571429rem 0.28571429rem 0;
 }
 
+.ui.menu {
+  min-height: min-content;
+}
+.ui.menu.basic {
+  border: none;
+  box-shadow: none;
+}
+.ui.menu .item {
+  padding: 0;
+  display: flex;
+  min-height: 25px;
+  min-width: 28px;
+  align-items: center;
+  justify-content: center;
+}
+.ui.menu .item > .label.floating {
+  padding: 2px;
+}
+.ui.label.pointing.index {
+  left: 0;
+  right: auto;
+  position: absolute;
+  text-align: center;
+  white-space: normal;
+  transform: translateX(-100%) translateY(-50%);
+  margin-left: -12px;
+  padding: 0.5833em 0.833em;
+  top: 0;
+}
+.ui.divider {
+  font-weight: normal;
+}
+.ui.accordion > .title, .ui.accordion.menu .item > .title, .ui.accordion .accordion > .title {
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+}
 .ui.comments .comment .text {
   line-height: 1.2;
 }
@@ -109,37 +146,6 @@ p {
 }
 .ui.grid.celled > .row > .column {
   padding: 6px;
-}
-
-.ui.menu {
-  min-height: min-content;
-}
-.ui.menu.basic {
-  border: none;
-  box-shadow: none;
-}
-.ui.menu .item {
-  padding: 0;
-  display: flex;
-  min-height: 25px;
-  min-width: 28px;
-  align-items: center;
-  justify-content: center;
-}
-.ui.menu .item > .label.floating {
-  padding: 2px;
-}
-
-.ui.label.pointing.index {
-  left: 0;
-  right: auto;
-  position: absolute;
-  text-align: center;
-  white-space: normal;
-  transform: translateX(-100%) translateY(-50%);
-  margin-left: -12px;
-  padding: 0.5833em 0.833em;
-  top: 0;
 }
 
 .block.ui.toast-container .toast-box {
@@ -312,7 +318,15 @@ p {
   padding: 0;
   display: flex;
 }
-.block.ui.segment.block > .label {
+.block.ui.segment.block > .label.floating.point {
+  left: 0;
+  top: -1px;
+  right: auto;
+  margin-left: -12px;
+  text-align: center;
+  transform: translateX(-100%) translateY(-50%);
+}
+.block.ui.segment.block > .bar {
   color: #333333;
   background-color: #f8f8f8;
   border-right: 1px solid #e2e2e3;
@@ -322,7 +336,7 @@ p {
   min-width: 29px;
   text-align: center;
 }
-.block.ui.segment.block > .label > .text {
+.block.ui.segment.block > .bar > .text {
   display: flex;
   padding: 6px 0;
   align-items: center;
@@ -330,22 +344,22 @@ p {
   writing-mode: vertical-rl;
   text-combine-upright: none;
 }
-.block.ui.segment.block > .label > .text.no {
+.block.ui.segment.block > .bar > .text.no {
   display: block;
   text-align: center;
   writing-mode: initial;
 }
-.block.ui.segment.block > .label > .text.active {
+.block.ui.segment.block > .bar > .text.active {
   background-color: #e5e5e5;
 }
-.block.ui.segment.block > .label > .text:hover {
+.block.ui.segment.block > .bar > .text:hover {
   cursor: pointer;
   background-color: #e5e5e5;
 }
-.block.ui.segment.block > .label > .ui.vertical.menu:not(.icon) > .item {
+.block.ui.segment.block > .bar > .ui.vertical.menu:not(.icon) > .item {
   padding-left: 2px;
 }
-.block.ui.segment.block > .label > .ui.vertical.menu {
+.block.ui.segment.block > .bar > .ui.vertical.menu {
   flex: 1;
   display: flex;
   justify-content: flex-start;
@@ -357,7 +371,7 @@ p {
   border: none;
   width: 28px;
 }
-.block.ui.segment.block > .label > .ui.vertical.menu > .item {
+.block.ui.segment.block > .bar > .ui.vertical.menu > .item {
   padding: 0;
   width: 100%;
   display: flex;
@@ -368,17 +382,17 @@ p {
   writing-mode: vertical-rl;
   text-combine-upright: none;
 }
-.block.ui.segment.block > .label > .ui.vertical.menu > .item > i.icon,
-.block.ui.segment.block > .label > .ui.vertical.menu > .item i.icons {
+.block.ui.segment.block > .bar > .ui.vertical.menu > .item > i.icon,
+.block.ui.segment.block > .bar > .ui.vertical.menu > .item i.icons {
   width: 1em;
 }
-.block.ui.segment.block > .label > .ui.vertical.menu > .item.active {
+.block.ui.segment.block > .bar > .ui.vertical.menu > .item.active {
   background-color: #f8f8f8;
 }
-.block.ui.segment.block > .label > .ui.vertical.menu > .item.bottom {
+.block.ui.segment.block > .bar > .ui.vertical.menu > .item.bottom {
   margin-top: auto;
 }
-.block.ui.segment.block > .label > .ui.vertical.menu .menu.bottom {
+.block.ui.segment.block > .bar > .ui.vertical.menu .menu.bottom {
   margin-top: auto;
 }
 .block.ui.segment.block > .content {

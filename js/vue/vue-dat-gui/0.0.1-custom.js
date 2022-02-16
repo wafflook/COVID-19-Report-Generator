@@ -74,6 +74,9 @@
           }
         },
         watch: {
+          name:function(value){
+            this.$_gui && (this.$_gui.name = value)
+          },
           open:function(value){
             this.$_gui && this.$_gui[this.open ? 'open' : 'close']()
           },

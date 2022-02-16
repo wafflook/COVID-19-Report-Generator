@@ -1,6 +1,6 @@
 {
-  "name"            : "COVID-19 Report Generator",
-  "short_name"      : "COVID-19 GEN",
+  "name"            : "wafflook",
+  "short_name"      : "wafflook",
   "start_url"       : "/",
   "display"         : "standalone",
   "orientation"     : "any",
