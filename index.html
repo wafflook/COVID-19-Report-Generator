@@ -351,12 +351,12 @@
      vnode.context.$nextTick(function(){
        var self = this
        input = $([
-         'button',
-         'select',
-         'textarea',
-         'input[type=text]',
-         'input[type=checkbox]',
-         'input[type=password]'
+         'button:visible',
+         'select:visible',
+         'textarea:visible',
+         'input[type=text]:visible',
+         'input[type=checkbox]:visible',
+         'input[type=password]:visible'
        ].join(','),el)
        callback = {
          focus:function(){
