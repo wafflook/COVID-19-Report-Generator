@@ -44,7 +44,7 @@
       }
       .ui.grid > .row > .column:nth-child(2){
         padding:0;
-        width:192mm;
+        width:230mm;
       }
    </style>
     <style>
@@ -94,6 +94,31 @@
       }
       .ui.buttons .button{
         flex:1;
+      }
+   </style>
+    <style>
+      .tree{
+        --border-style:2px solid #333;
+      }
+      .tree span > .ui.label{
+        padding:.5em;
+        color: #FFFFFF;
+        font-weight:normal;
+        border-color: #2185D0;
+        background-color: #2185D0;
+        box-shadow:rgb(16 36 94 / 40%) 0px 1px 2px 0px;
+      }
+      .tree span > .ui.label.image.circular{
+        padding:2px !important;
+      }
+      .tree span > .ui.label.image.circular > img{
+        margin:0;
+        border-radius:500px;
+      }
+      .tree span > .ui.label:hover{
+        cursor:pointer;
+        border-color: #F2711C;
+        background-color: #F2711C;
       }
    </style>
  </head>
