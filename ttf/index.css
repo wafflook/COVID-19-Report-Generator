@@ -1,9 +1,21 @@
 @charset "UTF-8";
 @font-face {
-  font-family: "M+2VM+IPAG circle Regular";
-  src: url("M+2VM+IPAG circle Regular/1.011.ttf");
+  font-family: "あずきフォント";
+  src: url("あずきフォント/1.21.ttf");
 }
 @font-face {
-  font-family: "Share Tech Mono";
-  src: url("Share Tech Mono/1.003.ttf");
+  font-family: "うずらフォント";
+  src: url("うずらフォント/1.00.ttf");
+}
+@font-face {
+  font-family: "Ｎちはやフォント+";
+  src: url("Ｎちはやフォント+/1.2.1.ttf");
+}
+@font-face {
+  font-family: "851手書き雑フォント";
+  src: url("851手書き雑フォント/0.883.ttf");
+}
+@font-face {
+  font-family: "M+2VM+IPAG circle Regular";
+  src: url("M+2VM+IPAG circle Regular/1.011.ttf");
 }

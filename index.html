@@ -85,42 +85,6 @@
         pointer-events:none;
       }
    </style>
-    <style>
-      .ui.buttons{
-        width:100%;
-      }
-      .ui.buttons .or{
-        width:1em;
-      }
-      .ui.buttons .button{
-        flex:1;
-      }
-   </style>
-    <style>
-      .tree{
-        --border-style:2px solid #333;
-      }
-      .tree span > .ui.label{
-        padding:.5em;
-        color: #FFFFFF;
-        font-weight:normal;
-        border-color: #2185D0;
-        background-color: #2185D0;
-        box-shadow:rgb(16 36 94 / 40%) 0px 1px 2px 0px;
-      }
-      .tree span > .ui.label.image.circular{
-        padding:2px !important;
-      }
-      .tree span > .ui.label.image.circular > img{
-        margin:0;
-        border-radius:500px;
-      }
-      .tree span > .ui.label:hover{
-        cursor:pointer;
-        border-color: #F2711C;
-        background-color: #F2711C;
-      }
-   </style>
  </head>
   <body>
     <main>
@@ -159,8 +123,9 @@
                     <dat-value v-model='pdf.wait' label='入力をＰＤＦに反映' :values="{'０.５秒間入力がなければ反映':500,'１.０秒間入力がなければ反映':1000,'１.５秒間入力がなければ反映':1500}"></dat-value>
                  </dat-folder>
                   <dat-folder name='ＰＤＦのフォントを設定します' open>
-                    <dat-color v-model='pdf.color.mark' label='塗潰色'></dat-color>
-                    <dat-color v-model='pdf.color.text' label='文字色'></dat-color>
+                    <dat-value v-model='pdf.settings.fontname' label='ファミリ' :values='_.keys(font)'></dat-value>
+                    <dat-color v-model='pdf.settings.color.mark' label='塗潰色'></dat-color>
+                    <dat-color v-model='pdf.settings.color.text' label='文字色'></dat-color>
                  </dat-folder>
                </dat-gui>
              </div>
@@ -219,7 +184,7 @@
            </div>
             <div class='ui tab' data-tab='a'>
               <div>
-                <router-view :common='pdf' ref='view'>
+                <router-view :common='pdf' ref='view' v-if='ready'>
                </router-view>
              </div>
               <div>
@@ -384,11 +349,11 @@
          'input[type=password]:visible'
        ].join(','),el)
        callback = {
-         focus:function(){
-           $(el).closest('.cr').addClass('focus')
+         focus:function(event){
+           $(event.target).closest('.cr').addClass('focus')
          },
-         focusout:function(){
-           $(el).closest('.cr').removeClass('focus')
+         focusout:function(event){
+           $(event.target).closest('.cr').removeClass('focus')
          },
          keydown:function(event){
            if(event.keyCode == 13){
@@ -424,10 +389,20 @@
        pdf:{
          font:null,
          wait:1000,
-         color:{
-           mark:'#ffff00',
-           text:'#600dff'
+         settings:{
+           fontname:'うずらフォント',
+           color:{
+             mark:'#ffff00',
+             text:'#600dff'
+           }
          }
+       },
+       font:{
+         '851手書き雑フォント':'0.883.ttf',
+         'M+2VM+IPAG circle Regular':'1.011.ttf',
+         'あずきフォント':'1.21.ttf',
+         'うずらフォント':'1.00.ttf',
+         'Ｎちはやフォント+':'1.2.1.ttf'
        }
      },
      watch:{
@@ -452,6 +427,11 @@
              new Cleave(input,{date:true,datePattern:['Y','m','d']})
            })
          })
+       }
+     },
+     computed:{
+       ready:function(){
+         return this.pdf.font != null
        }
      },
      methods:{
@@ -484,15 +464,17 @@
        PDFLib.PDFPage.prototype.drawTextZen = function(text,options){
          this.drawText(jaconv.toZen(text),options)
        }
-       this.pdf.font = await fetch('ttf/M+2VM+IPAG circle Regular/1.011.ttf').then((responce)=>{
-         return responce.arrayBuffer()
-       })
+
      },
      mounted:function(){
         this.$watchAll([
-          {name:'pdf.color',options:{deep:true}}
-        ],_.debounce(()=>{
-          this.$refs.view.load()
+          {name:'pdf.settings',options:{deep:true,immediate:true}}
+        ],_.debounce(async (k,settings)=>{
+          var name = settings.fontname
+          var path = this.font[settings.fontname]
+          this.pdf.font = await fetch(`ttf/${name}/${path}`).then((responce)=>{
+            return responce.arrayBuffer()
+          })
         },this.pdf.wait))
        $('.item',this.$refs.menu).tab({
          autoTabActivation:'a'

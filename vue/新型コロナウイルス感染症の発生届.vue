@@ -78,7 +78,7 @@
                <dat-gui>
                  <dat-value v-model='param.患者の症状のその他' label='症状（その他）' placeholder='肺炎像など画像所見など'></dat-value>
                  <dat-value v-model='param.重症化のリスク因子のその他' label='疾患（その他）' placeholder='重症化のリスク因子'></dat-value>
-                 <dat-value v-model="param['患者の酸素飽和度（室内気）']" label='酸素飽和度（室内気）' :min='1' :max='100' :step='1' :empty='0'></dat-value>
+                 <dat-value v-model="param['患者の酸素飽和度（室内気）']" label='酸素飽和度（室内気）' :min='0' :max='100' :step='1' :empty='0'></dat-value>
               </dat-gui>
             </div>
           </div>
@@ -87,21 +87,48 @@
                接種
             </div>
              <div class='content fitted'>
+               <dat-gui>
+                 <dat-value v-model='param.コロナのワクチン１回目の接種' label='１回目の接種' :values="['有り','無し','不明']"></dat-value>
+                 <dat-value v-model='param.コロナのワクチン２回目の接種' label='２回目の接種' :values="['有り','無し','不明']"></dat-value>
+                 <dat-value v-model='param.コロナのワクチン３回目の接種' label='３回目の接種' :values="['有り','無し','不明']"></dat-value>
+              </dat-gui>
+            </div>
+          </div>
+           <div class='ui segment block fitted basic' v-if="param.コロナのワクチン１回目の接種 == '有り'">
+             <div class="ui label floating point right pointing green">
+               履歴
+            </div>
+             <div class='content fitted'>
                <dat-gui expand>
                  <dat-folder :name='壱回目のコロナワクチン接種 | toZen'>
-                   <dat-value v-model='param.コロナのワクチン１回目の接種年月日' label='１回目の接種日は？'  type='yyyymmdd'></dat-value>
-                   <dat-value v-model='param.コロナのワクチン１回目の種類' label='１回目の種類は？'></dat-value>
+                   <dat-value v-model="param.コロナのワクチン１回目の年齢" label='１回目の年齢' :min='1' :max='125' :step='1' :empty='0'></dat-value>
                    <dat-value v-model='param.コロナのワクチン１回目の製造会社' label='１回目の製造社は？'></dat-value>
+                   <dat-value v-model='param.コロナのワクチン１回目の種類' label='１回目の種類は？'></dat-value>
+                   <dat-value v-model='param.コロナのワクチン１回目の接種年月日' label='１回目の接種日は？'  type='yyyymmdd'></dat-value>
                 </dat-folder>
+              </dat-gui>
+            </div>
+          </div>
+           <div class='ui segment block fitted basic' v-if="param.コロナのワクチン２回目の接種 == '有り'">
+             <div class='content fitted'>
+               <dat-gui expand>
                  <dat-folder :name='弐回目のコロナワクチン接種 | toZen'>
-                   <dat-value v-model='param.コロナのワクチン２回目の接種年月日' label='２回目の接種日は？'  type='yyyymmdd'></dat-value>
-                   <dat-value v-model='param.コロナのワクチン２回目の種類' label='２回目の種類は？'></dat-value>
+                   <dat-value v-model="param.コロナのワクチン２回目の年齢" label='２回目の年齢' :min='1' :max='125' :step='1' :empty='0'></dat-value>
                    <dat-value v-model='param.コロナのワクチン２回目の製造会社' label='２回目の製造社は？'></dat-value>
+                   <dat-value v-model='param.コロナのワクチン２回目の種類' label='２回目の種類は？'></dat-value>
+                   <dat-value v-model='param.コロナのワクチン２回目の接種年月日' label='２回目の接種日は？'  type='yyyymmdd'></dat-value>
                 </dat-folder>
+              </dat-gui>
+            </div>
+          </div>
+           <div class='ui segment block fitted basic' v-if="param.コロナのワクチン３回目の接種 == '有り'">
+             <div class='content fitted'>
+               <dat-gui expand>
                  <dat-folder :name='参回目のコロナワクチン接種 | toZen'>
-                   <dat-value v-model='param.コロナのワクチン３回目の接種年月日' label='３回目の接種日は？'  type='yyyymmdd'></dat-value>
+                   <dat-value v-model="param.コロナのワクチン１回目の年齢" label='３回目の年齢' :min='1' :max='125' :step='1' :empty='0'></dat-value>
+                   <dat-value v-model='param.コロナのワクチン３回目の製造会社' label='３回目の製造社は？'></dat-value>
                    <dat-value v-model='param.コロナのワクチン３回目の種類' label='３回目の種類は？'></dat-value>
-                   <dat-value v-model='param.コロナのワクチン２回目の製造会社' label='３回目の製造社は？'></dat-value>
+                   <dat-value v-model='param.コロナのワクチン３回目の接種年月日' label='３回目の接種日は？'  type='yyyymmdd'></dat-value>
                </dat-folder>
               </dat-gui>
             </div>
@@ -119,7 +146,7 @@
           </div>
            <div class='ui segment block fitted green' v-if="param.感染の経路と原因 != '不明'">
              <div class="ui label floating point right pointing green">
-               感染
+               経路
             </div>
              <div class='content fitted'>
                <dat-gui>
@@ -133,7 +160,7 @@
           </div>
            <div class='ui segment block fitted green' v-if="param.感染の地域 != '不明'">
              <div class="ui label floating point right pointing green">
-               感染
+               地域
             </div>
              <div class='content fitted'>
                <dat-gui>
@@ -216,7 +243,7 @@
               </div>
             </div>
           </div>
-           <div class='ui segment block fitted' v-if="param.検出の検体 == 'その他'">
+           <div class='ui segment block fitted' v-show="param.検出の検体 == 'その他'">
              <div class='content fitted'>
                <dat-gui>
                  <dat-value v-model='param.検出の検体のその他' label='検体種は？（その他）'></dat-value>
@@ -252,7 +279,7 @@
            <div class='ui segment block fitted'>
              <div class='content fitted' v-if='param.届出時点の入院有無'>
                <dat-gui>
-                 <dat-value v-model='param.入院年月日' label='入院年月日' title='入院年月日' type='yymmdd'></dat-value>
+                 <dat-value v-model='param.入院年月日' label='入院年月日' title='入院年月日' type='yyyymmdd'></dat-value>
               </dat-gui>
             </div>
           </div>
@@ -433,22 +460,24 @@
            感染が国外の詳細地域:'コロラド洲',
            感染が国外への出国日:'2021/08/27',
            感染が国外での帰国日:'2021/08/29',
+           コロナのワクチン１回目の接種:'',
            コロナのワクチン１回目の年齢:30,
            コロナのワクチン１回目の接種年月日:'2021/04/19',
            コロナのワクチン１回目の種類:'mRNA',
-           コロナのワクチン１回目の製造会社:'ﾌｧｲｻﾞ',
+           コロナのワクチン１回目の製造会社:'ファイザ',
+           コロナのワクチン２回目の接種:'',
            コロナのワクチン２回目の年齢:30,
            コロナのワクチン２回目の接種年月日:'2021/05/10',
            コロナのワクチン２回目の種類:'mRNA',
-           コロナのワクチン２回目の製造会社:'ﾌｧｲｻﾞ',
+           コロナのワクチン２回目の製造会社:'ファイザ',
+           コロナのワクチン３回目の接種:'',
            コロナのワクチン３回目の年齢:30,
            コロナのワクチン３回目の接種年月日:'2022/01/07',
            コロナのワクチン３回目の種類:'mRNA',
-           コロナのワクチン３回目の製造会社:'ﾌｧｲｻﾞ',
+           コロナのワクチン３回目の製造会社:'ファイザ',
            // 19.患者の症状のその他感染症のまん延の防止及び当該者の医療のために医師が必要と認める事項
            届出時点の入院有無:true,
-           入院年月日:'03/08/27',
-           重症化のリスク因子となる疾患等の有無:true,
+           入院年月日:'2021/08/27',
            重症化のリスク因子:{
              悪性腫瘍:true,
              '慢性閉塞性肺疾患（COPD）':true,
@@ -481,15 +510,15 @@
        },
        壱回目のコロナワクチン接種:function(){
          接種 = this.param.コロナのワクチン１回目の接種年月日.length > 0
-         return 接種 ? `１回目は${this.年週日前(this.param.コロナのワクチン１回目の接種年月日)}に${this.param.コロナのワクチン１回目の製造会社} ` : 'なし'
+         return `１回目は` + (接種 ? `${this.param.コロナのワクチン１回目の年齢}歳の時：${this.年週日前(this.param.コロナのワクチン１回目の接種年月日)}に${this.param.コロナのワクチン１回目の製造会社} ` : 'なし')
        },
        弐回目のコロナワクチン接種:function(){
          接種 = this.param.コロナのワクチン１回目の接種年月日.length > 0
-         return 接種 ? `２回目は${this.年週日前(this.param.コロナのワクチン２回目の接種年月日)}に${this.param.コロナのワクチン２回目の製造会社}` : 'なし'
+         return `２回目は` + (接種 ? `${this.param.コロナのワクチン２回目の年齢}歳の時${this.年週日前(this.param.コロナのワクチン２回目の接種年月日)}に${this.param.コロナのワクチン２回目の製造会社}` : 'なし')
        },
        参回目のコロナワクチン接種:function(){
          接種 = this.param.コロナのワクチン３回目の接種年月日.length > 0
-         return 接種 ? `３回目は${this.年週日前(this.param.コロナのワクチン３回目の接種年月日)}に${this.param.コロナのワクチン３回目の製造会社}` : 'なし'
+         return `３回目は` + (接種 ? `${this.param.コロナのワクチン３回目の年齢}歳の時${this.年週日前(this.param.コロナのワクチン３回目の接種年月日)}に${this.param.コロナのワクチン３回目の製造会社}` : 'なし')
        },
        壱回目のコロナワクチン接種の年齢:function(){
          return moment(this.param.コロナのワクチン１回目の接種年月日,'YYYY/MM/DD').age(new Date(this.param.当該者の生年月日)).years
@@ -501,7 +530,7 @@
          return moment(this.param.コロナのワクチン３回目の接種年月日,'YYYY/MM/DD').age(new Date(this.param.当該者の生年月日)).years
        },
        重症化のリスク因子となる疾患等の有無:function(){
-         return _.some(this.param.重症化のリスク因子) && this.param.重症化のリスク因子のその他.length > 0
+         return _.some(this.param.重症化のリスク因子) || this.param.重症化のリスク因子のその他.length > 0
        },
        感染原因:function(){
          飛沫 = this.param.感染の経路は飛沫か飛沫核.length > 0
@@ -603,7 +632,7 @@
                '嗅覚・味覚障害':false,
              },
              患者の症状なし:false,
-             '患者の酸素飽和度（室内気）':100,
+             '患者の酸素飽和度（室内気）':'',
              患者の症状のその他:'',
              // 12.診断方法
              検出の種類:'抗原定性検査による病原体の抗原の検出',
@@ -631,11 +660,11 @@
              感染が国外への出国日:'',
              感染が国外での帰国日:'',
              コロナのワクチン１回目の接種年月日:'',
-             コロナのワクチン１回目の種類:'mRNA',
-             コロナのワクチン１回目の製造会社:'ﾌｧｲｻﾞ',
+             コロナのワクチン１回目の種類:'',
+             コロナのワクチン１回目の製造会社:'',
              コロナのワクチン２回目の接種年月日:'',
-             コロナのワクチン２回目の種類:'mRNA',
-             コロナのワクチン２回目の製造会社:'ﾌｧｲｻﾞ',
+             コロナのワクチン２回目の種類:'',
+             コロナのワクチン２回目の製造会社:'',
              コロナのワクチン３回目の接種年月日:'',
              コロナのワクチン３回目の種類:'',
              コロナのワクチン３回目の製造会社:'',
@@ -686,9 +715,14 @@
          this.doc.registerFontkit(fontkit)
 
          var highlightPen = {
-           color:PDFLib.rgb.apply(null,_.values(tinycolor(this.common.color.mark).toFloatRgb())),
+           color:PDFLib.rgb.apply(null,_.values(tinycolor(this.common.settings.color.mark).toFloatRgb())),
            opacity:0.5,
            thickness:9
+         }
+         var highlightCircle = {
+           color:PDFLib.rgb.apply(null,_.values(tinycolor(this.common.settings.color.mark).toFloatRgb())),
+           opacity:0.5,
+           size:5
          }
          
          var fontGothicJP = await this.doc.embedFont(this.common.font)
@@ -696,7 +730,7 @@
              page.setFont(fontGothicJP)
              page.setFontColor(PDFLib.rgb(0,0,0))
              page.drawText('診療時間外の電話番号',{x:60,y:684,size:9})
-             page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.common.color.text).toFloatRgb())))
+             page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.common.settings.color.text).toFloatRgb())))
 
          var date = moment(this.param.報告年月日)
              if(date.isValid()){
@@ -725,14 +759,20 @@
                highlightPen
              ))
              
-             page.drawText([this.param.当該者の氏名,this.param.当該者の読み仮名.length > 0 ? `（${this.param.当該者の読み仮名}）` : null].filter(Boolean).join(''),{x:61,y:608,size:9})
-             page.drawLine(_.merge(
+             page.drawText(this.param.当該者の読み仮名,{x:61,y:608,size:9})
+             page.drawCircle(_.merge(
                {
-                 '男':{start:{x:196,y:612},end:{x:206,y:612}},
-                 '女':{start:{x:214,y:612},end:{x:224,y:612}},
+                 '男':{x:201,y:612},
+                 '女':{x:219,y:612}
                }[this.param.当該者の性別],
-               highlightPen
+               highlightCircle
              ))
+             
+
+
+
+
+
          var date = moment(this.param.当該者の生年月日)
              if(date.isValid()){
                page.drawTextZen(date.format('NNNN'),{x:235,y:622,size:9})
@@ -942,39 +982,89 @@
              page.drawText(date.format('DD'),{x:412,y:y,size:9})
            }
          }
-            if(this.param.コロナのワクチン１回目の接種年月日.length > 0){
-              page.drawText(_.toString(this.壱回目のコロナワクチン接種の年齢),{x:367,y:375,size:9})
+
+
+
+
+
               page.drawText(this.param.コロナのワクチン１回目の種類,{x:444,y:365,size:9})
-              page.drawText(this.param.コロナのワクチン１回目の製造会社,{x:480,y:365,size:9})
+              page.drawText(jaconv.toHan(this.param.コロナのワクチン１回目の製造会社),{x:480,y:365,size:9})
+              if(this.param.コロナのワクチン１回目の製造会社.length == 0){
+                page.drawLine(_.merge({start:{x:516,y:369},end:{x:534,y:369}},highlightPen))
+              }
               tamp(this.param.コロナのワクチン１回目の接種年月日,355)
-            }else{
-              page.drawLine(_.merge({start:{x:404,y:378},end:{x:413,y:378}},highlightPen))
-            }
-            if(this.param.コロナのワクチン２回目の接種年月日.length > 0){
-              page.drawText(_.toString(this.弐回目のコロナワクチン接種の年齢),{x:367,y:345,size:9})
+              if(this.param.コロナのワクチン１回目の接種年月日.length == 0){
+                page.drawLine(_.merge({start:{x:440,y:359},end:{x:458,y:359}},highlightPen))
+              }
+
+              var func = function(type,y){
+                switch(type){
+                  case '有り':
+                    page.drawCircle(_.merge({x:350,y:y},highlightCircle))
+                    break
+                  case '無し':
+                    page.drawCircle(_.merge({x:408,y:y},highlightCircle))
+                    break
+                  case '不明':
+                    page.drawLine(_.merge({start:{x:422,y:y},end:{x:440,y:y}},highlightPen))
+                    break
+                }
+              }
+              
+              func(this.param.コロナのワクチン１回目の接種,378)
+              func(this.param.コロナのワクチン２回目の接種,348)
+              func(this.param.コロナのワクチン３回目の接種,318)
+
+              if(this.param.コロナのワクチン１回目の接種年月日.length > 0){
+                page.drawText(_.toString(this.param.コロナのワクチン１回目の接種年月日.length > 0 ? this.壱回目のコロナワクチン接種の年齢 : this.コロナのワクチン１回目の年齢),{x:367,y:375,size:9})
+              }
+              if(this.param.コロナのワクチン２回目の接種年月日.length > 0){
+                page.drawText(_.toString(this.param.コロナのワクチン２回目の接種年月日.length > 0 ? this.弐回目のコロナワクチン接種の年齢 : this.コロナのワクチン２回目の年齢),{x:367,y:345,size:9})
+              }
+              if(this.param.コロナのワクチン３回目の接種年月日.length > 0){
+                page.drawText(_.toString(this.param.コロナのワクチン３回目の接種年月日.length > 0 ? this.参回目のコロナワクチン接種の年齢 : this.コロナのワクチン３回目の年齢),{x:367,y:315,size:9})
+              }
+
+              
+
+
+
+
+
               page.drawText(this.param.コロナのワクチン２回目の種類,{x:444,y:335,size:9})
-              page.drawText(this.param.コロナのワクチン２回目の製造会社,{x:480,y:335,size:9})
+              page.drawText(jaconv.toHan(this.param.コロナのワクチン２回目の製造会社),{x:480,y:335,size:9})
+              if(this.param.コロナのワクチン２回目の製造会社.length == 0){
+                page.drawLine(_.merge({start:{x:516,y:339},end:{x:534,y:339}},highlightPen))
+              }
               tamp(this.param.コロナのワクチン２回目の接種年月日,325)
-            }else{
-              page.drawLine(_.merge({start:{x:404,y:348},end:{x:413,y:348}},highlightPen))
-            }
-            if(this.param.コロナのワクチン３回目の接種年月日.length > 0){
-              page.drawText(_.toString(this.参回目のコロナワクチン接種の年齢),{x:367,y:315,size:9})
+              if(this.param.コロナのワクチン２回目の接種年月日.length == 0){
+                page.drawLine(_.merge({start:{x:440,y:329},end:{x:458,y:329}},highlightPen))
+              }
+
               page.drawText(this.param.コロナのワクチン３回目の種類,{x:444,y:305,size:9})
-              page.drawText(this.param.コロナのワクチン３回目の製造会社,{x:480,y:305,size:9})
+              page.drawText(jaconv.toHan(this.param.コロナのワクチン３回目の製造会社),{x:480,y:305,size:9})
+              if(this.param.コロナのワクチン３回目の製造会社.length == 0){
+                page.drawLine(_.merge({start:{x:516,y:309},end:{x:534,y:309}},highlightPen))
+              }
               tamp(this.param.コロナのワクチン３回目の接種年月日,295)
-            }else{
-              page.drawLine(_.merge({start:{x:404,y:317},end:{x:413,y:317}},highlightPen))
-            }
+              if(this.param.コロナのワクチン３回目の接種年月日.length == 0){
+                page.drawLine(_.merge({start:{x:440,y:299},end:{x:458,y:299}},highlightPen))
+              }
+
+
+
+
+  
+  
              // その他の症状感染症のまん延の防止及び当該者の医療のために医師が必要と認める事項
-             page.drawLine(_.merge(this.param.届出時点の入院有無 ? {start:{x:408,y:261},end:{x:417,y:261}} : {start:{x:424,y:261},end:{x:433,y:261}},highlightPen))
+             page.drawCircle(_.merge(this.param.届出時点の入院有無 ? {x:412,y:261} : {x:424,y:261},highlightCircle))
              var date = moment(this.param.入院年月日)
              if(date.isValid()){
                page.drawText(date.format('yy'),{x:444,y:246,size:9})
                page.drawText(date.format('MM'),{x:467,y:246,size:9})
                page.drawText(date.format('DD'),{x:493,y:246,size:9})
              }
-             page.drawLine(_.merge(this.重症化のリスク因子となる疾患等の有無 ? {start:{x:474,y:236},end:{x:483,y:236}} : {start:{x:490,y:236},end:{x:499,y:236  }},highlightPen))
+             page.drawCircle(_.merge(this.重症化のリスク因子となる疾患等の有無 ? {x:478,y:236} : {x:494,y:236},highlightCircle))
              // 重症化のリスク因子
              var 重症化のリスク因子 = 
              {
@@ -991,8 +1081,8 @@
                page.drawLine(_.merge(重症化のリスク因子[name],highlightPen))
              })
              page.drawText(this.param.重症化のリスク因子のその他,{x:397,y:185,size:9})
-             page.drawLine(_.merge(this.param.免疫の機能の低下有無 ? {start:{x:490,y:164},end:{x:499,y:164}} : {start:{x:506,y:164},end:{x:515,y:164}},highlightPen))
-             page.drawLine(_.merge(this.param.妊娠の有無 ? {start:{x:367,y:152},end:{x:377,y:152}} : {start:{x:383,y:152},end:{x:392,y:152}},highlightPen))
+             page.drawCircle(_.merge(this.param.免疫の機能の低下有無 ? {x:494,y:164} : {x:511,y:164},highlightCircle))
+             page.drawCircle(_.merge(this.param.妊娠の有無 ? {x:372,y:152} : {x:386,y:152},highlightCircle))
              page.drawLine(_.merge(
              {
                軽症:{start:{x:374,y:127},end:{x:392,y:127}},
@@ -1002,8 +1092,8 @@
              }[this.param.重症度],
                highlightPen
              ))
-             page.drawLine(_.merge(this.param.入院の必要性の有無 ? {start:{x:399,y:115},end:{x:408,y:115}} : {start:{x:416,y:115},end:{x:424,y:115}},highlightPen))
-             page.drawLine(_.merge(this.param.特例の診療の有無 ? {start:{x:354,y:75},end:{x:363,y:75}} : {start:{x:372,y:75},end:{x:381,y:75}},highlightPen))
+             page.drawCircle(_.merge(this.param.入院の必要性の有無 ? {x:404,y:115} : {x:421,y:115},highlightCircle))
+             page.drawCircle(_.merge(this.param.特例の診療の有無 ? {x:359,y:75} : {x:377,y:75},highlightCircle))
              _.each(this.param.メモ.split('\n'),(line,i)=>{
                page.drawText(line,{x:246,y:32 - (i * 10),size:9})
             })
