@@ -153,6 +153,10 @@
             type:String,
             default:''
           },
+          comment: {
+            type: String,
+            default: ''
+          }
         },
         inject: ['context'],
         computed: {
@@ -186,7 +190,8 @@
             this.$_controller && this.$_controller.empty(value)
           },
           values:function(list) {
-            //this.$_controller = this.$_controller.options(list)
+            /*
+            this.$_controller = this.$_controller.options(list)
             var html = ''
             var type = Object.prototype.toString.call(list).slice(8,-1).toLowerCase()
 
@@ -207,6 +212,7 @@
               this.$_controller.domElement.children[0].innerHTML = html
               this.$_controller.updateDisplay()
             }
+            */
           },
           placeholder:function(value) {
             this.$_controller && this.$_controller.placeholder(value)
@@ -216,6 +222,9 @@
           },
           password:function(value) {
             this.$_controller && this.$_controller.password(value)
+          },
+          comment:function(value) {
+            this.$_controller && this.$_controller.comment(value)
           },
           title:function(value) {
             this.$_controller && this.$_controller.title(value)
@@ -271,9 +280,10 @@
             this.$_controller.placeholder(this.placeholder)
             this.$_controller.readonly(this.readonly)
             this.$_controller.password(this.password)
-            this.$_controller.title(this.title)
             this.$_controller.type(this.type)
           }
+          this.$_controller.comment(this.comment)
+          this.$_controller.title(this.title)
         }
       })
 

@@ -1099,7 +1099,6 @@ var NumberController = function (_Controller) {
     key: 'empty',
     value: function empty(emptyValue) {
       this.__empty = emptyValue;
-      this.setValue(this.initialValue == emptyValue ? '' : this.initialValue);
       return this;
     }
   }]);
@@ -1120,7 +1119,7 @@ var NumberControllerBox = function (_NumberController) {
     var mousewheelevt = /Firefox/i.test(navigator.userAgent) ? 'DOMMouseScroll' : 'mousewheel';
     var prevY = void 0;
     function onChange() {
-      if (_this.__input.value == '' || _this.__input.value == _this.__empty) {
+      if (_this.__input.value == '' || _this.__input.value <= _this.__empty) {
         _this.setValue('');
       } else {
         var attempted = parseFloat(_this.__input.value);
@@ -1156,7 +1155,7 @@ var NumberControllerBox = function (_NumberController) {
       e.preventDefault();
       var direction = (e.deltaY || -e.wheelDelta || e.detail) >> 10 || 1;
       var value = _this.getValue() - direction * _this.__impliedStep;
-      _this.setValue(value == _this.__empty ? '' : value);
+      _this.setValue(value <= _this.__empty ? '' : value);
     }
     _this2.__input = document.createElement('input');
     _this2.__input.setAttribute('type', 'text');
@@ -1176,14 +1175,13 @@ var NumberControllerBox = function (_NumberController) {
           }
         case 'ArrowUp':
           {
-            var value = _this.getValue() + _this.__impliedStep;
-            _this.setValue(value == _this.__empty ? '' : value);
+            _this.setValue(_this.getValue() + _this.__impliedStep);
             break;
           }
         case 'ArrowDown':
           {
-            var _value = _this.getValue() - _this.__impliedStep;
-            _this.setValue(_value == _this.__empty ? '' : _value);
+            var value = _this.getValue() - _this.__impliedStep;
+            _this.setValue(value <= _this.__empty ? '' : value);
             break;
           }
         default:
@@ -1199,7 +1197,7 @@ var NumberControllerBox = function (_NumberController) {
   createClass(NumberControllerBox, [{
     key: 'updateDisplay',
     value: function updateDisplay() {
-      this.__input.value = this.getValue() == this.__empty ? '' : this.__truncationSuspended ? this.getValue() : roundToDecimal(this.getValue(), this.__precision);
+      this.__input.value = this.getValue() <= this.__empty ? '' : this.__truncationSuspended ? this.getValue() : roundToDecimal(this.getValue(), this.__precision);
       return get(NumberControllerBox.prototype.__proto__ || Object.getPrototypeOf(NumberControllerBox.prototype), 'updateDisplay', this).call(this);
     }
   }]);
@@ -1231,7 +1229,7 @@ var NumberControllerSlider = function (_NumberController) {
       e.preventDefault();
       var bgRect = _this.__background.getBoundingClientRect();
       var value = map(e.clientX, bgRect.left, bgRect.right, _this.__min, _this.__max);
-      _this.setValue(value == _this.__empty ? '' : value);
+      _this.setValue(value <= _this.__empty ? '' : value);
       return false;
     }
     function onMouseUp() {
@@ -1606,17 +1604,11 @@ var ControllerFactory = function ControllerFactory(object, property) {
   if (Common.isNumber(initialValue)) {
     if (Common.isNumber(arguments[2]) && Common.isNumber(arguments[3])) {
       if (Common.isNumber(arguments[4])) {
-        if (Common.isNumber(arguments[5])) {
-          return new NumberControllerSlider(object, property, arguments[2], arguments[3], arguments[4], arguments[5]);
-        }
         return new NumberControllerSlider(object, property, arguments[2], arguments[3], arguments[4]);
       }
       return new NumberControllerSlider(object, property, arguments[2], arguments[3]);
     }
     if (Common.isNumber(arguments[4])) {
-      if (Common.isNumber(arguments[5])) {
-        return new NumberControllerBox(object, property, { min: arguments[2], max: arguments[3], step: arguments[4], empty: arguments[5] });
-      }
       return new NumberControllerBox(object, property, { min: arguments[2], max: arguments[3], step: arguments[4] });
     }
     return new NumberControllerBox(object, property, { min: arguments[2], max: arguments[3] });
@@ -2421,7 +2413,7 @@ Common.extend(GUI.prototype,
         case controller instanceof NumberControllerBox:
         case controller instanceof StringController:
         case controller instanceof TextController:
-          controller.__input.placeholder = enable ? controller.__input.placeholder || controller.property : '';
+          controller.__input.placeholder = enable ? controller.__input.placeholder || controller.property : controller.__input.placeholder || '';
           break;
       }
     });
@@ -2497,6 +2489,14 @@ function augmentController(gui, li, controller) {
       }
       return controller;
     },
+    comment: function comment(v) {
+      if (Common.isString(v)) {
+        controller.__li.setAttribute('comment', v);
+      } else {
+        controller.__li.removeAttribute('comment');
+      }
+      return controller;
+    },
     listen: function listen() {
       controller.__gui.listen(controller);
       return controller;
@@ -2536,8 +2536,8 @@ function augmentController(gui, li, controller) {
     }
   });
   if (controller instanceof NumberControllerSlider) {
-    var box = new NumberControllerBox(controller.object, controller.property, { min: controller.__min, max: controller.__max, step: controller.__step, empty: controller.__empty });
-    Common.each(['updateDisplay', 'onChange', 'onFinishChange', 'step', 'min', 'max', 'empty'], function (method) {
+    var box = new NumberControllerBox(controller.object, controller.property, { min: controller.__min, max: controller.__max, step: controller.__step });
+    Common.each(['updateDisplay', 'onChange', 'onFinishChange', 'step', 'min', 'max'], function (method) {
       var pc = controller[method];
       var pb = box[method];
       controller[method] = box[method] = function () {
@@ -2556,7 +2556,7 @@ function augmentController(gui, li, controller) {
         controller.remove();
         var newController = _add(gui, controller.object, controller.property, {
           before: controller.__li.nextElementSibling,
-          factoryArgs: [controller.__min, controller.__max, controller.__step, controller.__empty]
+          factoryArgs: [controller.__min, controller.__max, controller.__step]
         });
         newController.name(oldName);
         if (wasListening) newController.listen();

@@ -79,10 +79,21 @@
       i.icon.virus.covid:before {
         content:"\e4a8";
       }
+      i.icon.i:before {
+        content:"\49";
+      }
+      i.icon.t:before{
+        content:"\54";
+      }
    </style>
     <style>
       i.icon{
         pointer-events:none;
+      }
+   </style>
+    <style>
+      .dg .cr.focus{
+        background:beige;
       }
    </style>
  </head>
@@ -151,17 +162,11 @@
                     <a class='item' data-tab='a' v-micron:m1="'jerk'">
                       <i class='icon pen marker' id='m1'></i>
                    </a>
-                    <a class='item' @click='$refs.view.folder(true)'>
-                      <div class='ui label floating top blue'>
-                        開
-                     </div>
-                      <i class='icon folder open'></i>
+                    <a class='item' @click='dat.open = !dat.open'>
+                      <i :class="['icon folder', dat.open ? 'open' : '']"></i>
                    </a>
-                    <a class='item' @click='$refs.view.folder(false)'>
-                      <div class='ui label floating top blue'>
-                        閉
-                     </div>
-                      <i class='icon folder'></i>
+                    <a class='item' @click='dat.expand = !dat.expand'>
+                      <i :class="['icon', dat.expand ? 'i' : 't']"></i>
                    </a>
                     <a class='item' @click='$refs.view.init()'>
                       <div class='ui label floating top blue'>
@@ -218,7 +223,6 @@
  <script src='js/cleave.js/1.6.0.js'></script>
  <script src='js/moment-age/1.0.0.js'></script>
  <script src='js/moment/locale/ja.js'></script>
- <script src='js/flat/5.0.2-custom.js'></script>
  <script src='js/localForage/1.9.0.js'></script>
  <script src='js/FileSaver.js/2.0.5.js'></script>
  <script src='js/screenfull.js/5.1.0.js'></script>
@@ -351,6 +355,8 @@
        callback = {
          focus:function(event){
            $(event.target).closest('.cr').addClass('focus')
+           vnode.context.toast('info',$(event.target).closest('li').attr('comment'))
+           console.dir($(event.target).closest('li').attr('comment'))
          },
          focusout:function(event){
            $(event.target).closest('.cr').removeClass('focus')
@@ -386,6 +392,10 @@
          setting:false,
          fullscreen:false
        },
+       dat:{
+         open:false,
+         expand:false
+       },
        pdf:{
          font:null,
          wait:1000,
@@ -406,10 +416,16 @@
        }
      },
      watch:{
+       'dat.open':function(b){
+         this.$refs.view.open(b)
+       },
+       'dat.expand':function(b){
+         this.$refs.view.expand(b)
+       },
        'app.fullscreen':function(){
          screenfull.toggle()
        },
-       $route:function(to,from){
+       'ready':function(to,from){
          this.$nextTick(()=>{
            $('input.birthday').each(function(i,input){
              new Cleave(input,{delimiter:'-',blocks:[4,2,2]})

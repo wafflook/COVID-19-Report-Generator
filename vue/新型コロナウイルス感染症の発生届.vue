@@ -9,7 +9,7 @@
            <div class='ui segment block fitted'>
              <div class='content fitted'>
                <dat-gui>
-                 <dat-value v-model='param.報告年月日' label='報告日は？' title='この報告は診断後ただちに行ってください' type='yyyymmdd'></dat-value>
+                 <dat-value v-model='param.報告年月日' label='報告日は？' title='この報告は診断後ただちに行ってください' type='yyyymmdd' ref='first'></dat-value>
               </dat-gui>
             </div>
           </div>
@@ -21,15 +21,15 @@
                <dat-gui>
                  <dat-value v-model='param.当該者のＩＤ' label='患者ＩＤ' placeholder='ORCA-ID...etc' title='病院または診療所ごとの管理ＩＤ'></dat-value>
                  <dat-folder :name='患者個人 | toZen'>
-                   <dat-value v-model='param.当該者の類型' label='類型は？' :values="['患者（確定例）','無患者の症状病原体保有者','疑似症患者（*）','感染症死亡者の死体','感染症死亡疑い者の死体']"></dat-value>
-                   <dat-value v-model='param.当該者の氏名' label='氏名は？' title='当該者の氏名' title='外国の方はパスポート名でお願いします' ref='当該者の氏名'></dat-value>
+                   <dat-value v-model='param.当該者の類型' comment='初診時に死亡されている方は「感染症死亡者の死体」、「感染症死亡疑い者の死体」のいずれかとなります。初診時に生存されていた方が死亡された場合は「患者（確定例）」（あるいは「疑似症患者」「無症状病原体保有者」）です。' title='fdssfddsf' label='類型は？' :values="['患者（確定例）','無患者の症状病原体保有者','疑似症患者（*）','感染症死亡者の死体','感染症死亡疑い者の死体']"></dat-value>
+                   <dat-value v-model='param.当該者の氏名' comment='外国人の場合…名前はパスポート名で記入してください。' label='氏名は？' title='当該者の氏名' title='外国の方はパスポート名でお願いします'></dat-value>
                    <dat-value v-model='param.当該者の読み仮名' label='読み仮名は？' title='当該者の読み仮名'></dat-value>
                    <dat-value v-model='param.当該者の性別' label='性別は？' :values="['男','女']"></dat-value>
-                   <dat-value v-model='param.当該者の生年月日' label='誕生は？' title='当該者の生年月日' type='yyyymmdd' ref='当該者の生年月日'></dat-value>
-                   <dat-value v-model='param.当該者の職業' label='職業は？' title='当該者の職業' ref='当該者の職業'></dat-value>
-                   <dat-value v-model='param.当該者の住所' label='住所は？' title='当該者の住所'></dat-value>
+                   <dat-value v-model='param.当該者の生年月日' label='誕生は？' title='当該者の生年月日' type='yyyymmdd'></dat-value>
+                   <dat-value v-model='param.当該者の職業' comment='公衆衛生対策上も重要な情報です。公務員・会社員に留まらず職種もお願いします。例（学校・病院・高齢者施設関連の方）' label='職業は？' title='当該者の職業' placeholder='会社員・公務員のみならず職種（医師・保育士・調理師...etc）も'></dat-value>
+                   <dat-value v-model='param.当該者の住所' label='住所は？' title='当該者の住所' placeholder='住所の在る場所（免許証や保険証）'></dat-value>
                    <dat-value v-model='param.当該者の住所の電話番号' label='住所の連絡先は？' title='当該者の住所の電話番号' type='phone'></dat-value>
-                   <dat-value v-model='param.当該者の所在地' label='所在地は？' title='当該者の所在地' ref='当該者の所在地'></dat-value>
+                   <dat-value v-model='param.当該者の所在地' label='所在地は？' title='当該者の所在地' placeholder='患者の居る場所（入院中なら病院・帰省中であれば帰省先）'></dat-value>
                    <dat-value v-model='param.当該者の所在地の電話番号' label='所在地の連絡先は？' title='当該者の所在地の電話番号' type='phone'></dat-value>
                 </dat-folder>
                  <dat-folder :name='症状一覧 | toZen'>
@@ -187,11 +187,11 @@
            <div class='ui segment block fitted'>
              <div class='content fitted'>
                <dat-gui>
-                 <dat-value v-model='param.初診年月日' label='初診年月日は？' title='初診年月日' type='yyyymmdd'></dat-value>
+                 <dat-value v-model='param.初診年月日' comment='当該疾患の初診日です。それ以前から他疾患で通院中・入院中である場合には、他疾患の初診日としないようご注意ください。' label='初診年月日は？' title='初診年月日' type='yyyymmdd' placeholder='当該疾患の初診日です。ら他疾患で通院中・入院中の初診日ではありません'></dat-value>
                  <dat-value v-model="param['診断（検案（※））年月日']" label='診断年月日は？' title='診断（検案（※））年月日' type='yyyymmdd'></dat-value>
-                 <dat-value v-model='param.感染したと推定される年月日' label='感染年月日は？' title='感染したと推定される年月日' type='yyyymmdd'></dat-value>
-                 <dat-value v-model='param.発病年月日' label='発病年月日は？' title='発病年月日' type='yyyymmdd'></dat-value>
-                 <dat-value v-model='param.死亡年月日' label='死亡年月日は？' title='死亡年月日' type='yyyymmdd'></dat-value>
+                 <dat-value v-model='param.感染したと推定される年月日' comment='他の感染者の存在を把握するうえで公衆衛生対策上重要です。問診内容や潜伏期間などから感染機会をできる限り判断して、記入してください。' label='感染年月日は？' title='感染したと推定される年月日' type='yyyymmdd'></dat-value>
+                 <dat-value v-model='param.発病年月日' comment='感染性の有る期間の把握や、集団発生時などでの発症曲線の描写などに必要となり、公衆衛生対策上重要です。忘れずに記入してください。なお、何をもって「発病」とするかの規定は定められていませんが、当該疾患の主となる症状が最初に出現した日について記入してください〔例えば、発熱性疾患なら発熱出現日、消化器症状が主たる疾患はそれらの症状（腹痛、下痢など）の出現日〕。' label='発病年月日は？' title='発病年月日' type='yyyymmdd'></dat-value>
+                 <dat-value v-model='param.死亡年月日' comment='感染性の有る期間の把握や、集団発生時などでの発症曲線の描写などに必要となり、公衆衛生対策上重要です。忘れずに記入してください。なお、何をもって「発病」とするかの規定は定められていませんが、当該疾患の主となる症状が最初に出現した日について記入してください〔例えば、発熱性疾患なら発熱出現日、消化器症状が主たる疾患はそれらの症状（腹痛、下痢など）の出現日〕。' label='死亡年月日は？' title='死亡年月日' type='yyyymmdd'></dat-value>
               </dat-gui>
             </div>
           </div>
@@ -407,9 +407,9 @@
            当該者の生年月日:'1991/11/07',
            当該者の年齢:30,
            当該者の職業:'医療関係者',
-           当該者の住所:'愛知県海部郡飛島村大字飛島新田字竹之郷ヨタレ南ノ割',
+           当該者の住所:'愛知県海部郡飛島村大字飛島新田字竹之郷ヨタレ南ノ割（社宅）',
            当該者の住所の電話番号:'050-5555-9800',
-           当該者の所在地:'東京都千代田区千代田１-１（実家）',
+           当該者の所在地:'東京都千代田区千代田１-１（現在・実家に帰省中）',
            当該者の所在地の電話番号:'827-128-9800',
            // 09.保護者
            保護者の氏名:'霞が関',
@@ -575,9 +575,14 @@
        }
      },
      methods:{
-       folder:function(open){
+       open:function(b){
          for(folder of _.mapDeep(this.$children,_.identity,{childrenPath:'$children'}).filter(o=>o.key=='DatFolder').map(o=>o.$_gui)){
-           folder[open ? 'open' : 'close']()
+           folder[b ? 'open' : 'close']()
+         }
+       },
+       expand:function(b){
+         for(folder of _.mapDeep(this.$children,_.identity,{childrenPath:'$children'}).filter(o=>o.key=='DatFolder').map(o=>o.$_gui)){
+           folder.expand(b)
          }
        },
        debugPortaled:function(){
@@ -1012,8 +1017,8 @@
               }
               
               func(this.param.コロナのワクチン１回目の接種,378)
-              func(this.param.コロナのワクチン２回目の接種,348)
-              func(this.param.コロナのワクチン３回目の接種,318)
+              func(this.param.コロナのワクチン１回目の接種,348)
+              func(this.param.コロナのワクチン１回目の接種,318)
 
               if(this.param.コロナのワクチン１回目の接種年月日.length > 0){
                 page.drawText(_.toString(this.param.コロナのワクチン１回目の接種年月日.length > 0 ? this.壱回目のコロナワクチン接種の年齢 : this.コロナのワクチン１回目の年齢),{x:367,y:375,size:9})
@@ -1132,17 +1137,8 @@
          this.load()
          localforage.setItem(this.alt,o)
        },this.common.wait))
-       _.each({
-         '当該者の氏名':'外国人の場合はパスポートの記載氏名を入力',
-         '当該者の生年月日':'未成年の場合は保護者の氏名と連絡先を入力',
-         '当該者の所在地':'本人の所在地が住所と異なる場合などは記入',
-         '当該者の職業':'学校・病院・高齢者施設などは具体的に記入',
-         '当該者の職業':'電話・オンライン診療などを行った場合は有'
-
-       },(s,k)=>{
-         $(this.$refs[k].$_controller.__input).on('focus',()=>{
-           this.toast('info',s)
-         })
+       this.$nextTick(()=>{
+         $(this.$refs.first.$_controller.__input).focus()
        })
      }
    }
