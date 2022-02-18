@@ -186,9 +186,7 @@
             this.$_controller && this.$_controller.empty(value)
           },
           values:function(list) {
-            this.$_controller = this.$_controller.options(list)
-
-            return
+            //this.$_controller = this.$_controller.options(list)
             var html = ''
             var type = Object.prototype.toString.call(list).slice(8,-1).toLowerCase()
 
