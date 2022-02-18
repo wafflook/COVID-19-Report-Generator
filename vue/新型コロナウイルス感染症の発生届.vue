@@ -1102,6 +1102,43 @@
              _.each(this.param.メモ.split('\n'),(line,i)=>{
                page.drawText(line,{x:246,y:32 - (i * 10),size:9})
             })
+
+
+
+
+
+const jpgUrl = 'https://pdf-lib.js.org/assets/cat_riding_unicorn.jpg'
+const jpgImageBytes = await fetch(jpgUrl).then((res) => res.arrayBuffer())
+
+const jpgImage = await pdfDoc.embedJpg(jpgImageBytes)
+const jpgDims = jpgImage.scale(0.5)
+
+const page = pdfDoc.addPage()
+
+page.drawImage(jpgImage, {
+  x: 25,
+  y: 25,
+  width: jpgDims.width,
+  height: jpgDims.height,
+  rotate: PDFLib.degrees(30),
+  opacity: 0.75,
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
          // 読込
          this.$refs.iframe.src = URL.createObjectURL(new Blob([await this.doc.save()],{type:'application/pdf'}))
        }
