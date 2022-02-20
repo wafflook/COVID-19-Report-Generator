@@ -96,13 +96,19 @@
         background:beige;
       }
    </style>
+    <style>
+     .ui.toast-container .toast-box.compact, 
+     .ui.toast-container .toast-box > .compact{
+       width:512px;
+     }
+   </style>
  </head>
   <body>
     <main>
       <div class='ui grid internally celled'>
         <div class='row'>
           <div class='column' style='padding-left:5em;'>
-            <div class='ui segments'>
+            <div class='ui segments' v-enter-to-next-input:common>
               <div class='ui segment block'>
                 <div class='content fitted'>
                   <div class='ui card fluid basic'>
@@ -130,6 +136,7 @@
               </div>
               <div class='content fitted'>
                 <dat-gui>
+                  <dat-value v-model='app.toast' label='ポップアップの表示秒' :min='0' :max='60' :step='1' title='0は無限'></dat-value>
                   <dat-folder name='ＰＤＦをレンダリングを設定します' open>
                     <dat-value v-model='pdf.wait' label='入力をＰＤＦに反映' :values="{'０.５秒間入力がなければ反映':500,'１.０秒間入力がなければ反映':1000,'１.５秒間入力がなければ反映':1500}"></dat-value>
                  </dat-folder>
@@ -141,6 +148,72 @@
                </dat-gui>
              </div>
            </div>
+            <div class='ui segment block fitted teal'>
+              <div class="ui label floating point right pointing teal">
+                文書
+             </div>
+              <div class='content fitted'>
+                <dat-gui>
+                  <dat-value v-model='file.Language' label='言語' readonly></dat-value>
+                  <dat-value v-model='file.Title' label='タイトル' readonly></dat-value>
+                  <dat-value v-model='file.Author' label='作成者' readonly></dat-value>
+                  <dat-value v-model='file.Subject' label='サブタイトル' readonly></dat-value>
+                  <dat-value v-model="file.Keywords.join(',')" label='キーワード' readonly></dat-value>
+                  <dat-value :value="file.CreationDate | moment('YYYY/MM/DD HH:mm:ss')" label='作成日' readonly></dat-value>
+                  <dat-value :value="file.ModificationDate | moment('YYYY/MM/DD HH:mm:ss')" label='更新日' readonly></dat-value>
+               </dat-gui>
+             </div>
+           </div>
+           <div class='ui segment block fitted orange'>
+             <div class="ui label floating point right pointing orange">
+               報告
+            </div>
+             <div class='content fitted'>
+               <dat-gui>
+                 <dat-folder :name="'医師（' +param.hospital.医師の氏名+ '/' +param.hospital.医師の従事病院または診療所の名称+ '）'">
+                   <dat-value v-model='param.hospital.医師の氏名' label='氏名は？' ></dat-value>
+                   <dat-image v-model='param.hospital.医師の印鑑' label='印鑑は？' ></dat-image>
+                   <dat-value v-model='param.hospital.医師の従事病院または診療所の名称' label='病院は？' ></dat-value>
+                   <dat-value v-model='param.hospital.医師の従事病院または診療所の所在地' label='病院の住所は？' ></dat-value>
+                   <dat-value v-model='param.hospital.医師の従事病院または診療所の電話番号'label='病院の連絡先は？' ></dat-value>
+                   <dat-value v-model='param.hospital.医師の従事病院または診療所の時間外の電話番号' comment='診療時間外の連絡先' label='診療時間外の連絡先）は？' ></dat-value>
+                </dat-folder>
+              </dat-gui>
+            </div>
+          </div>
+           <div class='ui segment block fitted orange'>
+             <div class="ui label floating point right pointing orange">
+               報告
+            </div>
+             <div class='content fitted'>
+               <dat-gui>
+                 <dat-folder name='患者の個人情報'>
+                   <dat-value v-model='param.patient.当該者のＩＤ' comment='患者のＩＤ' label='患者ＩＤ' ></dat-value>
+                   <dat-value v-model='param.patient.当該者の氏名' label='氏名は？' ></dat-value>
+                   <dat-value v-model='param.patient.当該者の読み仮名' comment='患者の氏名' label='読み仮名は？' ></dat-value>
+                   <dat-value v-model='param.patient.当該者の性別' label='性別は？' :values="['男','女']"></dat-value>
+                   <dat-value v-model='param.patient.当該者の生年月日' comment='患者の年齢' label='誕生は？' type='yyyymmdd'></dat-value>
+                   <dat-value v-model='param.patient.当該者の職業' comment='患者の職業' label='職業は？' ></dat-value>
+                   <dat-value v-model='param.patient.当該者の住所の県市区町村' comment='患者の住所と所在地' label='住所（都道府県と市）は？' ></dat-value>
+                   <dat-value v-model='param.patient.当該者の住所' comment='患者の住所' label='住所は？' ></dat-value>
+                   <dat-value v-model='param.patient.当該者の住所の電話番号' label='住所の連絡先は？'type='phone'></dat-value>
+                   <dat-value v-model='param.patient.当該者の所在地' label='所在地は？' ></dat-value>
+                   <dat-value v-model='param.patient.当該者の所在地の電話番号' label='所在地の連絡先は？' type='phone'></dat-value> 
+                </dat-folder>
+              </dat-gui>
+            </div>
+          </div>
+           <div class='ui semgent fitted' v-show='param.patient.当該者の年齢 < 20'>
+             <dat-gui>
+               <dat-folder name='保護者'>
+                 <dat-value v-model='param.patient.当該者の保護者の氏名' label='氏名は？' ></dat-value>
+                 <dat-value v-model='param.patient.当該者の保護者の読み仮名' label='読み仮名は？' ></dat-value>
+                 <dat-value v-model='param.patient.当該者の保護者の住所' label='住所は？' ></dat-value>
+                 <dat-value v-model='param.patient.当該者の保護者の電話番号' label='連絡先は？' type='phone'></dat-value>
+              </dat-folder>
+            </dat-gui>
+          </div>
+
               <div class='ui segment block blue'>
                 <div class="ui label floating point right pointing blue">
                   選択
@@ -150,7 +223,7 @@
                     <router-link class='item' :to="`/${encodeURIComponent('新型コロナウイルス感染症の発生届')}`">
                       新型コロナウイルス感染症の発生届
                    </router-link>
-                    <router-link class='item' to='/b'>
+                    <router-link class='item' :to="`/${encodeURIComponent('新型コロナウイルス感染症自宅療養者等の診察所見報告書')}`">
                       新型コロナウイルス感染症の診療所見報告書
                    </router-link>
                  </div>
@@ -168,13 +241,13 @@
                     <a class='item' @click='dat.expand = !dat.expand'>
                       <i :class="['icon', dat.expand ? 'i' : 't']"></i>
                    </a>
-                    <a class='item' @click='$refs.view.init()'>
+                    <a class='item' @click='clear'>
                       <div class='ui label floating top blue'>
                         消
                      </div>
                       <i class='icon eraser'></i>
                    </a>
-                    <a class='item right' @click='clear' v-micron:m2="'tada'">
+                    <a class='item right' @click='trash' v-micron:m2="'tada'">
                       <i class='icon trash' id='m2'></i>
                    </a>
                     <a class='item' data-tab='z' v-micron:m3="'jerk'">
@@ -189,12 +262,12 @@
            </div>
             <div class='ui tab' data-tab='a'>
               <div>
-                <router-view :common='pdf' ref='view' v-if='ready'>
+                <router-view :patient='param.patient' :hospital='param.hospital' :common='pdf' ref='view' v-if='ready'>
                </router-view>
              </div>
               <div>
                 <div class='ui buttons'>
-                  <button class='ui button' @click='$refs.view.save()'>DOWNLOAD</button>
+                  <button class='ui button' @click='save'>DOWNLOAD</button>
                </div>
              </div>
            </div>
@@ -225,6 +298,7 @@
  <script src='js/moment/locale/ja.js'></script>
  <script src='js/localForage/1.9.0.js'></script>
  <script src='js/FileSaver.js/2.0.5.js'></script>
+ <script src='js/tabindent.js/0.1.8.js'></script>
  <script src='js/screenfull.js/5.1.0.js'></script>
  <script src='js/dat.gui/0.7.7-custom.js'></script>
  <script src='js/flattie/1.1.0-custom.js'></script>
@@ -239,6 +313,7 @@
  <script src='js/vue/vue-jaconv/0.0.1.js'></script>
  <script src='js/vue/portal-vue/2.1.7-custom.js'></script>
  <script src='js/vue/vue-moment/4.1.0-custom.js'></script>
+ <script src='js/vue/vue-reactive-refs/0.0.2.js'></script>
  <script src='js/vue/vue-dat-gui/0.0.1-custom.js'></script>
  <script src='js/vue/v-switch-case/1.0.3-custom.js'></script>
  <script src='js/vue/vue-json-pretty/1.8.0-custom.js'></script>
@@ -248,6 +323,47 @@
   deepdash(_)
 </script>
  <script>
+   var VueToast = {
+     install:function(vue,options){
+       Vue.prototype.$toast = function(type,message){
+         $(document.body).toast({
+           className      : {
+             container    : 'ui toast-container block',
+             box          : 'toast-box floating',
+           },
+           newestOnTop:true,
+           displayTime:this.$root.app.toast * 1000,
+           message:message,
+           class:type
+         })
+       }
+       Vue.prototype.$toast_confirm = function(type,message,fnc_yes,fnc_no){
+         $(document.body).toast({
+            className      : {
+              container    : 'ui toast-container block',
+              box          : 'toast-box floating',
+            },
+            newestOnTop:true,
+            classActions:'attached top',
+            message:message,
+            displayTime:this.$root.app.toast * 1000,
+            class:type,
+            actions:[{
+              text:'はい',
+              class:'green',
+              click:fnc_yes
+            },{
+             text:'いいえ',
+              class:'red',
+              click:fnc_no
+           }]
+         })
+       }    
+     }
+   }
+</script>
+ <script>
+   Vue.use(VueToast)
    Vue.use(VueDatGui)
    Vue.use(VueSwitch)
    Vue.use(VueMoment)
@@ -255,26 +371,17 @@
    Vue.use(VuePortal)
    Vue.use(VueJaconv)
    Vue.use(VueWatchAll)
+   Vue.use(FocusTrapVue.DynamicReactiveRefs)
 </script>
  <script>
    Vue.component('vue-json-pretty', VueJsonPretty.default)
 </script>
  <script>
    Vue.mixin({
-     data:function(){
-       return{
-         timestamp:0
-       }
-     },
      computed:{
        key:function(){
          return this.$options.name || this.$options._componentTag
        }
-     },
-     created:function(){
-       setInterval(() => {
-         this.timestamp = moment().valueOf()
-       },1000)
      },
      mounted:function(){
        if(this.key){
@@ -282,43 +389,8 @@
        }
      },
      methods:{
-       toast:function(type,message){
-         $(document.body).toast({
-           className      : {
-             container    : 'ui toast-container block',
-             box          : 'toast-box floating',
-           },
-           newestOnTop:true,
-           displayTime:0,
-           message:message,
-           class:type
-         })
-       },
-       toast_confirm:function(type,message,fnc_yes,fnc_no){
-         $(document.body).toast({
-           className      : {
-             container    : 'ui toast-container block',
-             box          : 'toast-box floating',
-           },
-           newestOnTop:true,
-           classActions:'attached top',
-           message:message,
-           displayTime:0,
-           class:type,
-           actions:[{
-             text:'はい',
-             class:'green',
-             click:fnc_yes
-           },{
-            text:'いいえ',
-             class:'red',
-             click:fnc_no
-          }]
-        })
-       },
        年週日前:function(s){
-         return s ? moment.duration(moment().diff(moment(s,'yyyy/mm/dd'))).format('Y年Mヶ月W週D日前')
-                  : ''
+         return s ? moment.duration(moment().diff(moment(s,'yyyy/mm/dd'))).format('Y年Mヶ月W週D日前') : ''
        }
      }
    })
@@ -347,16 +419,22 @@
        input = $([
          'button:visible',
          'select:visible',
-         'textarea:visible',
+         /* 'textarea:visible', */
          'input[type=text]:visible',
          'input[type=checkbox]:visible',
          'input[type=password]:visible'
        ].join(','),el)
        callback = {
-         focus:function(event){
+         focus:async function(event){
            $(event.target).closest('.cr').addClass('focus')
-           vnode.context.toast('info',$(event.target).closest('li').attr('comment'))
-           console.dir($(event.target).closest('li').attr('comment'))
+           var has_comment = $(event.target).closest('li').attr('comment')
+           if (has_comment.length > 0) {
+             $.get(`help/${has_comment}.html`, function(data){
+               var html = $('<div></div>').addClass(has_comment).html(data)
+               $(html).find('a').attr('target','_blank')
+               vnode.context.$toast('info',html)
+             })
+           }
          },
          focusout:function(event){
            $(event.target).closest('.cr').removeClass('focus')
@@ -369,7 +447,7 @@
                input.eq(n).focus()
              })
              switch(input.eq(n).prop('localName')){
-               case 'textarea':
+               /* case 'textarea': */
                case 'input':
                  return false;
              }
@@ -388,7 +466,9 @@
    new Vue({
      el:'main',
      data:{
+       timestamp:0,
        app:{
+         toast:10,
          setting:false,
          fullscreen:false
        },
@@ -413,14 +493,47 @@
          'あずきフォント':'1.21.ttf',
          'うずらフォント':'1.00.ttf',
          'Ｎちはやフォント+':'1.2.1.ttf'
+       },
+       param:{
+         hospital:{
+           医師の氏名:'山田 茉',
+           医師の印鑑:'data:image/png;base64,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',
+           医師の従事病院または診療所の名称 :'山田医療東部センター',
+           医師の従事病院または診療所の所在地:'秋田県北秋田郡上小阿仁村大字沖田面字小蒲野',
+           医師の従事病院または診療所の電話番号:'827-128-9800',
+           医師の従事病院または診療所の時間外の電話番号:'827-128-9800'
+         },
+         patient:{
+           当該者のＩＤ:'3030896',
+           当該者の氏名:'山田 塩',
+           当該者の読み仮名:'ヤマダ シオ',
+           当該者の性別:'男',
+           当該者の生年月日:'1991/11/07',
+           当該者の年齢:'',
+           当該者の年齢のヶ月目:'',
+           当該者の職業:'医療関係者',
+           当該者の住所の県市区町村:'愛知県名古屋市海部郡',
+           当該者の住所:'飛島村大字飛島新田字竹之郷ヨタレ南ノ割（社宅）',
+           当該者の住所の電話番号:'050-5555-9800',
+           当該者の所在地:'東京都千代田区千代田１-１（現在・実家に帰省中）',
+           当該者の所在地の電話番号:'827-128-9800',
+           当該者の保護者の氏名:'霞が関',
+           当該者の保護者の読み仮名:'かすみがせき',
+           当該者の保護者の住所:'東京都千代田区霞が関三丁目２番５号',
+           当該者の保護者の電話番号:'827-128-9800',
+         }
        }
      },
      watch:{
        'dat.open':function(b){
-         this.$refs.view.open(b)
+         for(folder of this.controllers.filter(o=>o.key=='DatFolder').map(o=>o.$_gui)){
+           folder[b ? 'open' : 'close']()
+         }
        },
        'dat.expand':function(b){
-         this.$refs.view.expand(b)
+         for(folder of this.controllers.filter(o=>o.key=='DatGui').map(o=>o.$_gui)){
+           folder.expand(b)
+         }
        },
        'app.fullscreen':function(){
          screenfull.toggle()
@@ -446,43 +559,139 @@
        }
      },
      computed:{
+       controllers:function(){
+         return _.mapDeep(this.$refs.view.$children,_.identity,{childrenPath:'$children'})
+       },
+       file:function(){
+         return {
+           Language:'ja',
+           Title:`${this.$route.name}`,
+           Author:`Dr.${this.param.hospital.医師の氏名}/${this.param.hospital.医師の従事病院または診療所の名称}`,
+           Subject:`Pt.${this.param.patient.当該者の氏名}/${this.param.patient.当該者の住所の電話番号}`,
+           Keywords:['新型コロナウイルス','厚生労働省','報告書'],
+           CreationDate:moment('2021/11/29 18:03:58').toDate(),
+           ModificationDate:moment(this.timestamp).toDate(),
+          /*
+           * 厚生労働省からダウンロードしたPDFはPDF-LIBで読み込めず
+           * GoogleChromeから開いたPDFを印刷→PDFに保存してから読み込んだ（PDFium）
+           */
+           Creator:'PDFium',
+          /*
+           * pdfcreator vs. pdfproducer - PDF Metadata in Hyperref Hypersetup
+           * https://tex.stackexchange.com/questions/590864/pdfcreator-vs-pdfproducer-pdf-metadata-in-hyperref-hypersetup
+           */
+           Producer:'COVID-19 Report Generator'
+         }
+       },
        ready:function(){
          return this.pdf.font != null
        }
      },
      methods:{
        clear:function(){
-         var yes = function(){
+         this.$toast_confirm('warning','入力をクリアしますか？',()=>{
+           _.merge(this.param,{
+            hospital:{
+              医師の氏名:'',
+              医師の印鑑:'data:image/png;base64,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',
+              医師の従事病院または診療所の名称 :'',
+              医師の従事病院または診療所の所在地:'',
+              医師の従事病院または診療所の電話番号:'',
+              医師の従事病院または診療所の時間外の電話番号:''
+            },
+            patient:{
+              当該者のＩＤ:'',
+              当該者の氏名:'',
+              当該者の読み仮名:' ',
+              当該者の性別:'男',
+              当該者の生年月日:'',
+              当該者の年齢:'',
+              当該者の年齢のヶ月目:'',
+              当該者の職業:'',
+              当該者の住所の県市区町村:'',
+              当該者の住所:'',
+              当該者の住所の電話番号:'',
+              当該者の所在地:'',
+              当該者の所在地の電話番号:'',
+              当該者の保護者の氏名:'',
+              当該者の保護者の読み仮名:'',
+              当該者の保護者の住所:'',
+              当該者の保護者の電話番号:''
+            }
+           })
+           this.$refs.view.clear()
+         })
+       },
+       save:async function(){
+         var document = this.$refs.view.getDocument()
+         _.each(this.file,(value,name)=>document[`set${name}`](value))
+        /*
+         * 保存
+         * 医事課:ＩＤと氏名と生年月日を付与「患者を特定するため」
+         * 発熱外来：非接触対応の為に電話番号を付与「診察終了後の医師や看護師」
+         */
+         var 今日 = moment().format(`NNNNyy年MM月DD日HH時mm分`)
+         var 誕生日 = moment(this.param.patient.当該者の生年月日,'YYYY/MM/DD').format('NNNyy-MM-DD')
+         var ファイル名 = [this.file.Title,今日,this.param.patient.当該者の氏名,` (${this.param.patient.当該者の読み仮名}・${誕生日}・${this.param.patient.当該者の住所の電話番号})`,`ＩＤ (${this.param.patient.当該者のＩＤ})`].filter(Boolean).join('_')
+         var file = new File([await document.save()],`${ファイル名}.pdf`,{type:'application/pdf'})
+         saveAs(file)
+       },
+       trash:function(){
+         this.$toast_confirm('warning','前回の入力をクリアしますか？',()=>{
            localforage.clear()
            location.reload()
-         }
-         this.toast_confirm('warning','前回の入力をクリアしますか？',yes)
+         })
        }
      },
      router:new VueRouter({
        linkActiveClass:'active',
        linkExactActiveClass:'',
        routes:[
+          /*
+           * 改訂:2021/11/29 18:03:58
+           * 題名:新型コロナウイルス感染症 発生届
+           * 作者:福島 銀史郎(fukushima-ginjirou)
+           * 入手:https://www.mhlw.go.jp/bunya/kenkou/kekkaku-kansenshou11/01-shitei-01.html
+           */
          {
-           name:'docs/新型コロナウイルス感染症の発生届.pdf',
+           meta:{
+             path:'docs/新型コロナウイルス感染症の発生届/2021-11-29.pdf'
+           },
+           name:'新型コロナウイルス感染症の発生届',
            path:`/${encodeURIComponent('新型コロナウイルス感染症の発生届')}`,
            component:VueLoader('vue/新型コロナウイルス感染症の発生届.vue')
          },
          {
-           name:'docs/新型コロナウイルス感染症の診療所見報告書.pdf',
-           path:`/${encodeURIComponent('新型コロナウイルス感染症の診療所見報告書')}`,
-           component:VueLoader('vue/新型コロナウイルス感染症の診察所見報告書.vue')
+           meta:{
+             path:'docs/新型コロナウイルス感染症自宅療養者等の診察所見報告書/2022-02-18.pdf'
+           },
+           name:'新型コロナウイルス感染症自宅療養者等の診察所見報告書',
+           path:`/${encodeURIComponent('新型コロナウイルス感染症自宅療養者等の診察所見報告書')}`,
+           component:VueLoader('vue/新型コロナウイルス感染症自宅療養者等の診察所見報告書.vue')
          }
        ]
      }),
      created:async function(){
+
+       setInterval(() => {
+         this.timestamp = moment().valueOf()
+       },1000)
+
+       localforage.getItem('COVID-19 Report Generator').then((o)=>{
+         if(o){
+           _.merge(this.param,o)
+         }
+       }).catch(()=>{
+         this.$toast.info('error','前回入力された情報の復元に失敗しました')
+       })
+      
        moment.locale('ja')
        PDFLib.PDFPage.prototype.drawTextZen = function(text,options){
          this.drawText(jaconv.toZen(text),options)
        }
-
      },
      mounted:function(){
+
         this.$watchAll([
           {name:'pdf.settings',options:{deep:true,immediate:true}}
         ],_.debounce(async (k,settings)=>{
@@ -492,6 +701,20 @@
             return responce.arrayBuffer()
           })
         },this.pdf.wait))
+
+        this.$watchAll([
+          {name:'param',options:{deep:true,immediate:true}}
+        ],_.debounce(async (k,param)=>{
+          var date = moment(this.param.patient.当該者の生年月日)
+         if(date.isValid()){
+           var age = moment().age(new Date(this.param.patient.当該者の生年月日))
+           this.param.patient.当該者の年齢 = _.toString(age.years)
+           this.param.patient.当該者の年齢のヶ月目 = _.toString(age.months)
+         }
+
+          localforage.setItem('COVID-19 Report Generator',param)
+        },this.pdf.wait))
+        
        $('.item',this.$refs.menu).tab({
          autoTabActivation:'a'
        })

@@ -1073,7 +1073,7 @@ var NumberController = function (_Controller) {
       if (this.__step !== undefined && _v % this.__step !== 0) {
         _v = Math.round(_v / this.__step) * this.__step;
       }
-      return get(NumberController.prototype.__proto__ || Object.getPrototypeOf(NumberController.prototype), 'setValue', this).call(this, _v);
+      return get(NumberController.prototype.__proto__ || Object.getPrototypeOf(NumberController.prototype), 'setValue', this).call(this, _v == this.__empty ? '' : _v);
     }
   }, {
     key: 'min',
@@ -1160,7 +1160,7 @@ var NumberControllerBox = function (_NumberController) {
     }
     _this2.__input = document.createElement('input');
     _this2.__input.setAttribute('type', 'text');
-    dom.bind(_this2.__input, 'keyup', onChange);
+    dom.bind(_this2.__input, 'change', onChange);
     dom.bind(_this2.__input, 'blur', onBlur);
     dom.bind(_this2.__input, 'mousedown', onMouseDown);
     dom.bind(_this2.__input, mousewheelevt, onMouseWheel);

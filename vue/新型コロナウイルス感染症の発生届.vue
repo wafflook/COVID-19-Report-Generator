@@ -9,7 +9,7 @@
            <div class='ui segment block fitted'>
              <div class='content fitted'>
                <dat-gui>
-                 <dat-value v-model='param.報告年月日' label='報告日は？' title='この報告は診断後ただちに行ってください' type='yyyymmdd' ref='first'></dat-value>
+                 <dat-value v-model='param.報告年月日' comment='報告年月日' label='報告日は？' ref='first'></dat-value>
               </dat-gui>
             </div>
           </div>
@@ -19,21 +19,11 @@
             </div>
              <div class='content fitted'>
                <dat-gui>
-                 <dat-value v-model='param.当該者のＩＤ' label='患者ＩＤ' placeholder='ORCA-ID...etc' title='病院または診療所ごとの管理ＩＤ'></dat-value>
                  <dat-folder :name='患者個人 | toZen'>
-                   <dat-value v-model='param.当該者の類型' comment='初診時に死亡されている方は「感染症死亡者の死体」、「感染症死亡疑い者の死体」のいずれかとなります。初診時に生存されていた方が死亡された場合は「患者（確定例）」（あるいは「疑似症患者」「無症状病原体保有者」）です。' title='fdssfddsf' label='類型は？' :values="['患者（確定例）','無患者の症状病原体保有者','疑似症患者（*）','感染症死亡者の死体','感染症死亡疑い者の死体']"></dat-value>
-                   <dat-value v-model='param.当該者の氏名' comment='外国人の場合…名前はパスポート名で記入してください。' label='氏名は？' title='当該者の氏名' title='外国の方はパスポート名でお願いします'></dat-value>
-                   <dat-value v-model='param.当該者の読み仮名' label='読み仮名は？' title='当該者の読み仮名'></dat-value>
-                   <dat-value v-model='param.当該者の性別' label='性別は？' :values="['男','女']"></dat-value>
-                   <dat-value v-model='param.当該者の生年月日' label='誕生は？' title='当該者の生年月日' type='yyyymmdd'></dat-value>
-                   <dat-value v-model='param.当該者の職業' comment='公衆衛生対策上も重要な情報です。公務員・会社員に留まらず職種もお願いします。例（学校・病院・高齢者施設関連の方）' label='職業は？' title='当該者の職業' placeholder='会社員・公務員のみならず職種（医師・保育士・調理師...etc）も'></dat-value>
-                   <dat-value v-model='param.当該者の住所' label='住所は？' title='当該者の住所' placeholder='住所の在る場所（免許証や保険証）'></dat-value>
-                   <dat-value v-model='param.当該者の住所の電話番号' label='住所の連絡先は？' title='当該者の住所の電話番号' type='phone'></dat-value>
-                   <dat-value v-model='param.当該者の所在地' label='所在地は？' title='当該者の所在地' placeholder='患者の居る場所（入院中なら病院・帰省中であれば帰省先）'></dat-value>
-                   <dat-value v-model='param.当該者の所在地の電話番号' label='所在地の連絡先は？' title='当該者の所在地の電話番号' type='phone'></dat-value>
+                   <dat-value v-model='param.当該者の類型' comment='新型コロナウイルスの類型'  label='類型は？' :values="['患者（確定例）','無患者の症状病原体保有者','疑似症患者（*）','感染症死亡者の死体','感染症死亡疑い者の死体']"></dat-value>
                 </dat-folder>
                  <dat-folder :name='症状一覧 | toZen'>
-                   <dat-value v-model='param.患者の症状.発熱' label='発熱'></dat-value>
+                   <dat-value v-model='param.患者の症状.発熱' comment='新型コロナウイルスの症状' label='発熱'></dat-value>
                    <dat-value v-model='param.患者の症状.咳' label='咳'></dat-value>
                    <dat-value v-model='param.患者の症状.咳以外の急性呼吸器の症状' label='咳以外の急性呼吸器の症状'></dat-value>
                    <dat-value v-model='param.患者の症状.肺炎像' label='肺炎像'></dat-value>
@@ -48,7 +38,7 @@
                    <dat-value v-model="param.患者の症状['嗅覚・味覚障害']" label='嗅覚・味覚障害'></dat-value>
                 </dat-folder>
                  <dat-folder :name='疾患一覧 | toZen'>
-                   <dat-value v-model='param.重症化のリスク因子.悪性腫瘍' label='悪性腫瘍'></dat-value>
+                   <dat-value v-model='param.重症化のリスク因子.悪性腫瘍' comment='新型コロナウイルスの重症化の因子となる疾患' label='悪性腫瘍'></dat-value>
                    <dat-value v-model="param.重症化のリスク因子['慢性閉塞性肺疾患（COPD）']" label='慢性閉塞性肺疾患'></dat-value>
                    <dat-value v-model='param.重症化のリスク因子.慢性腎臓病' label='慢性腎臓病'></dat-value>
                    <dat-value v-model='param.重症化のリスク因子.高血圧' label='高血圧'></dat-value>
@@ -60,24 +50,14 @@
               </dat-gui>
             </div>
           </div>
-           <div class='ui semgent fitted' v-if='param.当該者の年齢 < 20'>
-             <dat-gui>
-               <dat-folder name='保護者'>
-                 <dat-value v-model='param.保護者の氏名' label='氏名は？' title='保護者の氏名'></dat-value>
-                 <dat-value v-model='param.保護者の読み仮名' label='読み仮名は？' title='保護者の読み仮名'></dat-value>
-                 <dat-value v-model='param.保護者の住所' label='住所は？' title='保護者の住所'></dat-value>
-                 <dat-value v-model='param.保護者の電話番号' label='連絡先は？' title='保護者の電話番号' type='phone'></dat-value>
-              </dat-folder>
-            </dat-gui>
-          </div>
            <div class='ui segment block fitted green'>
              <div class="ui label floating point right pointing green">
                確認
             </div>
              <div class='content fitted'>
                <dat-gui>
-                 <dat-value v-model='param.患者の症状のその他' label='症状（その他）' placeholder='肺炎像など画像所見など'></dat-value>
-                 <dat-value v-model='param.重症化のリスク因子のその他' label='疾患（その他）' placeholder='重症化のリスク因子'></dat-value>
+                 <dat-value v-model='param.患者の症状のその他' label='症状（その他）'></dat-value>
+                 <dat-value v-model='param.重症化のリスク因子のその他' label='疾患（その他）'></dat-value>
                  <dat-value v-model="param['患者の酸素飽和度（室内気）']" label='酸素飽和度（室内気）' :min='0' :max='100' :step='1' :empty='0'></dat-value>
               </dat-gui>
             </div>
@@ -187,11 +167,11 @@
            <div class='ui segment block fitted'>
              <div class='content fitted'>
                <dat-gui>
-                 <dat-value v-model='param.初診年月日' comment='当該疾患の初診日です。それ以前から他疾患で通院中・入院中である場合には、他疾患の初診日としないようご注意ください。' label='初診年月日は？' title='初診年月日' type='yyyymmdd' placeholder='当該疾患の初診日です。ら他疾患で通院中・入院中の初診日ではありません'></dat-value>
-                 <dat-value v-model="param['診断（検案（※））年月日']" label='診断年月日は？' title='診断（検案（※））年月日' type='yyyymmdd'></dat-value>
-                 <dat-value v-model='param.感染したと推定される年月日' comment='他の感染者の存在を把握するうえで公衆衛生対策上重要です。問診内容や潜伏期間などから感染機会をできる限り判断して、記入してください。' label='感染年月日は？' title='感染したと推定される年月日' type='yyyymmdd'></dat-value>
-                 <dat-value v-model='param.発病年月日' comment='感染性の有る期間の把握や、集団発生時などでの発症曲線の描写などに必要となり、公衆衛生対策上重要です。忘れずに記入してください。なお、何をもって「発病」とするかの規定は定められていませんが、当該疾患の主となる症状が最初に出現した日について記入してください〔例えば、発熱性疾患なら発熱出現日、消化器症状が主たる疾患はそれらの症状（腹痛、下痢など）の出現日〕。' label='発病年月日は？' title='発病年月日' type='yyyymmdd'></dat-value>
-                 <dat-value v-model='param.死亡年月日' comment='感染性の有る期間の把握や、集団発生時などでの発症曲線の描写などに必要となり、公衆衛生対策上重要です。忘れずに記入してください。なお、何をもって「発病」とするかの規定は定められていませんが、当該疾患の主となる症状が最初に出現した日について記入してください〔例えば、発熱性疾患なら発熱出現日、消化器症状が主たる疾患はそれらの症状（腹痛、下痢など）の出現日〕。' label='死亡年月日は？' title='死亡年月日' type='yyyymmdd'></dat-value>
+                 <dat-value v-model='param.初診年月日' comment='新型コロナウイルスの初診年月日' label='初診年月日は？' ></dat-value>
+                 <dat-value v-model="param['診断（検案（※））年月日']" comment='新型コロナウイルスの診断年月日' label='診断年月日は？' ></dat-value>
+                 <dat-value v-model='param.感染したと推定される年月日' comment='新型コロナウイルスの感染年月日' label='感染年月日は？' ></dat-value>
+                 <dat-value v-model='param.発病年月日' comment='新型コロナウイルスの発病年月日' label='発病年月日は？' ></dat-value>
+                 <dat-value v-model='param.死亡年月日' comment='新型コロナウイルスの死亡年月日' label='死亡年月日は？' ></dat-value>
               </dat-gui>
             </div>
           </div>
@@ -261,7 +241,7 @@
               </dat-gui>
             </div>
           </div>
-           <div class='ui segment block fitted' v-if="param.当該者の性別 == '女'">
+           <div class='ui segment block fitted' v-if="patient.当該者の性別 == '女'">
              <div class='content fitted'>
                <dat-gui>
                  <dat-value v-model='param.妊娠の有無' label='妊娠してますか？'></dat-value>
@@ -272,30 +252,14 @@
              <div class='content fitted'>
                <dat-gui>
                  <dat-value v-model='param.免疫の機能の低下有無' label='免疫は低下してますか？'></dat-value>
-                 <dat-value v-model='param.届出時点の入院有無' label='現時点で入院してますか？' title='届出時点の入院有無'></dat-value>
+                 <dat-value v-model='param.届出時点の入院有無' label='現時点で入院してますか？' ></dat-value>
               </dat-gui>
             </div>
           </div>
            <div class='ui segment block fitted'>
              <div class='content fitted' v-if='param.届出時点の入院有無'>
                <dat-gui>
-                 <dat-value v-model='param.入院年月日' label='入院年月日' title='入院年月日' type='yyyymmdd'></dat-value>
-              </dat-gui>
-            </div>
-          </div>
-           <div class='ui segment block fitted orange'>
-             <div class="ui label floating point right pointing orange">
-               報告
-            </div>
-             <div class='content fitted'>
-               <dat-gui>
-                 <dat-folder :name="'医師（' +param.医師の氏名+ '/' +param.医師の従事病院または診療所の名称+ '）'">
-                   <dat-value v-model='param.医師の氏名' label='氏名は？' title='医師は？'></dat-value>
-                   <dat-value v-model='param.医師の従事病院または診療所の名称' label='病院は？' title='医師の従事病院または診療所の名称'></dat-value>
-                   <dat-value v-model='param.医師の従事病院または診療所の所在地' label='病院の住所は？' title='医師の従事病院または診療所の所在地'></dat-value>
-                   <dat-value v-model='param.医師の従事病院または診療所の電話番号'label='病院の連絡先は？' title='医師の従事病院または診療所の電話番号' type='phone'></dat-value>
-                   <dat-value v-model='param.医師の従事病院または診療所の時間外の電話番号'label='診療時間外の連絡先）は？' title='医師の従事病院または診療所の時間外の電話番号' type='phone'></dat-value>
-                </dat-folder>
+                 <dat-value v-model='param.入院年月日' label='入院年月日' ></dat-value>
               </dat-gui>
             </div>
           </div>
@@ -310,24 +274,6 @@
               </dat-gui>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-     <div class='document'>
-       <div class='ui divider horizontal'>
-         文書
-      </div>
-       <div class='ui segments block'>
-         <div class='ui segment fitted'>
-           <dat-gui>
-             <dat-value v-model='attribute.Language' label='言語' readonly></dat-value>
-             <dat-value v-model='attribute.Title' label='タイトル' readonly></dat-value>
-             <dat-value v-model='attribute.Author' label='作成者' readonly></dat-value>
-             <dat-value v-model='attribute.Subject' label='サブタイトル' readonly></dat-value>
-             <dat-value v-model="attribute.Keywords.join(',')" label='キーワード' readonly></dat-value>
-             <dat-value :value="attribute.CreationDate | moment('YYYY/MM/DD HH:mm:ss')" label='作成日' readonly></dat-value>
-             <dat-value :value="attribute.ModificationDate | moment('YYYY/MM/DD HH:mm:ss')" label='更新日' readonly></dat-value>
-          </dat-gui>
         </div>
       </div>
     </div>
@@ -379,6 +325,18 @@
          default:function(){
            return {}
          }
+       },
+       hospital:{
+         type:Object,
+         default:function(){
+           return{}
+         }
+       },
+       patient:{
+         type:Object,
+         default:function(){
+           return{}
+         }
        }
      },
      data:function(){
@@ -391,31 +349,9 @@
           * データを入れ子にしない 例 医師 { 氏名:'', 従事病院または診療所の名称:'' }
           */
          param:{
+           ロゴ画像:'https://images.unsplash.com/photo-1516222338250-863216ce01ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=467&q=50',
            報告年月日 :'',
-           // 00.報告者
-           医師の氏名:'山田 茉',
-           医師の従事病院または診療所の名称 :'山田医療東部センター',
-           医師の従事病院または診療所の所在地:'秋田県北秋田郡上小阿仁村大字沖田面字小蒲野',
-           医師の従事病院または診療所の電話番号:'827-128-9800',
-           医師の従事病院または診療所の時間外の電話番号:'827-128-9800',
-           // 01.当該者
-           当該者のＩＤ:'', // オルカのＩＤなど
            当該者の類型:'患者（確定例）',
-           当該者の氏名:'山田 塩',
-           当該者の読み仮名:'ヤマダ シオ',
-           当該者の性別:'男',
-           当該者の生年月日:'1991/11/07',
-           当該者の年齢:30,
-           当該者の職業:'医療関係者',
-           当該者の住所:'愛知県海部郡飛島村大字飛島新田字竹之郷ヨタレ南ノ割（社宅）',
-           当該者の住所の電話番号:'050-5555-9800',
-           当該者の所在地:'東京都千代田区千代田１-１（現在・実家に帰省中）',
-           当該者の所在地の電話番号:'827-128-9800',
-           // 09.保護者
-           保護者の氏名:'霞が関',
-           保護者の読み仮名:'かすみがせき',
-           保護者の住所:'東京都千代田区霞が関三丁目２番５号',
-           保護者の電話番号:'827-128-9800',
            // 11.症状
            患者の症状:{
              発熱:true,
@@ -433,7 +369,7 @@
              '嗅覚・味覚障害':true,
            },
            患者の症状なし:false,
-           '患者の酸素飽和度（室内気）':100,
+           '患者の酸素飽和度（室内気）':0,
            患者の症状のその他:'胸部Ｘ線両肺野スリガラス影',
            // 12.診断方法
            検出の種類:'抗原定性検査による病原体の抗原の検出',
@@ -500,7 +436,7 @@
      },
      computed:{
        患者個人:function(){
-         return `個人（${this.param.当該者の年齢}歳${this.param.当該者の性別}）`
+         return `個人（${this.patient.当該者の年齢}歳${this.patient.当該者の性別}）`
        },
        症状一覧:function(){
          return `症状（${_.filter(this.param.患者の症状,Boolean).length}個にチェック）`
@@ -521,13 +457,13 @@
          return `３回目は` + (接種 ? `${this.param.コロナのワクチン３回目の年齢}歳の時${this.年週日前(this.param.コロナのワクチン３回目の接種年月日)}に${this.param.コロナのワクチン３回目の製造会社}` : 'なし')
        },
        壱回目のコロナワクチン接種の年齢:function(){
-         return moment(this.param.コロナのワクチン１回目の接種年月日,'YYYY/MM/DD').age(new Date(this.param.当該者の生年月日)).years
+         return moment(this.param.コロナのワクチン１回目の接種年月日,'YYYY/MM/DD').age(new Date(this.patient.当該者の生年月日)).years
        },
        弐回目のコロナワクチン接種の年齢:function(){
-         return moment(this.param.コロナのワクチン２回目の接種年月日,'YYYY/MM/DD').age(new Date(this.param.当該者の生年月日)).years
+         return moment(this.param.コロナのワクチン２回目の接種年月日,'YYYY/MM/DD').age(new Date(this.patient.当該者の生年月日)).years
        },
        参回目のコロナワクチン接種の年齢:function(){
-         return moment(this.param.コロナのワクチン３回目の接種年月日,'YYYY/MM/DD').age(new Date(this.param.当該者の生年月日)).years
+         return moment(this.param.コロナのワクチン３回目の接種年月日,'YYYY/MM/DD').age(new Date(this.patient.当該者の生年月日)).years
        },
        重症化のリスク因子となる疾患等の有無:function(){
          return _.some(this.param.重症化のリスク因子) || this.param.重症化のリスク因子のその他.length > 0
@@ -545,46 +481,9 @@
          渡航 = this.param.感染が国外.length > 0
          渡航日数 = moment.duration(moment(this.param.感染が国外での帰国日).diff(this.param.感染が国外への出国日)).asDays()
          return `渡航（${渡航 ?  this.param.感染が国外 + 渡航日数 + '日間' + this.param.感染が国外の詳細地域 : 'なし'}）`
-       },
-       attribute:function(){
-         return{
-          /*
-           * 改訂:2021/11/29 18:03:58
-           * 題名:新型コロナウイルス感染症 発生届
-           * 作者:福島 銀史郎(fukushima-ginjirou)
-           * 入手:https://www.mhlw.go.jp/bunya/kenkou/kekkaku-kansenshou11/01-shitei-01.html
-           */
-           Language:'ja',
-           Title:'新型コロナウイルス感染症/発生届',
-           Author:`Dr.${this.param.医師の氏名}/${this.param.医師の従事病院または診療所の名称}`,
-           Subject:`Pt.${this.param.当該者の氏名}/${this.param.当該者の住所の電話番号}`,
-           Keywords:['発生届','新型コロナウイルス','厚生労働省'],
-           CreationDate:moment('2021/11/29 18:03:58').toDate(),
-           ModificationDate:moment(this.timestamp).toDate(),
-          /*
-           * 厚生労働省からダウンロードしたPDFはPDF-LIBで読み込めず
-           * GoogleChromeから開いたPDFを印刷→PDFに保存してから読み込んだ（PDFium）
-           */
-           Creator:'PDFium',
-          /*
-           * pdfcreator vs. pdfproducer - PDF Metadata in Hyperref Hypersetup
-           * https://tex.stackexchange.com/questions/590864/pdfcreator-vs-pdfproducer-pdf-metadata-in-hyperref-hypersetup
-           */
-           Producer:'COVID-19 Report Generator'
-         }
        }
      },
      methods:{
-       open:function(b){
-         for(folder of _.mapDeep(this.$children,_.identity,{childrenPath:'$children'}).filter(o=>o.key=='DatFolder').map(o=>o.$_gui)){
-           folder[b ? 'open' : 'close']()
-         }
-       },
-       expand:function(b){
-         for(folder of _.mapDeep(this.$children,_.identity,{childrenPath:'$children'}).filter(o=>o.key=='DatFolder').map(o=>o.$_gui)){
-           folder.expand(b)
-         }
-       },
        debugPortaled:function(){
          $(this.$refs.accordion).accordion({
            selector:{
@@ -593,33 +492,9 @@
            }
          })
        },
-       init:function(){
-         var yes = ()=>{
+       clear:function(){
            _.merge(this.param,{
              報告年月日 :'',
-             // 00.報告者
-             医師の氏名:'',
-             医師の従事病院または診療所の名称 :'',
-             医師の従事病院または診療所の所在地:'',
-             医師の従事病院または診療所の電話番号:'',
-             医師の従事病院または診療所の時間外の電話番号:'',
-             // 01.当該者
-             当該者のＩＤ:'',
-             当該者の類型:'患者（確定例）',
-             当該者の氏名:'',
-             当該者の読み仮名:'',
-             当該者の性別:'男',
-             当該者の生年月日:'',
-             当該者の職業:'',
-             当該者の住所:'',
-             当該者の住所の電話番号:'',
-             当該者の所在地:'',
-             当該者の所在地の電話番号:'',
-             // 09.保護者
-             保護者の氏名:'',
-             保護者の読み仮名:'',
-             保護者の住所:'',
-             保護者の電話番号:'',
              // 11.症状
              患者の症状:{
                発熱:false,
@@ -637,7 +512,7 @@
                '嗅覚・味覚障害':false,
              },
              患者の症状なし:false,
-             '患者の酸素飽和度（室内気）':'',
+             '患者の酸素飽和度（室内気）':0,
              患者の症状のその他:'',
              // 12.診断方法
              検出の種類:'抗原定性検査による病原体の抗原の検出',
@@ -694,25 +569,9 @@
              特例の診療の有無:false,
              メモ:''
            })
-         }
-           this.toast_confirm('warning','入力をクリアしますか？',yes)
        },
-       save:async function(){
-        /*
-         * 設定
-         * ドキュメントのプロパティ
-         */
-         _.each(this.attribute,(value,name)=>this.doc[`set${name}`](value))
-        /*
-         * 保存
-         * 医事課:ＩＤと氏名と生年月日を付与「患者を特定するため」
-         * 発熱外来：非接触対応の為に電話番号を付与「診察終了後の医師や看護師」
-         */
-         var 今日 = moment().format(`NNNNyy年MM月DD日HH時mm分`)
-         var 誕生日 = moment(this.param.当該者の生年月日,'YYYY/MM/DD').format('NNNyy-MM-DD')
-         var ファイル名 = [今日,this.param.当該者の氏名,` (${this.param.当該者の読み仮名}・${誕生日}・${this.param.当該者の住所の電話番号})`,`ＩＤ (${this.param.当該者のＩＤ})`].filter(Boolean).join('_')
-         var file = new File([await this.doc.save()],`${ファイル名}.pdf`,{type:'application/pdf'})
-         saveAs(file)
+       getDocument:function(){
+         return this.doc
        },
        load:async function(){
          this.doc = await PDFLib.PDFDocument.load(this.pdf)
@@ -734,8 +593,36 @@
          var page = this.doc.getPages()[0]
              page.setFont(fontGothicJP)
              page.setFontColor(PDFLib.rgb(0,0,0))
+             // 追加項目
+             page.drawText('病院の患者の管理ＩＤ',{x:60,y:704,size:9})
              page.drawText('診療時間外の電話番号',{x:60,y:684,size:9})
              page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.common.settings.color.text).toFloatRgb())))
+
+
+
+
+          try {
+  const jpgImageBytes = await fetch(this.hospital.医師の印鑑).then((res) => res.arrayBuffer())
+const jpgImage = await this.doc.embedJpg(jpgImageBytes)
+const jpgDims = jpgImage.scale(0.5)
+
+
+
+
+page.drawImage(jpgImage, {
+  x: 499,
+  y: 692,
+  width: 24,
+  height: 24,
+})
+
+
+          } catch (error) {
+            console.error(error);
+          }
+
+
+
 
          var date = moment(this.param.報告年月日)
              if(date.isValid()){
@@ -743,15 +630,16 @@
                page.drawTextZen(date.format('MM'),{x:484,y:734,size:9})
                page.drawTextZen(date.format('DD'),{x:511,y:734,size:9})
              }
-             
+
              // 報告者             
-             page.drawText(this.param.医師の氏名,{x:290,y:721,size:9})
-             page.drawText(this.param.医師の従事病院または診療所の名称,{x:290,y:709,size:9})
-             page.drawText(this.param.医師の従事病院または診療所の所在地,{x:290,y:697,size:9})
-             page.drawTextZen(this.param.医師の従事病院または診療所の電話番号.split('-')[0] || '',{x:280,y:685,size:9})
-             page.drawTextZen(this.param.医師の従事病院または診療所の電話番号.split('-')[1] || '',{x:338,y:685,size:9})
-             page.drawTextZen(this.param.医師の従事病院または診療所の電話番号.split('-')[2] || '',{x:405,y:685,size:9})
-             page.drawTextZen(this.param.医師の従事病院または診療所の時間外の電話番号.split('-').join('-') || '',{x:60,y:672,size:9})
+             page.drawText(this.hospital.医師の氏名,{x:290,y:721,size:9})
+             page.drawText(this.hospital.医師の従事病院または診療所の名称,{x:290,y:709,size:9})
+             page.drawText(this.hospital.医師の従事病院または診療所の所在地,{x:290,y:697,size:9})
+             page.drawTextZen(this.hospital.医師の従事病院または診療所の電話番号.split('-')[0] || '',{x:280,y:685,size:9})
+             page.drawTextZen(this.hospital.医師の従事病院または診療所の電話番号.split('-')[1] || '',{x:338,y:685,size:9})
+             page.drawTextZen(this.hospital.医師の従事病院または診療所の電話番号.split('-')[2] || '',{x:405,y:685,size:9})
+             page.drawTextZen(this.patient.当該者のＩＤ,{x:60,y:694,size:9})
+             page.drawTextZen(this.hospital.医師の従事病院または診療所の時間外の電話番号.split('-').join('-') || '',{x:60,y:672,size:9})
              // 当該者
              page.drawLine(_.merge(
                {
@@ -764,47 +652,40 @@
                highlightPen
              ))
              
-             page.drawText(this.param.当該者の読み仮名,{x:61,y:608,size:9})
+             page.drawText(jaconv.toHan(this.patient.当該者の読み仮名),{x:61,y:608,size:9})
              page.drawCircle(_.merge(
                {
                  '男':{x:201,y:612},
                  '女':{x:219,y:612}
-               }[this.param.当該者の性別],
+               }[this.patient.当該者の性別],
                highlightCircle
              ))
-             
-
-
-
-
-
-         var date = moment(this.param.当該者の生年月日)
+            
+         var date = moment(this.patient.当該者の生年月日)
              if(date.isValid()){
                page.drawTextZen(date.format('NNNN'),{x:235,y:622,size:9})
                page.drawTextZen(date.format('yy'),{x:237,y:609,size:9})
                page.drawTextZen(date.format('MM'),{x:268,y:609,size:9})
                page.drawTextZen(date.format('DD'),{x:294,y:609,size:9})
-               var  age = moment().age(new Date(this.param.当該者の生年月日))
-               this.param.当該者の年齢 = _.toString(age.years)
-               page.drawTextZen(_.toString(age.years),{x:340,y:609,size:9})
-               page.drawTextZen(_.toString(age.months),{x:397,y:609,size:9})
+               page.drawTextZen(this.patient.当該者の年齢,{x:340,y:609,size:9})
+               page.drawTextZen(this.patient.当該者の年齢のヶ月目,{x:397,y:609,size:9})
              }
-             page.drawText(this.param.当該者の職業,{x:448,y:609,size:9})
-             page.drawText(this.param.当該者の住所,{x:140,y:594,size:9})
-             page.drawText(this.param.当該者の住所の電話番号.split('-')[0] || '',{x:457,y:595,size:9})
-             page.drawText(this.param.当該者の住所の電話番号.split('-')[1] || '',{x:485,y:595,size:9})
-             page.drawText(this.param.当該者の住所の電話番号.split('-')[2] || '',{x:517,y:595,size:9})
-             page.drawText(this.param.当該者の所在地,{x:140,y:581,size:9})
-             page.drawText(this.param.当該者の所在地の電話番号.split('-')[0] || '',{x:457,y:581,size:9})
-             page.drawText(this.param.当該者の所在地の電話番号.split('-')[1] || '',{x:485,y:581,size:9})
-             page.drawText(this.param.当該者の所在地の電話番号.split('-')[2] || '',{x:517,y:581,size:9})
+             page.drawText(this.patient.当該者の職業,{x:448,y:609,size:9})
+             page.drawText([this.patient.当該者の住所の県市区町村,this.patient.当該者の住所].join(''),{x:128,y:594,size:9})
+             page.drawText(this.patient.当該者の住所の電話番号.split('-')[0] || '',{x:457,y:595,size:9})
+             page.drawText(this.patient.当該者の住所の電話番号.split('-')[1] || '',{x:485,y:595,size:9})
+             page.drawText(this.patient.当該者の住所の電話番号.split('-')[2] || '',{x:517,y:595,size:9})
+             page.drawText(this.patient.当該者の所在地,{x:140,y:581,size:9})
+             page.drawText(this.patient.当該者の所在地の電話番号.split('-')[0] || '',{x:457,y:581,size:9})
+             page.drawText(this.patient.当該者の所在地の電話番号.split('-')[1] || '',{x:485,y:581,size:9})
+             page.drawText(this.patient.当該者の所在地の電話番号.split('-')[2] || '',{x:517,y:581,size:9})
              // 保護者
-             if(age < 20){
-               page.drawText(`${this.param.保護者の氏名} （${this.param.保護者の読み仮名}）`,{x:61,y:556,size:9})
-               page.drawText(this.param.保護者の住所,{x:198,y:556,size:9})
-               page.drawText(this.param.保護者の電話番号.split('-')[0] || '',{x:457,y:556,size:9})
-               page.drawText(this.param.保護者の電話番号.split('-')[1] || '',{x:485,y:556,size:9})
-               page.drawText(this.param.保護者の電話番号.split('-')[2] || '',{x:517,y:556,size:9})
+             if(_.toNumber(this.patient.当該者の年齢) < 20){
+               page.drawText(`${this.patient.当該者の保護者の氏名} （${this.patient.当該者の保護者の読み仮名}）`,{x:61,y:556,size:9})
+               page.drawText(this.patient.当該者の保護者の住所,{x:198,y:556,size:9})
+               page.drawText(this.patient.当該者の保護者の電話番号.split('-')[0] || '',{x:457,y:556,size:9})
+               page.drawText(this.patient.当該者の保護者の電話番号.split('-')[1] || '',{x:485,y:556,size:9})
+               page.drawText(this.patient.当該者の保護者の電話番号.split('-')[2] || '',{x:517,y:556,size:9})
              }
 
              // 患者の症状
@@ -1055,14 +936,8 @@
               if(this.param.コロナのワクチン３回目の接種年月日.length == 0){
                 page.drawLine(_.merge({start:{x:440,y:299},end:{x:458,y:299}},highlightPen))
               }
-
-
-
-
-  
-  
              // その他の症状感染症のまん延の防止及び当該者の医療のために医師が必要と認める事項
-             page.drawCircle(_.merge(this.param.届出時点の入院有無 ? {x:412,y:261} : {x:424,y:261},highlightCircle))
+             page.drawCircle(_.merge(this.param.届出時点の入院有無 ? {x:412,y:261} : {x:428,y:261},highlightCircle))
              var date = moment(this.param.入院年月日)
              if(date.isValid()){
                page.drawText(date.format('yy'),{x:444,y:246,size:9})
@@ -1102,43 +977,6 @@
              _.each(this.param.メモ.split('\n'),(line,i)=>{
                page.drawText(line,{x:246,y:32 - (i * 10),size:9})
             })
-
-
-
-
-
-const jpgUrl = 'https://pdf-lib.js.org/assets/cat_riding_unicorn.jpg'
-const jpgImageBytes = await fetch(jpgUrl).then((res) => res.arrayBuffer())
-
-const jpgImage = await pdfDoc.embedJpg(jpgImageBytes)
-const jpgDims = jpgImage.scale(0.5)
-
-const page = pdfDoc.addPage()
-
-page.drawImage(jpgImage, {
-  x: 25,
-  y: 25,
-  width: jpgDims.width,
-  height: jpgDims.height,
-  rotate: PDFLib.degrees(30),
-  opacity: 0.75,
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
          // 読込
          this.$refs.iframe.src = URL.createObjectURL(new Blob([await this.doc.save()],{type:'application/pdf'}))
        }
@@ -1147,7 +985,7 @@ page.drawImage(jpgImage, {
        'vue-obj-table':'url:vue/vue-obj-table.vue'
      },
      created:async function(){
-       localforage.getItem(this.alt).then((o)=>{
+       localforage.getItem(this.$router.name).then((o)=>{
          if(o){
            _.merge(this.param,o)
          }
@@ -1157,7 +995,7 @@ page.drawImage(jpgImage, {
        var 今日 = moment().format('YYYY/MM/DD')
        this.param.報告年月日 = 今日
        this.param.検出の検体の採取日 = 今日
-       this.pdf = await fetch(this.$route.name).then((responce)=>{
+       this.pdf = await fetch(this.$route.meta.path).then((responce)=>{
          return responce.arrayBuffer()
        })
      },
@@ -1169,10 +1007,12 @@ page.drawImage(jpgImage, {
          this.param.患者の症状なし = (_.some(this.param.患者の症状,Boolean) ==  false && this.param.患者の症状のその他.length == 0)
        })
        this.$watchAll([
+         {name:'hospital',options:{deep:true,immediate:true}},
+         {name:'patient',options:{deep:true,immediate:true}},
          {name:'param',options:{deep:true,immediate:true}},
        ],_.debounce(async(k,o)=>{
          this.load()
-         localforage.setItem(this.alt,o)
+         localforage.setItem(this.$router.name,o)
        },this.common.wait))
        this.$nextTick(()=>{
          $(this.$refs.first.$_controller.__input).focus()

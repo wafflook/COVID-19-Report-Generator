@@ -337,7 +337,7 @@
             switch(true){
               case this.$_controller instanceof dat.controllers.NumberController:
               case this.$_controller instanceof dat.controllers.NumberControllerBox:
-                this.$emit('input', newVal == this.empty_n ? '' : newVal)
+                this.$emit('input', newVal == this.empty ? '' : newVal)
                 break;
               default:
                 this.$emit('input', newVal)
