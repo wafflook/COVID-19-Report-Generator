@@ -105,7 +105,7 @@
              <div class='content fitted'>
                <dat-gui expand>
                  <dat-folder :name='参回目のコロナワクチン接種 | toZen'>
-                   <dat-value v-model="param.コロナのワクチン１回目の年齢" label='３回目の年齢' :min='1' :max='125' :step='1' :empty='0'></dat-value>
+                   <dat-value v-model="param.コロナのワクチン３回目の年齢" label='３回目の年齢' :min='1' :max='125' :step='1' :empty='0'></dat-value>
                    <dat-value v-model='param.コロナのワクチン３回目の製造会社' label='３回目の製造社は？'></dat-value>
                    <dat-value v-model='param.コロナのワクチン３回目の種類' label='３回目の種類は？'></dat-value>
                    <dat-value v-model='param.コロナのワクチン３回目の接種年月日' label='３回目の接種日は？'  type='yyyymmdd'></dat-value>
@@ -119,7 +119,7 @@
             </div>
              <div class='content fitted'>
                <dat-gui>
-                 <dat-value v-model='param.感染の経路と原因' label='感染源は？' :values="['不明','確定','推定']"></dat-value>
+                 <dat-value v-model='param.感染の経路と原因' comment='感染原因・感染経路・感染地域' label='感染源は？' :values="['不明','確定','推定']"></dat-value>
                  <dat-value v-model='param.感染の地域' label='感染域は？' :values="['不明','確定','推定']"></dat-value>
               </dat-gui>
             </div>
@@ -236,7 +236,7 @@
             </div>
              <div class='content fitted'>
                <dat-gui>
-                 <dat-value v-model='param.重症度' label='重症度は？' :values="['軽症','中等症Ⅰ','中等症Ⅱ','重症']"></dat-value>
+                 <dat-value v-model='param.重症度' comment='新型コロナウイルスの重症度' label='重症度は？' :values="['軽症','中等症Ⅰ','中等症Ⅱ','重症']"></dat-value>
                  <dat-value v-model='param.入院の必要性の有無' label='必要ですか？'></dat-value>
               </dat-gui>
             </div>
@@ -898,8 +898,8 @@ page.drawImage(jpgImage, {
               }
               
               func(this.param.コロナのワクチン１回目の接種,378)
-              func(this.param.コロナのワクチン１回目の接種,348)
-              func(this.param.コロナのワクチン１回目の接種,318)
+              func(this.param.コロナのワクチン２回目の接種,348)
+              func(this.param.コロナのワクチン３回目の接種,318)
 
               if(this.param.コロナのワクチン１回目の接種年月日.length > 0){
                 page.drawText(_.toString(this.param.コロナのワクチン１回目の接種年月日.length > 0 ? this.壱回目のコロナワクチン接種の年齢 : this.コロナのワクチン１回目の年齢),{x:367,y:375,size:9})
