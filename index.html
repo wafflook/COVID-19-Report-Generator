@@ -2,7 +2,7 @@
  <html>
   <head>
 
-    <title>COVID-19</title>
+    <title>無題</title>
 
     <meta charset='utf-8'>
     <meta content='Yusuke Sano' name='author'>
@@ -15,6 +15,32 @@
     <link href='asset/manifest.json' rel='manifest'>
     <link href='asset/favicon.ico' rel='icon'>
 
+    <style>
+      .tree{
+        --border-style:2px solid #333;
+      }
+      .tree span > .ui.label{
+        padding:.5em;
+        color: #FFFFFF;
+        font-weight:normal;
+        border-color: #2185D0;
+        background-color: #2185D0;
+        box-shadow:rgb(16 36 94 / 40%) 0px 1px 2px 0px;
+      }
+      .tree span > .ui.label.image.circular{
+        padding:2px !important;
+      }
+      .tree span > .ui.label.image.circular > img{
+        margin:0;
+        background:white;
+        border-radius:500px;
+      }
+      .tree span > .ui.label:hover{
+        cursor:pointer;
+        border-color: #F2711C;
+        background-color: #F2711C;
+      }
+   </style>
     <style>
       html,
       body{
@@ -40,7 +66,8 @@
         overflow-y:scroll;
       }
       .ui.grid > .row > .column:nth-child(1){
-        width:429px;
+        width:497px;
+        padding-right:0 !important;
       }
       .ui.grid > .row > .column:nth-child(2){
         padding:0;
@@ -53,232 +80,890 @@
       }
    </style>
     <style>
-      .ui.segment{
-        margin:6px;
-      }
-   </style>
-    <style>
-      .pdf,
-      .pdf iframe{
-        height:100%;
-      }
-      .pdf iframe{
-        border:none;
-        height:100%;
-        display:block;
-        width:100%;
-      }
-   </style>
-    <style>
-     /*
-      * FontAwesome v6.0.0
-      */
-      i.icon.pen.marker:before {
-        content:"\f5a1";
-      }
-      i.icon.virus.covid:before {
-        content:"\e4a8";
-      }
-      i.icon.i:before {
-        content:"\49";
-      }
-      i.icon.t:before{
-        content:"\54";
-      }
-   </style>
-    <style>
-      i.icon{
-        pointer-events:none;
-      }
-   </style>
-    <style>
       .dg .cr.focus{
         background:beige;
       }
    </style>
     <style>
-     .ui.toast-container .toast-box.compact, 
-     .ui.toast-container .toast-box > .compact{
-       width:512px;
-     }
+      .viewer{
+        width:100%;
+        border:none;
+        outline:none;
+        height:100%;
+      }
    </style>
+    <style>
+      ul > li > ul > li > ul > li .ui.segment.block{
+        width:360px !important;
+      }
+   </style>
+    <style>
+      .ui.label.focus{
+        background-color: #F2711C !important;
+        border-color: #F2711C !important;
+        color: #FFFFFF !important;
+      }
+   </style>
+    <style>
+      .li-help textarea{
+        width:100%;
+        border:none;
+        outline:none;
+        display:block;
+      }
+   </style>
+    <style>
+      /*
+       * FontAwesome v6.0.0
+       */
+       i.icon.i:before {
+         content:"\49";
+       }
+       i.icon.t:before{
+         content:"\54";
+       }
+    </style>
+     <style>
+       i.icon{
+         pointer-events:none;
+       }
+    </style>
+     <style>
+       .ui.toast-container .toast-box.compact, 
+       .ui.toast-container .toast-box > .compact{
+         width:512px;
+       }
+    </style>
  </head>
   <body>
     <main>
       <div class='ui grid internally celled'>
         <div class='row'>
-          <div class='column' style='padding-left:5em;'>
-            <div class='ui segments' v-enter-to-next-input:common>
-              <div class='ui segment block'>
-                <div class='content fitted'>
-                  <div class='ui card fluid basic'>
-                    <div class='content'>
-                      <img class='ui image floated left mini' src='asset/me.jpg'>
-                      <div class='header'>
-                        COVID-19 Case Report Generator
+          <div class='column'>
+            <ul class='tree horizontal flip fork' v-enter-to-next-input>
+              <li class='node'>
+                <div>
+                  <span>
+                    <div class='ui label circular image'>
+                      <img src='https://healthicons.org/icons/svg/outline/symbols/clinical_f.svg'>
+                   </div>
+                 </span>
+               </div>
+                <ul>
+                  <li class='node'>
+                    <div>
+                      <span>
+                        <div class='ui label circular image'>
+                          <img src='https://healthicons.org/icons/svg/outline/symbols/simple_logo.svg'>
+                       </div>
+                     </span>
+                   </div>
+                    <ul>
+                      <li class='node'>
+                        <div>
+                          <div class='ui segments block'>
+                            <div class='ui segment fitted block'>
+                              <div class='content fitted'>
+                                <div class='ui card fluid basic'>
+                                  <div class='content'>
+                                    <img class='ui image floated left mini' src='asset/me.jpg'>
+                                    <div class='header'>
+                                      COVID-19 Case Report Generator
+                                   </div>
+                                    <div class='meta'>
+                                      <a href='https://www.mhlw.go.jp/bunya/kenkou/kekkaku-kansenshou11/01-shitei-01.html'>発生届</a>：2021/11/29 18:03:58（版）
+                                   </div>
+                                    <div class='description'>
+                                      <p>発生届をＰＣから入力可能にしました。問題があれば<a href='http://twitter.com/wafflook' target='_blank'>連絡</a>下さい</p>
+                                   </div>
+                                 </div>
+                               </div>
+                             </div>
+                           </div>
+                            <div class='ui segment block'>
+                              <div class='content fitted'>
+                                <div class='ui menu basic pointing icon'>
+                                  <a class='item' @click='view.dat.open = !view.dat.open' v-micron:m1="'pop'">
+                                    <i :class="['icon folder', view.dat.open ? 'open' : '']" id='m1'></i>
+                                 </a>
+                                  <a class='item' @click='view.dat.expand = !view.dat.expand' v-micron:m2="'pop'">
+                                    <i :class="['icon', view.dat.expand ? 'i' : 't']" id='m2'></i>
+                                 </a>
+                                  <a class='item' @click='view.help.open = !view.help.open' v-micron:m3="'pop'">
+                                    <i :class="['icon', view.help.open ? 'info' : 'question']" id='m3'></i>
+                                 </a>
+                                  <a class='item' @click='view.fullScreen = !view.fullScreen' v-micron:m4="'pop'">
+                                    <i class='icon expand' id='m4'></i>
+                                 </a>
+                                  <a class='item right' @click='clear' v-micron:m5="'pop'">
+                                    <div class='ui label floating top blue'>
+                                      消
+                                   </div>
+                                    <i class='icon eraser' id='m5'></i>
+                                 </a>
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                          <div class='ui divider horizontal fitted'>
+                            ＰＤＦの情報
+                         </div>
+                       </div>
+                     </li>
+                   </ul>
+                 </li>
+                  <li-help input='文書（情報）' icon='https://healthicons.org/icons/svg/outline/symbols/register_book.svg'>
+                    <div class='ui segments block'>
+                      <div class='ui segment fitted block'>
+                        <div class='content fitted'>
+                          <document-version>
+                         </document-version>
+                       </div>
                      </div>
-                      <div class='meta'>
-                        <a href='https://www.mhlw.go.jp/bunya/kenkou/kekkaku-kansenshou11/01-shitei-01.html'>発生届</a>：2021/11/29 18:03:58（版）
-                     </div>
-                      <div class='description'>
-                        <p>発生届をＰＣから入力可能にしました。問題があれば<a href='http://twitter.com/wafflook' target='_blank'>連絡</a>下さい</p>
+                      <div class='ui segment block fitted teal'>
+                        <div class="ui label floating point right pointing teal">
+                          文書
+                       </div>
+                        <div class='content fitted'>
+                          <dat-gui>
+                            <dat-value v-model='file.Language' label='言語' readonly></dat-value>
+                            <dat-value v-model='file.Title' label='タイトル' readonly></dat-value>
+                            <dat-value v-model='file.Author' label='作成者' readonly></dat-value>
+                            <dat-value v-model='file.Subject' label='サブタイトル' readonly></dat-value>
+                            <dat-value v-model="file.Keywords.join(',')" label='キーワード' readonly></dat-value>
+                            <dat-value :value="file.CreationDate | moment('YYYY/MM/DD HH:mm:ss')" label='作成日' readonly></dat-value>
+                            <dat-value :value="file.ModificationDate | moment('YYYY/MM/DD HH:mm:ss')" label='更新日' readonly></dat-value>
+                         </dat-gui>
+                       </div>
+                     </div>          
+                   </div>
+                 </li-help>
+                  <li-help input='設定（情報）' icon='https://healthicons.org/icons/svg/outline/symbols/ui_settings.svg'>
+                    <div class='ui segments block'>
+                      <div class='ui segment block black'>
+                        <div class='ui label floating point right pointing black'>
+                          設定
+                       </div>
+                        <div class='content fitted'>
+                          <dat-gui>
+                            <dat-folder name='カラー' open>
+                              <dat-color v-model='setting.listColor.text' label='文字色'></dat-color>
+                              <dat-color v-model='setting.listColor.mark' label='塗潰色'></dat-color>
+                           </dat-folder>
+                            <dat-folder name='フォント' open>
+                              <dat-value v-model='setting.fontname' label='ファミリ' :values='_.keys(setting.listFont)'></dat-value>   
+                           </dat-folder>
+                            <dat-folder name='ポップアップ' open>
+                              <dat-value v-model='view.waitToast' label='ポップアップの表示秒' :min='0' :max='60' :step='1'></dat-value>
+                           </dat-folder>
+                            <dat-folder name='レンダリング' open>
+                              <dat-value v-model='view.waitDraw' label='入力をＰＤＦに反映' :values="{'０.５秒間入力がなければ反映':500,'１.０秒間入力がなければ反映':1000,'１.５秒間入力がなければ反映':1500}"></dat-value>
+                           </dat-folder>
+                         </dat-gui>
+                       </div>
                      </div>
                    </div>
-                   <a class='ui label corner' @click='app.setting = !app.setting'>
-                    <i class='icon setting '></i>
-                 </a>
-                 </div>
+                 </li-help>
+               </ul>
+             </li>
+              <li class='node'>
+                <div>
+                  <span>
+                    <div class='ui label circular image'>
+                      <img src='https://healthicons.org/icons/svg/outline/symbols/clinical_f.svg'>
+                   </div>
+                 </span>
                </div>
-             </div>
-             <div class='ui segment block black' v-if='app.setting'>
-               <div class='ui label floating point right pointing black'>
-                 設定
-              </div>
-              <div class='content fitted'>
-                <dat-gui>
-                  <dat-value v-model='app.toast' label='ポップアップの表示秒' :min='0' :max='60' :step='1' title='0は無限'></dat-value>
-                  <dat-folder name='ＰＤＦをレンダリングを設定します' open>
-                    <dat-value v-model='pdf.wait' label='入力をＰＤＦに反映' :values="{'０.５秒間入力がなければ反映':500,'１.０秒間入力がなければ反映':1000,'１.５秒間入力がなければ反映':1500}"></dat-value>
-                 </dat-folder>
-                  <dat-folder name='ＰＤＦのフォントを設定します' open>
-                    <dat-value v-model='pdf.settings.fontname' label='ファミリ' :values='_.keys(font)'></dat-value>
-                    <dat-color v-model='pdf.settings.color.mark' label='塗潰色'></dat-color>
-                    <dat-color v-model='pdf.settings.color.text' label='文字色'></dat-color>
-                 </dat-folder>
-               </dat-gui>
-             </div>
-           </div>
-            <div class='ui segment block fitted teal'>
-              <div class="ui label floating point right pointing teal">
-                文書
-             </div>
-              <div class='content fitted'>
-                <dat-gui>
-                  <dat-value v-model='file.Language' label='言語' readonly></dat-value>
-                  <dat-value v-model='file.Title' label='タイトル' readonly></dat-value>
-                  <dat-value v-model='file.Author' label='作成者' readonly></dat-value>
-                  <dat-value v-model='file.Subject' label='サブタイトル' readonly></dat-value>
-                  <dat-value v-model="file.Keywords.join(',')" label='キーワード' readonly></dat-value>
-                  <dat-value :value="file.CreationDate | moment('YYYY/MM/DD HH:mm:ss')" label='作成日' readonly></dat-value>
-                  <dat-value :value="file.ModificationDate | moment('YYYY/MM/DD HH:mm:ss')" label='更新日' readonly></dat-value>
-               </dat-gui>
-             </div>
-           </div>
-           <div class='ui segment block fitted orange'>
-             <div class="ui label floating point right pointing orange">
-               報告
-            </div>
-             <div class='content fitted'>
-               <dat-gui>
-                 <dat-folder :name="'医師（' +param.hospital.医師の氏名+ '/' +param.hospital.医師の従事病院または診療所の名称+ '）'">
-                   <dat-value v-model='param.hospital.医師の氏名' label='氏名は？' ></dat-value>
-                   <dat-image v-model='param.hospital.医師の印鑑' label='印鑑は？' ></dat-image>
-                   <dat-value v-model='param.hospital.医師の従事病院または診療所の名称' label='病院は？' ></dat-value>
-                   <dat-value v-model='param.hospital.医師の従事病院または診療所の所在地' label='病院の住所は？' ></dat-value>
-                   <dat-value v-model='param.hospital.医師の従事病院または診療所の電話番号'label='病院の連絡先は？' ></dat-value>
-                   <dat-value v-model='param.hospital.医師の従事病院または診療所の時間外の電話番号' comment='診療時間外の連絡先' label='診療時間外の連絡先）は？' ></dat-value>
-                </dat-folder>
-              </dat-gui>
-            </div>
-          </div>
-           <div class='ui segment block fitted orange'>
-             <div class="ui label floating point right pointing orange">
-               報告
-            </div>
-             <div class='content fitted'>
-               <dat-gui>
-                 <dat-folder name='患者の個人情報'>
-                   <dat-value v-model='param.patient.当該者のＩＤ' comment='患者のＩＤ' label='患者ＩＤ' ></dat-value>
-                   <dat-value v-model='param.patient.当該者の氏名' label='氏名は？' ></dat-value>
-                   <dat-value v-model='param.patient.当該者の読み仮名' comment='患者の氏名' label='読み仮名は？' ></dat-value>
-                   <dat-value v-model='param.patient.当該者の性別' label='性別は？' :values="['男','女']"></dat-value>
-                   <dat-value v-model='param.patient.当該者の生年月日' comment='患者の年齢' label='誕生は？' type='yyyymmdd'></dat-value>
-                   <dat-value v-model='param.patient.当該者の職業' comment='患者の職業' label='職業は？' ></dat-value>
-                   <dat-value v-model='param.patient.当該者の住所の県市区町村' comment='患者の住所と所在地' label='住所（都道府県と市）は？' ></dat-value>
-                   <dat-value v-model='param.patient.当該者の住所' comment='患者の住所' label='住所は？' ></dat-value>
-                   <dat-value v-model='param.patient.当該者の住所の電話番号' label='住所の連絡先は？'type='phone'></dat-value>
-                   <dat-value v-model='param.patient.当該者の所在地' label='所在地は？' ></dat-value>
-                   <dat-value v-model='param.patient.当該者の所在地の電話番号' label='所在地の連絡先は？' type='phone'></dat-value> 
-                </dat-folder>
-              </dat-gui>
-            </div>
-          </div>
-           <div class='ui semgent fitted' v-show='param.patient.当該者の年齢 < 20'>
-             <dat-gui>
-               <dat-folder name='保護者'>
-                 <dat-value v-model='param.patient.当該者の保護者の氏名' label='氏名は？' ></dat-value>
-                 <dat-value v-model='param.patient.当該者の保護者の読み仮名' label='読み仮名は？' ></dat-value>
-                 <dat-value v-model='param.patient.当該者の保護者の住所' label='住所は？' ></dat-value>
-                 <dat-value v-model='param.patient.当該者の保護者の電話番号' label='連絡先は？' type='phone'></dat-value>
-              </dat-folder>
-            </dat-gui>
-          </div>
-
-              <div class='ui segment block blue'>
-                <div class="ui label floating point right pointing blue">
-                  選択
-               </div>
-                <div class='content fitted'>
-                  <div class='ui divided selection list'>
-                    <router-link class='item' :to="`/${encodeURIComponent('新型コロナウイルス感染症の発生届')}`">
-                      新型コロナウイルス感染症の発生届
-                   </router-link>
-                    <router-link class='item' :to="`/${encodeURIComponent('新型コロナウイルス感染症自宅療養者等の診察所見報告書')}`">
-                      新型コロナウイルス感染症の診療所見報告書
-                   </router-link>
-                 </div>
-               </div>
-             </div>
-              <div class='ui segment block'>
-                <div class='content fitted'>
-                  <div class='ui menu basic pointing icon' ref='menu'>
-                    <a class='item' data-tab='a' v-micron:m1="'jerk'">
-                      <i class='icon pen marker' id='m1'></i>
-                   </a>
-                    <a class='item' @click='dat.open = !dat.open'>
-                      <i :class="['icon folder', dat.open ? 'open' : '']"></i>
-                   </a>
-                    <a class='item' @click='dat.expand = !dat.expand'>
-                      <i :class="['icon', dat.expand ? 'i' : 't']"></i>
-                   </a>
-                    <a class='item' @click='clear'>
-                      <div class='ui label floating top blue'>
-                        消
+                <ul>
+                  <li-help input='病院（情報）' icon='https://healthicons.org/icons/svg/outline/places/hospital.svg'>
+                    <template>
+                      <div class='ui divider horizontal fitted'>
+                        共通の情報
                      </div>
-                      <i class='icon eraser'></i>
-                   </a>
-                    <a class='item right' @click='trash' v-micron:m2="'tada'">
-                      <i class='icon trash' id='m2'></i>
-                   </a>
-                    <a class='item' data-tab='z' v-micron:m3="'jerk'">
-                      <i class='icon terminal' id='m3'></i>
-                   </a>
-                  <a class='item' @click='app.fullscreen = !app.fullscreen' v-micron:m4="'pop'">
-                    <i class='icon expand' id='m4'></i>
-                  </a>
-                 </div>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.報告年月日' label='報告日は？' comment='新型コロナウイルス発生届の報告年月日' type='yyyymmdd' ref='first'></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                        <div class='ui segment block fitted orange'>
+                          <div class="ui label floating point right pointing orange">
+                            病院
+                         </div>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-folder name='病院'>
+                                <dat-value v-model='共通.医師の従事病院または診療所の名称' label='病院は？'></dat-value>
+                                <dat-value v-model='共通.医師の従事病院または診療所の所在地' label='病院の住所は？'></dat-value>
+                                <dat-value v-model='共通.医師の従事病院または診療所の電話番号'label='病院の連絡先は？' type='phone'></dat-value>
+                                <dat-value v-model='共通.医師の従事病院または診療所の時間外の電話番号' label='診療時間外の連絡先は？' comment='診療時間外の連絡先' type='phone'></dat-value>
+                             </dat-folder>
+                           </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+                  <li-help input='医者（情報）' icon='https://healthicons.org/icons/svg/outline/people/doctor.svg'>
+                    <template>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model="新型コロナウイルス感染症の発生届['診断（検案（※））年月日']" label='診断日は？' comment='新型コロナウイルス発生届の診断年月日' type='yyyymmdd'></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                        <div class='ui segment block fitted basic orange'>
+                          <div class="ui label floating point right pointing orange">
+                            医師
+                         </div>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-folder :name='`医師（${共通.医師の氏名}）` | toZen'>
+                                <dat-value v-model='共通.医師の氏名' label='氏名は？'></dat-value>
+                                <dat-value v-model='共通.医師の氏名の読み仮名' label='読み仮名は？'></dat-value>
+                             </dat-folder>
+                           </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+                  <li-help input='患者（情報）' icon='https://healthicons.org/icons/svg/outline/people/person.svg'>
+                    <template>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.初診年月日' label='初診日は？' comment='新型コロナウイルス発生届の初診年月日' type='yyyymmdd'></dat-value>
+                            </dat-gui>
+                          </div>
+                       </div>
+                        <div class='ui segment block fitted orange'>
+                          <div class="ui label floating point right pointing orange">
+                            患者
+                         </div>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-folder :name='`患者（${共通.患者のＩＤ}${共通.患者の氏名}）` | toZen'>
+                                <dat-value v-model='共通.患者のＩＤ' label='患者ＩＤ' comment='患者のＩＤ'></dat-value>
+                                <dat-value v-model='共通.患者の氏名' label='氏名は？' ></dat-value>
+                                <dat-value v-model='共通.患者の読み仮名' label='読み仮名は？' ></dat-value>
+                                <dat-value v-model='共通.患者の性別' label='性別は？' :values="['男','女']"></dat-value>
+                                <dat-value v-model='共通.患者の生年月日' label='誕生は？' type='yyyymmdd' comment='患者の年齢'></dat-value>
+                                <dat-value v-model='共通.患者の年齢' label='年齢は' readonly></dat-value>
+                                <dat-value v-model='共通.患者の年齢のヶ月目' label='年齢のヶ月は' readonly></dat-value>
+                                <dat-value v-model='共通.患者の職業' label='職業は？' comment='患者の職業'></dat-value>
+                                <dat-value v-model='共通.患者の住所の県市区町村' label='住所（都道府県と市）は？' ></dat-value>
+                                <dat-value v-model='共通.患者の住所' label='住所は？' comment='患者の住所'></dat-value>
+                                <dat-value v-model='共通.患者の住所の電話番号' label='住所の連絡先は？'type='phone'></dat-value>
+                                <dat-value v-model='共通.患者の所在地' label='所在地は？' comment='患者の住所と所在地'></dat-value>
+                                <dat-value v-model='共通.患者の所在地の電話番号' label='所在地の連絡先は？' type='phone'></dat-value>
+                             </dat-folder>
+                           </dat-gui>
+                         </div>
+                       </div>
+                        <div class='ui semgent fitted' v-show='共通.患者の年齢 < 20'>
+                          <dat-gui>
+                            <dat-folder :name='`保護（患者の${共通.患者の保護者の続柄}/${共通.患者の保護者の氏名}）` | toZen'>
+                              <dat-value v-model='共通.患者の保護者の続柄' label='続柄は？' ></dat-value>
+                              <dat-value v-model='共通.患者の保護者の氏名' label='氏名は？' ></dat-value>
+                              <dat-value v-model='共通.患者の保護者の読み仮名' label='読み仮名は？' ></dat-value>
+                              <dat-value v-model='共通.患者の保護者の住所' label='住所は？' ></dat-value>
+                              <dat-value v-model='共通.患者の保護者の電話番号' label='連絡先は？' type='phone'></dat-value>
+                           </dat-folder>
+                         </dat-gui>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+                  <li-help input='接種（Ｎ回）' icon='https://healthicons.org/icons/svg/outline/devices/syringe-vaccine.svg'>
+                    <div class='ui segments block'>
+                      <div class='ui segment block fitted'>
+                        <div class='content fitted'>
+                          <dat-gui>
+                            <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン１回目の接種' label='１回目の接種' :values="['有り','無し','不明']"></dat-value>
+                            <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン２回目の接種' label='２回目の接種' :values="['有り','無し','不明']"></dat-value>
+                            <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン３回目の接種' label='３回目の接種' :values="['有り','無し','不明']"></dat-value>  
+                         </dat-gui>
+                       </div>
+                     </div>
+                      <div class='ui segment block fitted orange'>
+                        <div class="ui label floating point right pointing orange">
+                          接種
+                       </div>
+                        <div class='content fitted'>
+                          <dat-gui>
+                            <dat-folder :name='`１回目は${新型コロナウイルス感染症の発生届.コロナのワクチン１回目の年齢}の時に${新型コロナウイルス感染症の発生届.コロナのワクチン１回目の製造会社}` | toZen'>
+                              <dat-value v-model="新型コロナウイルス感染症の発生届.コロナのワクチン１回目の年齢" label='１回目の年齢' :min='1' :max='125' :step='1' :empty='0'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン１回目の製造会社' label='１回目の製造社は？'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン１回目の種類' label='１回目の種類は？'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン１回目の接種年月日' label='１回目の接種日は？'  type='yyyymmdd'></dat-value>
+                           </dat-folder>
+                            <dat-folder :name='`２回目は${新型コロナウイルス感染症の発生届.コロナのワクチン２回目の年齢}の時に${新型コロナウイルス感染症の発生届.コロナのワクチン２回目の製造会社}` | toZen'>
+                              <dat-value v-model="新型コロナウイルス感染症の発生届.コロナのワクチン２回目の年齢" label='２回目の年齢' :min='1' :max='125' :step='1' :empty='0'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン２回目の製造会社' label='２回目の製造社は？'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン２回目の種類' label='２回目の種類は？'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン２回目の接種年月日' label='２回目の接種日は？'  type='yyyymmdd'></dat-value>
+                           </dat-folder>
+                            <dat-folder :name='`３回目は${新型コロナウイルス感染症の発生届.コロナのワクチン３回目の年齢}の時に${新型コロナウイルス感染症の発生届.コロナのワクチン３回目の製造会社}` | toZen'>
+                              <dat-value v-model="新型コロナウイルス感染症の発生届.コロナのワクチン３回目の年齢" label='３回目の年齢' :min='1' :max='125' :step='1' :empty='0'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン３回目の製造会社' label='３回目の製造社は？'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン３回目の種類' label='３回目の種類は？'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン３回目の接種年月日' label='３回目の接種日は？'  type='yyyymmdd'></dat-value>
+                           </dat-folder>
+                         </dat-gui>
+                       </div>
+                     </div>
+                   </div>
+                 </li-help>
+               </ul> 
+             </li>
+              <li class='node'>
+                <div>
+                  <span>
+                    <div class='ui label circular image'>
+                      <img src='https://healthicons.org/icons/svg/outline/symbols/clinical_f.svg'>
+                   </div>
+                 </span>
                </div>
-             </div>             
-           </div>
-            <div class='ui tab' data-tab='a'>
-              <div>
-                <router-view :patient='param.patient' :hospital='param.hospital' :common='pdf' ref='view' v-if='ready'>
-               </router-view>
-             </div>
-              <div>
-                <div class='ui buttons'>
-                  <button class='ui button' @click='save'>DOWNLOAD</button>
+                <ul>
+                  <li-help input='診療（特例）' icon='https://healthicons.org/icons/svg/outline/symbols/yes.svg'>
+                    <template>
+                      <div class='ui divider horizontal fitted'>
+                        新型コロナウイルス感染症　発生届
+                     </div>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.特例の診療の有無' label='電話/Web診療しましたか？' ref='特例の診療の有無'></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+                  <li-help input='入院（有無）' icon='https://healthicons.org/icons/svg/outline/devices/hospitalized.svg'>
+                    <template>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.入院年月日' label='入院年月日' ></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                        <div class='ui segment block fitted green'>
+                          <div class="ui label floating point right pointing green">
+                            入院
+                         </div>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.届出時点の入院有無' label='届出時点で入院中ですか？' ></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+                  <li-help input='検査（採取）' icon='https://healthicons.org/icons/svg/outline/diagnostics/rdt_result.svg'>
+                    <template>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.検出の検体の採取日' label='採取日は？' type='yyyymmdd'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.検出の種類' label='検出法は？' :values="['分離・同定による病原体の検出','検体から核酸増減法（ＰＣＲ法・ＬＡＭＰ法など）','抗原定性検査による病原体の抗原の検出','抗原定量検査による病原体の抗原の検出']"></dat-value>
+                           </dat-gui>
+                          </div>
+                       </div>
+                        <div class='ui segment block fitted green'>
+                          <div class="ui label floating point right pointing green">
+                            検査
+                         </div>
+                          <div class='content fitted'>
+                            <div v-switch='新型コロナウイルス感染症の発生届.検出の種類'>
+                              <div v-case="'分離・同定による病原体の検出'">
+                                <dat-gui>
+                                  <dat-value v-model='新型コロナウイルス感染症の発生届.検出の検体' label='検体種は？' :values="['喀痰','気管吸引液','肺胞洗浄液','咽頭拭い液','鼻腔吸引液','鼻腔拭い液','鼻咽頭拭い液','便','唾液','剖検材料','その他']"></dat-value>
+                               </dat-gui>
+                             </div>
+                              <div v-case="'検体から核酸増減法（ＰＣＲ法・ＬＡＭＰ法など）'">
+                                <dat-gui name='検体から核酸増減法（ＰＣＲ法・ＬＡＭＰ法など）'>
+                                  <dat-value v-model='新型コロナウイルス感染症の発生届.検出の検体' label='検出の検体' :values="['喀痰','気管吸引液','肺胞洗浄液','咽頭拭い液','鼻腔吸引液','鼻腔拭い液','鼻咽頭拭い液','便','唾液','剖検材料','その他']"></dat-value>
+                               </dat-gui>
+                             </div>
+                              <div v-case="'抗原定性検査による病原体の抗原の検出'">
+                                <dat-gui>
+                                  <dat-value v-model='新型コロナウイルス感染症の発生届.検出の検体' label='検出の検体' :values="['鼻腔拭い液','鼻咽頭拭い液']"></dat-value>
+                               </dat-gui>
+                             </div>
+                              <div v-case="'抗原定量検査による病原体の抗原の検出'">
+                                <dat-gui>
+                                  <dat-value v-model='新型コロナウイルス感染症の発生届.検出の検体' label='検出の検体' :values="['鼻腔拭い液','鼻咽頭拭い液','唾液']"></dat-value>
+                               </dat-gui>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.検出の検体のその他' label='検体種は？（その他）'></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+                  <li-help input='発病（症状）' icon='https://healthicons.org/icons/svg/outline/people/symptom.svg'>
+                    <template>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.発病年月日' label='発病日は？' comment='新型コロナウイルス発生届の発病年月日' type='yyyymmdd'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状のその他' label='その他の症状'></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                        <div class='ui segment block fitted green'>
+                          <div class="ui label floating point right pointing green">
+                            症状
+                         </div>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-folder :name='`患者の症状（${_.filter(新型コロナウイルス感染症の発生届.患者の症状,Boolean).length}個にチェック）` | toZen'>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.発熱' label='発熱' comment='新型コロナウイルスの症状'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.咳' label='咳'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.咳以外の急性呼吸器の症状' label='咳以外の急性呼吸器の症状'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.肺炎像' label='肺炎像'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.重篤な肺炎' label='重篤な肺炎'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.急性呼吸窮迫症候群' label='急性呼吸窮迫症候群'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.多臓器不全' label='多臓器不全'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.全身倦怠感' label='全身倦怠感'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.頭痛' label='頭痛'></dat-value>
+                                <dat-value v-model="新型コロナウイルス感染症の発生届.患者の症状['嘔気/嘔吐']" label='嘔気/嘔吐'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.下痢' label='下痢'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.結膜炎' label='結膜炎'></dat-value>
+                                <dat-value v-model="新型コロナウイルス感染症の発生届.患者の症状['嗅覚・味覚障害']" label='嗅覚・味覚障害'></dat-value>
+                             </dat-folder>
+                           </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+                  <li-help input='重症（因子）' icon='https://healthicons.org/icons/svg/outline/conditions/viral_lung_infection.svg'>
+                    <template>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.重症度' label='重症度は？' comment='新型コロナウイルスの重症度' :values="['軽症','中等症Ⅰ','中等症Ⅱ','重症']"></dat-value>
+                              <dat-value v-model="新型コロナウイルス感染症の発生届['患者の酸素飽和度（室内気）']" label='酸素飽和度は？' :min='0' :max='100' :step='1' :empty='0'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.重症化のリスク因子のその他' label='その他の疾患は？'></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                        <div class='ui segment block fitted green'>
+                          <div class="ui label floating point right pointing green">
+                            因子
+                         </div>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-folder :name='`重症化のリスク因子（${_.filter(新型コロナウイルス感染症の発生届.重症化のリスク因子,Boolean).length}個のチェック）` | toZen'>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.重症化のリスク因子.悪性腫瘍' label='悪性腫瘍' comment='新型コロナウイルスの重症化の因子となる疾患' ></dat-value>
+                                <dat-value v-model="新型コロナウイルス感染症の発生届.重症化のリスク因子['慢性閉塞性肺疾患（COPD）']" label='慢性閉塞性肺疾患'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.重症化のリスク因子.慢性腎臓病' label='慢性腎臓病'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.重症化のリスク因子.高血圧' label='高血圧'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.重症化のリスク因子.糖尿病' label='糖尿病'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.重症化のリスク因子.脂質異常症' label='脂質異常症'></dat-value>
+                                <dat-value v-model="新型コロナウイルス感染症の発生届.重症化のリスク因子['肥満（BMI30 以上）']"  label='肥満（BMI30 以上）'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.重症化のリスク因子.喫煙歴' label='喫煙歴'></dat-value>
+                              </dat-folder>
+                           </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+                  <li-help input='診断（状態）' icon='https://healthicons.org/icons/svg/outline/symbols/virus.svg'>
+                    <template>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.感染したと推定される年月日' label='感染日は？' comment='新型コロナウイルス発生届の感染年月日' type='yyyymmdd'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.患者の類型' label='類型は？' comment='新型コロナウイルスの類型' :values="['患者（確定例）','無患者の症状病原体保有者','疑似症患者（*）','感染症死亡者の死体','感染症死亡疑い者の死体']"></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                        <div class='ui segment block fitted' v-if="新型コロナウイルス感染症の発生届.患者の類型 == '感染症死亡者の死体' || 新型コロナウイルス感染症の発生届.患者の類型 == '感染症死亡疑い者の死体'">
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.死亡年月日' label='死亡日は？' comment='新型コロナウイルス発生届の死亡年月日' type='yyyymmdd'></dat-value>
+                            </dat-gui>
+                         </div>
+                       </div>
+                        <div class='ui segment block fitted green'>
+                          <div class="ui label floating point right pointing green">
+                            病院
+                         </div>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.免疫の機能の低下有無' label='免疫は低下してますか？'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.妊娠の有無' label='妊娠はしてますか？'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.入院の必要性の有無' label='入院が必要ですか？'></dat-value>
+                              <dat-text  v-model='新型コロナウイルス感染症の発生届.メモ' label='メモ' placeholder='症状経過&#10;検査結果&#10;治療経過&#10;現在処方&#10;備考など' ref='multiline1'></dat-text>
+                          </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+                  <li-help input='感染（経路）' icon='https://healthicons.org/icons/svg/outline/emotions/coughing.svg'>
+                    <template>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.感染の経路と原因' label='感染源は？' comment='感染原因・感染経路・感染地域' :values="['不明','確定','推定']"></dat-value>
+                            </dat-gui>
+                         </div>
+                       </div>
+                        <div class='ui segment block fitted green' v-if="新型コロナウイルス感染症の発生届.感染の経路と原因 != '不明'">
+                          <div class="ui label floating point right pointing green">
+                            経路
+                         </div>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-folder name='感染経路'>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染の経路は飛沫か飛沫核' label='飛沫か？'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染の経路は接触' label='接触か？'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染の経路はその他' label='その他？'></dat-value>
+                            </dat-folder>
+                           </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+                  <li-help input='感染（地域）' icon='https://healthicons.org/icons/svg/outline/symbols/global-pandemic.svg'>
+                    <template>
+                      <div class='ui segments'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症の発生届.感染の地域' label='感染域は？' :values="['不明','確定','推定']"></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                        <div class='ui segment block fitted green' v-if="新型コロナウイルス感染症の発生届.感染の地域 != '不明'">
+                          <div class="ui label floating point right pointing green">
+                            地域
+                         </div>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-folder name='感染地域'>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染が国内の都道府県名' label='都道府県名'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染が国内の都道府県' label='都道府県' :values="['都','道','府','県']"></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染が国内の市区町村名' label='市区町村名'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染が国内の市区町村' label='市区町村' :values="['市','区','町','村']"></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染が国外' label='感染した国' :values="['','アイスランド','アイルランド','アゼルバイジャン','アフガニスタン','アブハジア','アメリカ','アラブ首長国連邦','アルジェリア','アルゼンチン','アルバニア','アルメニア','アンゴラ','アンティグア・バーブーダ','アンドラ','イエメン','イギリス','イスラエル','イタリア','イラク','イラン','インド','インドネシア','ウガンダ','ウクライナ','ウズベキスタン','ウルグアイ','エクアドル','エジプト','エストニア','エスワティニ（スワジランド）','エチオピア','エリトリア','エルサルバドル','沿ドニエストル','オーストラリア','オーストリア','オマーン','オランダ','ガーナ','カーボベルデ','ガイアナ','カザフスタン','カタール','カナダ','ガボン','カメルーン','韓国','ガンビア','カンボジア','北キプロス','北朝鮮','ギニア','ギニアビサウ','キプロス','キューバ','ギリシャ','キリバス','キルギス','グアテマラ','クウェート','クック諸島','グレナダ','クロアチア','ケニア','コートジボワール','コスタリカ','コソボ','コモロ','コロンビア','コンゴ共和国','コンゴ民主共和国','サウジアラビア','サモア','サントメ・プリンシペ','ザンビア','サンマリノ','シエラレオネ','ジブチ','ジャマイカ','ジョージア','シリア','シンガポール','ジンバブエ','スイス','スウェーデン','スーダン','スペイン','スリナム','スリランカ','スロバキア','スロベニア','セーシェル','赤道ギニア','セネガル','セルビア','セントクリストファー・ネイビス','セントビンセントおよびグレナディーン諸島','セントルシア','ソマリア','ソマリランド','ソロモン諸島','タイ','台湾','タジキスタン','タンザニア','チェコ','チャド','中央アフリカ共和国','中国','チュニジア','チリ','ツバル','デンマーク','ドイツ','トーゴ','ドミニカ共和国','ドミニカ国','トリニダード・トバゴ','トルクメニスタン','トルコ','トンガ','ナイジェリア','ナウル','ナゴルノ・カラバフ','ナミビア','ニウエ','ニカラグア','ニジェール','西サハラ','日本','ニュージーランド','ネパール','ノルウェー','バーレーン','ハイチ','パキスタン','バチカン','パナマ','バヌアツ','バハマ','パプアニューギニア','パラオ','パラグアイ','バルバドス','パレスチナ','ハンガリー','バングラデシュ','東ティモール','フィジー','フィリピン','フィンランド','ブータン','ブラジル','フランス','ブルガリア','ブルキナファソ','ブルネイ','ブルンジ','ベトナム','ベナン','ベネズエラ','ベラルーシ','ベリーズ','ペルー','ベルギー','ポーランド','ボスニア・ヘルツェゴビナ','ボツワナ','ボリビア','ポルトガル','ホンジュラス','マケドニア旧ユーゴスラビア共和国','マーシャル諸島','マダガスカル','マラウイ','マリ','マルタ','マレーシア','ミクロネシア連邦','南アフリカ','南オセチア','南スーダン','ミャンマー','メキシコ','モーリシャス','モーリタニア','モザンビーク','モナコ','モルディブ','モルドバ','モロッコ','モンゴル','モンテネグロ','ヨルダン','ラオス','ラトビア','リトアニア','リビア','リヒテンシュタイン','リベリア','ルーマニア','ルクセンブルク','ルワンダ','レソト','レバノン','ロシア']"></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染が国外の詳細地域' label='詳細な地域'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染が国外への出国日' label='入国日' type='yyyymmdd'></dat-value>
+                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染が国外での帰国日' label='出国日' type='yyyymmdd'></dat-value>
+                             </dat-folder>
+                           </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+               </ul>
+             </li>
+              <li class='node'>
+                <div>
+                  <span>
+                    <div class='ui label circular image'>
+                      <img src='https://healthicons.org/icons/svg/outline/symbols/health_worker_form.svg'>
+                   </div>
+                 </span>
                </div>
-             </div>
-           </div>
-            <div class='ui tab' data-tab='z'>
-              <portal-target class='debug' name='debug'>
-             </portal-target>
-           </div>
+                <ul>
+                  <li-help input='診察（宛先）' icon='https://healthicons.org/icons/svg/outline/places/ministry_of_health.svg'>
+                    <template>
+                      <div class='ui divider horizontal fitted'>
+                        自宅療養者等の診察所見報告書
+                     </div>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.診察日' label='診察日は？' type='yyyymmdd'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.宛先' label='宛先は？'></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                        <div class='ui segment block fitted teal'>
+                          <div class="ui label floating point right pointing teal">
+                            連絡
+                         </div>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.紹介目的' label='紹介目的'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.高次医療機関での診察_入院調整を依頼します' label='診察・入院調整の依頼'></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+                  <li-help input='経過（所見）' icon='https://healthicons.org/icons/svg/outline/body/ear.svg'>
+                    <template>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.傷病名' label='傷病名'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.受診種別' label='受診種別は？' :values="['電話WEB診療','外来受診','往診']"></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.陽性確定後の診察Ｎ回目' label='陽性確定後の診察Ｎ回目' :min='0' :max='100' :step='1' :empty='0'></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                        <div class='ui segment block fitted teal'>
+                          <div class="ui label floating point right pointing teal">
+                            患者
+                         </div>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.同日同一建物内の別患者の診療の有無' label='別患者の往診の有無'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.既往歴及び家族歴' label='既往歴及び家族歴'></dat-value>
+                              <dat-text  v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.症状経過及び検査結果_治療経過_現在の処方_備考' label='経過詳細' placeholder='症状経過&#10;検査結果&#10;治療経過&#10;現在処方&#10;備考など' ref='multiline2'></dat-text>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.解熱剤の使用８時間以内' label='８時間以内の解熱剤使用'></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+                  <li-help input='患者（ＢＴ）' icon='https://healthicons.org/icons/svg/outline/devices/oxygen_tank.svg'>
+                    <template>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.体温' label='体温' :min='0' :max='50' :step='.1' :empty='0'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.呼吸数' label='呼吸数' :min='0' :max='60' :step='1' :empty='0'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.酸素飽和度' label='酸素飽和度' :min='0' :max='100' :step='1' :empty='0'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.酸素投与量' label='酸素投与量' :min='0' :max='100' :step='1' :empty='0'></dat-value>
+                          </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+                  <li-help input='聴診（所見）' icon='https://healthicons.org/icons/svg/outline/devices/stethoscope.svg'>
+                    <template>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.聴診所見異常あり' label='聴診所見異常あり'></dat-value>
+                          </dat-gui>
+                         </div>
+                       </div>
+                        <div class='ui segment block fitted teal' v-if="新型コロナウイルス感染症自宅療養者等の診察所見報告書.聴診所見異常あり">
+                          <div class="ui label floating point right pointing teal">
+                            胸部
+                         </div>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.聴診所見' label='聴診所見'></dat-value>
+                          </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+                  <li-help input='撮影（所見）' icon='https://healthicons.org/icons/svg/outline/devices/xray.svg'>
+                    <template>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.胸部レントゲン撮影年月日' label='胸部レントゲン撮影年月日' type='yyyymmdd'></dat-value>
+                          </dat-gui>
+                         </div>
+                       </div>
+                        <div class='ui segment block fitted teal'>
+                          <div class="ui label floating point right pointing teal">
+                            胸部
+                         </div>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.胸部レントゲン撮影所見' label='レントゲン撮影の所見'></dat-value>
+                          </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+                  <li-help input='採血（所見）' icon='https://healthicons.org/icons/svg/outline/devices/syringe.svg'>
+                    <template>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血検査年月日' label='採血検査年月日' type='yyyymmdd'></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                        <div class='ui segment block fitted teal'>
+                          <div class="ui label floating point right pointing teal">
+                            血液
+                         </div>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血ＷＢＣ' label='ＷＢＣ' :min='0' :max='99.9' :step='.1' :empty='0'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血リンパ球数' label='ＬＹＭ' :min='0' :max='999.9' :step='.1' :empty='0'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血ＬＤＨ' label='ＬＤＨ' :min='0' :max='9999' :step='1' :empty='0'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血ＣＲＰ' label='ＣＲＰ' :min='0' :max='99.9' :step='.1' :empty='0'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血Ｄダイマ' label='Ｄダイマ' :min='0' :max='99.9' :step='.1' :empty='0'></dat-value>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血検査所見' label='その他'></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+                  <li-help input='ほか（所見）' icon='https://healthicons.org/icons/svg/outline/symbols/i_note_action.svg'>
+                    <template>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.その他所見' label='その他所見'></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+               </ul>
+             </li>
+              <li class='node'>
+                <div>
+                  <span>
+                    <div class='ui label circular image'>
+                      <img src='https://healthicons.org/icons/svg/outline/symbols/prescription_document.svg'>
+                   </div>
+                 </span>
+               </div>
+                <ul>
+                  <li-help input='処方（説明）' icon='https://healthicons.org/icons/svg/outline/medications/medicines.svg'>
+                    <template>
+                      <div class='ui divider horizontal fitted'>
+                        ラゲブリオカプセル200mgによる治療　同意説明文書
+                     </div>
+                      <div class='ui segments block'>
+                        <div class='ui segment block fitted'>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model='ラゲブリオカプセル200mgによる治療に係る同意説明文書.処方箋交付年月日' label='処方箋交付年月日' type='yyyymmdd'></dat-value>
+                           </dat-gui>
+                         </div>
+                       </div>
+                        <div class='ui segment block fitted blue'>
+                          <div class="ui label floating point right pointing blue">
+                            血液
+                         </div>
+                          <div class='content fitted'>
+                            <dat-gui>
+                              <dat-value v-model="ラゲブリオカプセル200mgによる治療に係る同意説明文書['SARS-CoV-2による感染症']" label='SARS-CoV-2感染症ですか'></dat-value>
+                              <dat-value v-model="ラゲブリオカプセル200mgによる治療に係る同意説明文書['禁忌事項_本剤の成分に対し過敏症の既往歴のある患者ではない']" label='成分に過敏症有無'></dat-value>
+                              <dat-value v-model="ラゲブリオカプセル200mgによる治療に係る同意説明文書['禁忌事項_妊婦又は妊娠している可能性のある女性ではない']" label='妊娠してますか'></dat-value>
+                              <dat-value v-model="ラゲブリオカプセル200mgによる治療に係る同意説明文書['SARS-CoV-2による感染症']" label='SARS-CoV-2による感染症'></dat-value>
+                              <dat-value v-model="ラゲブリオカプセル200mgによる治療に係る同意説明文書['SARS-CoV-2による感染症の重症化リスク因子_１つ以上を有する']" label='重症化リスク因子有無'></dat-value>
+                              <dat-value v-model="ラゲブリオカプセル200mgによる治療に係る同意説明文書['患者又は代諾者からの同意取得']" label='同意されていますか'></dat-value>   
+                           </dat-gui>
+                         </div>
+                       </div>
+                     </div>
+                   </template>
+                 </li-help>
+               </ul>
+             </li>
+              <li class='node' v-if='debug'>
+                <div>
+                  <span>
+                    <div class='ui label circular image'>
+                      <img src='https://healthicons.org/icons/svg/outline/body/eye.svg'>
+                   </div>
+                 </span>
+               </div>
+                <ul>
+                  <li-help input='デバッグ（Ａ）' icon='https://healthicons.org/icons/svg/outline/typography/A.svg'>
+                    <div class='ui segments block'>
+                      <div class='ui segment block'>
+                        <div class='content fitted'>
+                          <vue-json-pretty
+                            :data='data'
+                            :deep='1'
+                            :show-line='true'
+                            :show-length='true'
+                            :show-double-quotes='true'
+                            :highlight-selected-node='true'
+                            :highlight-mouseover-node='true'>
+                         </vue-json-pretty>
+                       </div>
+                     </div>
+                   </div>
+                 </li-help>
+                  <li-help input='デバッグ（Ｂ）' icon='https://healthicons.org/icons/svg/outline/typography/B.svg'>
+                    <div class='ui segments block'>
+                      <div class='ui segment block'>
+                        <div class='content fitted'>
+                          <vue-obj-table v-model='data'>
+                         </vue-obj-table>
+                       </div>
+                     </div>
+                   </div>
+                 </li-help>
+               </ul>
+             </li>
+              <li class='node'>
+                <div>
+                  <span>
+                    <div class='ui label circular image'>
+                      <img src='https://healthicons.org/icons/svg/outline/symbols/yes.svg'>
+                   </div>
+                 </span>
+               </div>
+                <ul>
+                  <li-help input='内容（操作）' icon='https://healthicons.org/icons/svg/outline/symbols/i_documents_accepted.svg'>
+                    <div class='ui segments block'>
+                      <div class='ui segment block'>
+                        <div class='content fitted'>
+                          <dat-gui>
+                            <dat-value @click='downloadDocument' label='ダウンロード'></dat-value>
+                         </dat-gui>
+                       </div>
+                     </div>
+                   </div>
+                 </li-help>
+               </ul>
+             </li>
+           </ul>
          </div>
           <div class='column'>
-            <portal-target class='pdf' name='pdf'>
-           </portal-target>
+            <iframe class='viewer' ref='viewer' v-if='ready'>
+           </iframe>
          </div>
        </div>
      </div>
@@ -303,7 +988,6 @@
  <script src='js/dat.gui/0.7.7-custom.js'></script>
  <script src='js/flattie/1.1.0-custom.js'></script>
  <script src='js/TinyColor/1.4.2-custom.js'></script>
- <script src='js/moment-duration-format/2.3.2.js'></script>
  <!-- JQUERY -->
  <script src='js/jquery/4.0.0.js'></script>
  <script src='js/jquery/Fomantic-UI/2.8.8-custom.js'></script>
@@ -311,7 +995,6 @@
  <script src='js/vue/2.6.14-custom.js'></script>
  <script src='js/vue/vue-router/2.8.1.js'></script>
  <script src='js/vue/vue-jaconv/0.0.1.js'></script>
- <script src='js/vue/portal-vue/2.1.7-custom.js'></script>
  <script src='js/vue/vue-moment/4.1.0-custom.js'></script>
  <script src='js/vue/vue-reactive-refs/0.0.2.js'></script>
  <script src='js/vue/vue-dat-gui/0.0.1-custom.js'></script>
@@ -319,8 +1002,13 @@
  <script src='js/vue/vue-json-pretty/1.8.0-custom.js'></script>
  <script src='js/vue/http-vue-loader/1.4.2-custom.js'></script>
  <script src='js/vue/vue-watch-all-plugin/1.0.7-custom.js'></script>
+ <script src='js/vue/vue-directive-auto-resize/1.0.0-custom.js'></script>
  <script>
-  deepdash(_)
+   Vue.config.silint         = true
+   Vue.config.devtools       = true
+   Vue.config.performance    = true
+   Vue.config.forbiddenTag   = false
+   Vue.config.productionTip  = false
 </script>
  <script>
    var VueToast = {
@@ -332,7 +1020,7 @@
              box          : 'toast-box floating',
            },
            newestOnTop:true,
-           displayTime:this.$root.app.toast * 1000,
+           displayTime:this.$root.view.waitToast * 1000,
            message:message,
            class:type
          })
@@ -346,7 +1034,7 @@
             newestOnTop:true,
             classActions:'attached top',
             message:message,
-            displayTime:this.$root.app.toast * 1000,
+            displayTime:this.$root.view.waitToast * 1000,
             class:type,
             actions:[{
               text:'はい',
@@ -367,35 +1055,34 @@
    Vue.use(VueDatGui)
    Vue.use(VueSwitch)
    Vue.use(VueMoment)
-   Vue.use(VueLoader)
-   Vue.use(VuePortal)
    Vue.use(VueJaconv)
+   Vue.use(VueLoader)
    Vue.use(VueWatchAll)
+   Vue.use(VueAutoResize)
    Vue.use(FocusTrapVue.DynamicReactiveRefs)
 </script>
  <script>
    Vue.component('vue-json-pretty', VueJsonPretty.default)
 </script>
  <script>
-   Vue.mixin({
-     computed:{
-       key:function(){
-         return this.$options.name || this.$options._componentTag
+   Vue.directive('style',function(el,binding,vnode){
+     vnode.context.$nextTick(function(){
+       var arr = binding.value.split(',') 
+       switch(binding.arg){
+         case 'align':
+           _.each(el.children,function(el,i){
+             var direction = arr[i] == 'l' ? 'left' : arr[i] == 'r' ? 'right' : 'center'
+             $(el).addClass([direction,'aligned'])
+           })
+           break
+         case 'width':
+           _.each(el.children,function(el,i){
+             $(el).css('width',(arr[i] == 'a') ? 'auto' : arr[i] + 'em')
+           })
+           break
        }
-     },
-     mounted:function(){
-       if(this.key){
-         this.$el.classList.add(this.key)
-       }
-     },
-     methods:{
-       年週日前:function(s){
-         return s ? moment.duration(moment().diff(moment(s,'yyyy/mm/dd'))).format('Y年Mヶ月W週D日前') : ''
-       }
-     }
+     })
    })
-</script>
- <script>
    Vue.directive('micron',{
      inserted:function(el,binding,vnode){
        vnode.context.$nextTick(function(){
@@ -427,6 +1114,9 @@
        callback = {
          focus:async function(event){
            $(event.target).closest('.cr').addClass('focus')
+           $('li.node > div > span > .ui.label').removeClass('focus')
+           $(event.target).parents('li.node').find('> div > span > .ui.label').addClass('focus')
+
            var has_comment = $(event.target).closest('li').attr('comment')
            if (has_comment.length > 0) {
              $.get(`help/${has_comment}.html`, function(data){
@@ -463,113 +1153,149 @@
    })
 </script>
  <script>
-   new Vue({
-     el:'main',
-     data:{
-       timestamp:0,
-       app:{
-         toast:10,
-         setting:false,
-         fullscreen:false
+   Vue.mixin({
+     computed:{
+       key:function(){
+         return this.$options.name || this.$options._componentTag
+       }
+     },
+     mounted:function(){
+       if(this.key){
+         this.$el.classList.add(this.key)
+       }
+     }
+   })
+</script>
+ <script>
+   PDFLib.PDFPage.prototype.drawTextBox = function(text,options,fontSize){
+     var form = this.doc.getForm()
+     var textField = form.createTextField(`some.text.${(Math.random()*1e32).toString(36)}`)
+         textField.setText(text)
+         textField.setAlignment(PDFLib.TextAlignment.Left)
+         textField.addToPage(this,_.merge(options,{
+           borderColor:PDFLib.rgb(1,1,1),
+           backgroundColor:PDFLib.rgb(1,1,1)
+         }))
+         textField.setFontSize(fontSize || 12)
+         textField.enableReadOnly()
+         textField.enableMultiline()
+   }
+   PDFLib.PDFPage.prototype.drawCheckBox = function(check,options){
+     var form = this.doc.getForm()
+     var checkBox = form.createCheckBox(`some.checkbox.${(Math.random()*1e32).toString(36)}`)
+     checkBox.addToPage(this,_.merge(options,{
+       width:7,
+       height:7,
+       borderColor:PDFLib.rgb(1,1,1),
+       backgroundColor:PDFLib.rgb(1,1,1)
+     }))
+     checkBox.enableReadOnly()
+     if(check){
+       checkBox.check()
+     }
+   }  
+   PDFLib.PDFPage.prototype.drawTextZen = function(text,options){
+     this.drawText(jaconv.toZen(text),options)
+   }
+</script>
+ <script>
+   Vue.component('li-help',{
+     props:{
+       input:{
+         type:String,
+         default:''
        },
-       dat:{
-         open:false,
-         expand:false
-       },
-       pdf:{
-         font:null,
-         wait:1000,
-         settings:{
-           fontname:'うずらフォント',
-           color:{
-             mark:'#ffff00',
-             text:'#600dff'
-           }
-         }
-       },
-       font:{
-         '851手書き雑フォント':'0.883.ttf',
-         'M+2VM+IPAG circle Regular':'1.011.ttf',
-         'あずきフォント':'1.21.ttf',
-         'うずらフォント':'1.00.ttf',
-         'Ｎちはやフォント+':'1.2.1.ttf'
-       },
-       param:{
-         hospital:{
-           医師の氏名:'山田 茉',
-           医師の印鑑:'data:image/jpeg;base64,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',
-           医師の従事病院または診療所の名称 :'山田医療東部センター',
-           医師の従事病院または診療所の所在地:'秋田県北秋田郡上小阿仁村大字沖田面字小蒲野',
-           医師の従事病院または診療所の電話番号:'827-128-9800',
-           医師の従事病院または診療所の時間外の電話番号:'827-128-9800'
-         },
-         patient:{
-           当該者のＩＤ:'3030896',
-           当該者の氏名:'山田 塩',
-           当該者の読み仮名:'ヤマダ シオ',
-           当該者の性別:'男',
-           当該者の生年月日:'1991/11/07',
-           当該者の年齢:'',
-           当該者の年齢のヶ月目:'',
-           当該者の職業:'医療関係者',
-           当該者の住所の県市区町村:'愛知県名古屋市海部郡',
-           当該者の住所:'飛島村大字飛島新田字竹之郷ヨタレ南ノ割（社宅）',
-           当該者の住所の電話番号:'050-5555-9800',
-           当該者の所在地:'東京都千代田区千代田１-１（現在・実家に帰省中）',
-           当該者の所在地の電話番号:'827-128-9800',
-           当該者の保護者の氏名:'霞が関',
-           当該者の保護者の読み仮名:'かすみがせき',
-           当該者の保護者の住所:'東京都千代田区霞が関三丁目２番５号',
-           当該者の保護者の電話番号:'827-128-9800',
-         }
+       icon:{
+         type:String,
+         default:''
+       }
+     },
+     data:function(){
+       return{
+         text:'',
+         toggle:true,
        }
      },
      watch:{
-       'dat.open':function(b){
-         for(folder of this.controllers.filter(o=>o.key=='DatFolder').map(o=>o.$_gui)){
-           folder[b ? 'open' : 'close']()
+       toggle:{
+         handler:function(b){
+           if(!b){
+             this.$nextTick(()=>{
+               tabIndent.render(this.$refs.help)
+             })
+           }
          }
        },
-       'dat.expand':function(b){
-         for(folder of this.controllers.filter(o=>o.key=='DatGui').map(o=>o.$_gui)){
-           folder.expand(b)
-         }
-       },
-       'app.fullscreen':function(){
-         screenfull.toggle()
-       },
-       'ready':function(to,from){
-         this.$nextTick(()=>{
-           $('input.birthday').each(function(i,input){
-             new Cleave(input,{delimiter:'-',blocks:[4,2,2]})
-           })
-           $('input.phone').each(function(i,input){
-             new Cleave(input,{delimiter:'-',blocks:[3,4,4]})
-           })
-           $('input.mmdd').each(function(i,input){
-             new Cleave(input,{date:true,datePattern:['m','d']})
-           })
-           $('input.yymmdd').each(function(i,input){
-             new Cleave(input,{date:true,datePattern:['y','m','d']})
-           })
-           $('input.yyyymmdd').each(function(i,input){
-             new Cleave(input,{date:true,datePattern:['Y','m','d']})
-           })
-         })
+       text:{
+         handler:_.debounce(function(s){
+           localforage.setItem(this.input,s)
+         },500)
        }
      },
+     created:async function(){
+       this.text = await localforage.getItem(this.input) || ''
+     },
+     template:`
+       <li class='node'>
+         <div>
+           <span>
+             <div class='ui label circular image' @click='toggle = !toggle'>
+               <img :src='icon'>
+            </div>
+          </span>
+        </div>
+         <ul>
+           <li :class="['node',{'help':toggle == false}]">
+             <div v-show='toggle'>
+               <slot>
+              </slot>
+            </div>
+             <div v-if='toggle == false'>
+               <div class='ui segment block'>
+                 <div class='content fitted'>
+                   <textarea v-model='text' placeholder='HELP:' ref='help' v-auto-resize>
+                  </textarea>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </li>
+     `
+   })
+</script>
+ <script>
+   new Vue({
+     el:'main',
+     components:{
+       'vue-obj-table':'url:vue/vue-obj-table.vue',
+       'document-version':'url:vue/document-version.vue'
+     },
      computed:{
-       controllers:function(){
-         return _.mapDeep(this.$refs.view.$children,_.identity,{childrenPath:'$children'})
+       data:function(){
+         return _.pick(this.$data,[
+           '共通',
+           '新型コロナウイルス感染症の発生届',
+           '新型コロナウイルス感染症自宅療養者等の診察所見報告書',
+           'ラゲブリオカプセル200mgによる治療に係る同意説明文書'])
+       },
+       debug:function(){
+         return window.location.search == '?debug'
+       },
+       ready:function(){
+         return this.font != null
+       },
+       components:function(){
+         return _.mapDeep(this.$children,_.identity,{childrenPath:'$children'})
        },
        file:function(){
          return {
            Language:'ja',
-           Title:`${this.$route.name}`,
-           Author:`Dr.${this.param.hospital.医師の氏名}/${this.param.hospital.医師の従事病院または診療所の名称}`,
-           Subject:`Pt.${this.param.patient.当該者の氏名}/${this.param.patient.当該者の住所の電話番号}`,
-           Keywords:['新型コロナウイルス','厚生労働省','報告書'],
-           CreationDate:moment('2021/11/29 18:03:58').toDate(),
+           Title:`新型コロナウイルス感染症の文書`,
+           Author:`Dr.${this.共通.医師の氏名}/${this.共通.医師の従事病院または診療所の名称}`,
+           Subject:`Pt.${this.共通.患者の氏名}/${this.共通.患者の住所の電話番号}`,
+           Keywords:['新型コロナウイルス感染症の発生届','新型コロナウイルス感染症自宅療養者等の診察所見報告書','ラゲブリオ®カプセル200mgによる治療に係る同意説明文書','ラゲブリオ®カプセル200mg処方にあたっての適格性情報チェックリスト'],
+           CreationDate:moment('2022/02/26 04:00:00').toDate(),
            ModificationDate:moment(this.timestamp).toDate(),
           /*
            * 厚生労働省からダウンロードしたPDFはPDF-LIBで読み込めず
@@ -582,147 +1308,980 @@
            */
            Producer:'COVID-19 Report Generator'
          }
+       }
+     },
+     beforeCreate:function(){
+       deepdash(_)
+       moment.locale('ja')
+     },
+     created:async function(){
+       this.init()
+       setInterval(() => {
+         this.timestamp = moment().valueOf()
+       }, 1000)
+
+       await this.loadFont()
+       await this.loadPdf().then(async()=>{
+
+         this.compute()
+         this.drawDocument()
+
+         this.$watchAll([
+           {name:'setting',options:{deep:true}}
+         ],_.debounce(async()=>{
+           await this.loadFont()
+           await this.drawDocument()
+         },this.view.waitDraw))
+
+         this.$watchAll([
+           {name:'共通',options:{deep:true}},
+           {name:'新型コロナウイルス感染症の発生届',options:{deep:true}},
+           {name:'新型コロナウイルス感染症自宅療養者等の診察所見報告書',options:{deep:true}},
+           {name:'ラゲブリオカプセル200mgによる治療に係る同意説明文書',options:{deep:true}}
+         ],_.debounce(async(k,o)=>{
+           this.compute()
+           this.drawDocument()
+         },this.view.waitDraw))
+
+       })
+     },
+     mounted:async function(){
+       this.$nextTick(()=>{
+         $(this.$refs.first.$_controller.__input).focus()
+         tabIndent.render(this.$refs.multiline1.$_controller.__input)
+         tabIndent.render(this.$refs.multiline2.$_controller.__input)
+         $('input.birthday').each(function(i,input){
+           new Cleave(input,{delimiter:'-',blocks:[4,2,2]})
+         })
+         $('input.phone').each(function(i,input){
+           new Cleave(input,{delimiter:'-',blocks:[3,4,4]})
+         })
+         $('input.mmdd').each(function(i,input){
+           new Cleave(input,{date:true,datePattern:['m','d']})
+         })
+         $('input.yymmdd').each(function(i,input){
+           new Cleave(input,{date:true,datePattern:['y','m','d']})
+         })
+         $('input.yyyymmdd').each(function(i,input){
+           new Cleave(input,{date:true,datePattern:['Y','m','d']})
+         })
+       })
+     },
+     watch:{
+       'view.dat.open':function(b){
+         for(folder of this.components.filter(o=>o.key=='DatFolder').map(o=>o.$_gui)){
+           folder[b ? 'open' : 'close']()
+         }
        },
-       ready:function(){
-         return this.pdf.font != null
+       'view.dat.expand':function(b){
+         for(folder of this.components.filter(o=>o.key=='DatGui'||o.key=='DatFolder').map(o=>o.$_gui)){
+           folder.expand(b)
+         }
+       },
+       'view.help.open':function(b){
+         for(help of this.components.filter(o=>o.key=='li-help')){
+           help.toggle = !help.toggle
+         }
+       },
+       'view.fullScreen':function(){
+         screenfull.toggle()
+       }
+     },
+     data:{
+       pdf:null,
+       doc:null,
+       font:null,
+       viewer:null,
+       timestamp:0,
+       view:{
+         dat:{
+           open:false,
+           expand:false,
+         },
+         help:{
+           open:false
+         },
+         waitDraw:1500,
+         waitToast:15,
+         fullScreen:false
+       },
+       setting:{
+         fontname:'うずらフォント',
+         listFont:{
+           '851手書き雑フォント':'0.883.ttf',
+           'M+2VM+IPAG circle Regular':'1.011.ttf',
+           'あずきフォント':'1.21.ttf',
+           'うずらフォント':'1.00.ttf',
+           'Ｎちはやフォント+':'1.2.1.ttf'
+         },
+         listColor:{
+           text:'#600dff',
+           mark:'#ffff00'
+         }
+       },
+       共通:{
+         医師の氏名:'山田 茉',
+         医師の氏名の読み仮名:'ヤマダ シオ',
+         医師の印鑑:'',
+         医師の従事病院または診療所の名称 :'山田医療東部センター',
+         医師の従事病院または診療所の所在地:'秋田県北秋田郡上小阿仁村大字沖田面字小蒲野',
+         医師の従事病院または診療所の電話番号:'827-128-9800',
+         医師の従事病院または診療所の時間外の電話番号:'827-128-9800',
+         患者のＩＤ:'3030896',
+         患者の氏名:'山田 塩',
+         患者の読み仮名:'ヤマダ シオ',
+         患者の性別:'男',
+         患者の生年月日:'1991/11/07',
+         患者の年齢:'',
+         患者の年齢のヶ月目:'',
+         患者の職業:'医療関係者',
+         患者の住所の県市区町村:'愛知県名古屋市海部郡',
+         患者の住所:'飛島村大字飛島新田字竹之郷ヨタレ南ノ割（社宅）',
+         患者の住所の電話番号:'050-5555-9800',
+         患者の所在地:'東京都千代田区千代田１-１（現在・実家に帰省中）',
+         患者の所在地の電話番号:'827-128-9800',
+         患者の保護者の氏名:'霞が関',
+         患者の保護者の読み仮名:'かすみがせき',
+         患者の保護者の住所:'東京都千代田区霞が関三丁目２番５号',
+         患者の保護者の電話番号:'827-128-9800',
+         患者の保護者の続柄:'兄'
+       },
+       新型コロナウイルス感染症の発生届:{
+         報告年月日 :'',
+         患者の類型:'患者（確定例）',
+         // 11.症状
+         患者の症状:{
+           発熱:true,
+           咳:true,
+           咳以外の急性呼吸器の症状:true,
+           肺炎像:true,
+           重篤な肺炎:true,
+           急性呼吸窮迫症候群:true,
+           多臓器不全:true,
+           全身倦怠感:true,
+           頭痛:true,
+           '嘔気/嘔吐':true,
+           下痢:true,
+           結膜炎:true,
+           '嗅覚・味覚障害':true,
+         },
+         患者の症状なし:false,
+         '患者の酸素飽和度（室内気）':0,
+         患者の症状のその他:'胸部Ｘ線両肺野スリガラス影',
+         // 12.診断方法
+         検出の種類:'抗原定性検査による病原体の抗原の検出',
+         検出の検体:'鼻咽頭拭い液',
+         検出の検体のその他:'',
+         検出の検体の採取日:'2021/08/27',
+         // 13.年月日
+         初診年月日:'2021/08/27',
+         '診断（検案（※））年月日':'2021/08/27',
+         感染したと推定される年月日:'2021/08/27',
+         発病年月日:'2021/08/27',
+         死亡年月日:'2021/08/27',
+         // 18.感染原因・感染経路・感染地域
+         感染の経路と原因:'推定',
+         感染の経路は飛沫か飛沫核:'同室者からの咳・くしゃみ',
+         感染の経路は接触:'濃厚接触者（父）',
+          感染の経路はその他:'',
+         感染の地域:'推定',
+         感染が国内の都道府県名:'東京',
+         感染が国内の都道府県:'都',
+         感染が国内の市区町村名:'千代田',
+         感染が国内の市区町村:'区',
+         感染が国外:'アメリカ',
+         感染が国外の詳細地域:'コロラド洲',
+         感染が国外への出国日:'2021/08/27',
+         感染が国外での帰国日:'2021/08/29',
+         コロナのワクチン１回目の接種:'有り',
+         コロナのワクチン２回目の接種:'有り',
+         コロナのワクチン３回目の接種:'有り',
+         コロナのワクチン１回目の年齢:30,
+         コロナのワクチン１回目の接種年月日:'2021/04/19',
+         コロナのワクチン１回目の種類:'mRNA',
+         コロナのワクチン１回目の製造会社:'ファイザ',
+         コロナのワクチン２回目の年齢:30,
+         コロナのワクチン２回目の接種年月日:'2021/05/10',
+         コロナのワクチン２回目の種類:'mRNA',
+         コロナのワクチン２回目の製造会社:'ファイザ',
+         コロナのワクチン３回目の年齢:30,
+         コロナのワクチン３回目の接種年月日:'2022/01/07',
+         コロナのワクチン３回目の種類:'mRNA',
+         コロナのワクチン３回目の製造会社:'ファイザ',
+          // 19.患者の症状のその他感染症のまん延の防止及び患者の医療のために医師が必要と認める事項
+         届出時点の入院有無:true,
+         入院年月日:'2021/08/27',
+         重症化のリスク因子:{
+           悪性腫瘍:true,
+           '慢性閉塞性肺疾患（COPD）':true,
+           慢性腎臓病:true,
+           高血圧:true,
+           糖尿病:true,
+           脂質異常症:true,
+           '肥満（BMI30 以上）':true,
+           喫煙歴:true
+           },
+         重症化のリスク因子のその他:'季節性インフルエンザ',
+         免疫の機能の低下有無:true,
+         妊娠の有無:true,
+         重症度:'軽症',
+         入院の必要性の有無:true,
+         特例の診療の有無:true,
+         メモ:'MEMO:'
+       },
+       新型コロナウイルス感染症自宅療養者等の診察所見報告書:{
+         宛先:'名古屋市保健所 保健センター所長',
+         診察日:'2021/08/27',
+         受診種別:'電話WEB診療',
+         同日同一建物内の別患者の診療の有無:true,
+         陽性確定後の診察Ｎ回目:99,
+         傷病名:'COVID-19 感染症',
+         紹介目的:'精査・加療・入院',
+         高次医療機関での診察_入院調整を依頼します:false,
+         既往歴及び家族歴:'高血圧、高尿酸血症、脂質異常症、前立腺肥大症、叔父が心臓病',
+         症状経過及び検査結果_治療経過_現在の処方_備考:`　　　発端：入居施設に陽性複数
+　陽性確認：２月６日の抗原検査
+　　無症状：ＢＴ安定食事も可能
+　　　処方：発熱時 x10回分
+　　　　　　ムコスタ錠 100mg1錠般
+　　　　　　ロキソニン錠 60mg1錠般
+　　　解除：何もなければ２月１５日予定
+重症化因子：潰瘍性大腸炎
+　　行動歴：陽性者の介護
+　　接触歴：陽性者（母）の介護
+　　移動歴：なし`,
+         体温:36.9,
+         解熱剤の使用８時間以内:false,
+         聴診所見異常あり:true,
+         聴診所見:'',
+         酸素飽和度:100,
+         酸素投与量:0,
+         呼吸数:30,
+         胸部レントゲン撮影年月日:'2022/01/01',
+         胸部レントゲン撮影所見:`両側肺の胸膜下、気管支周囲優位に斑状から結節状の浸潤影`,
+         採血検査年月日:'2022/01/01',
+         採血ＷＢＣ:4.5,
+         採血リンパ球数:30.5,
+         採血ＬＤＨ:230,
+         採血ＣＲＰ:5.0,
+         採血Ｄダイマ:1.3,
+         採血検査所見:``,
+         その他所見:``
+       },
+       'ラゲブリオカプセル200mgによる治療に係る同意説明文書':{
+         記入日:'1991/11/07',
+         処方箋交付年月日:'1991/11/07',
+         'SARS-CoV-2による感染症':true,
+         禁忌事項_本剤の成分に対し過敏症の既往歴のある患者ではない:true,
+         禁忌事項_妊婦又は妊娠している可能性のある女性ではない:true,
+         'SARS-CoV-2による感染症の重症化リスク因子_１つ以上を有する':false,
+         '患者又は代諾者からの同意取得':true
        }
      },
      methods:{
+       init:function(){
+         this.新型コロナウイルス感染症の発生届.報告年月日 = moment().format('YYYY/MM/DD')
+         this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.診察日 = moment().format('YYYY/MM/DD')
+       },
        clear:function(){
-         this.$toast_confirm('warning','入力をクリアしますか？',()=>{
-           _.merge(this.param,{
-            hospital:{
-              医師の氏名:'',
-              医師の印鑑:'data:image/png;base64,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',
-              医師の従事病院または診療所の名称 :'',
-              医師の従事病院または診療所の所在地:'',
-              医師の従事病院または診療所の電話番号:'',
-              医師の従事病院または診療所の時間外の電話番号:''
-            },
-            patient:{
-              当該者のＩＤ:'',
-              当該者の氏名:'',
-              当該者の読み仮名:' ',
-              当該者の性別:'男',
-              当該者の生年月日:'',
-              当該者の年齢:'',
-              当該者の年齢のヶ月目:'',
-              当該者の職業:'',
-              当該者の住所の県市区町村:'',
-              当該者の住所:'',
-              当該者の住所の電話番号:'',
-              当該者の所在地:'',
-              当該者の所在地の電話番号:'',
-              当該者の保護者の氏名:'',
-              当該者の保護者の読み仮名:'',
-              当該者の保護者の住所:'',
-              当該者の保護者の電話番号:''
-            }
+         this.$toast_confirm('warning','全ての入力をクリアしますか？',()=>{
+           _.merge(this.共通,{
+             医師の氏名:'',
+             医師の氏名の読み仮名:'',
+             医師の印鑑:'',
+             医師の従事病院または診療所の名称 :'',
+             医師の従事病院または診療所の所在地:'',
+             医師の従事病院または診療所の電話番号:'',
+             医師の従事病院または診療所の時間外の電話番号:'',
+             患者のＩＤ:'',
+             患者の氏名:'',
+             患者の読み仮名:'',
+             患者の性別:'',
+             患者の生年月日:'',
+             患者の年齢:'',
+             患者の年齢のヶ月目:'',
+             患者の職業:'',
+             患者の住所の県市区町村:'',
+             患者の住所:'',
+             患者の住所の電話番号:'',
+             患者の所在地:'',
+             患者の所在地の電話番号:'',
+             患者の保護者の氏名:'',
+             患者の保護者の読み仮名:'',
+             患者の保護者の住所:'',
+             患者の保護者の電話番号:'',
+             患者の保護者の続柄:''
            })
-           this.$refs.view.clear()
+           _.merge(this.新型コロナウイルス感染症の発生届,{
+             報告年月日 :'',
+             患者の類型:'',
+             // 11.症状
+             患者の症状:{
+               発熱:false,
+               咳:false,
+               咳以外の急性呼吸器の症状:false,
+               肺炎像:false,
+               重篤な肺炎:false,
+               急性呼吸窮迫症候群:false,
+               多臓器不全:false,
+               全身倦怠感:false,
+               頭痛:false,
+               '嘔気/嘔吐':false,
+               下痢:false,
+               結膜炎:false,
+               '嗅覚・味覚障害':false,
+             },
+             患者の症状なし:false,
+             '患者の酸素飽和度（室内気）':0,
+             患者の症状のその他:'',
+             // 12.診断方法
+             検出の種類:'',
+             検出の検体:'',
+               検出の検体のその他:'',
+             検出の検体の採取日:'',
+             // 13.年月日
+             初診年月日:'',
+             '診断（検案（※））年月日':'',
+             感染したと推定される年月日:'',
+             発病年月日:'',
+             死亡年月日:'',
+             // 18.感染原因・感染経路・感染地域
+             感染の経路と原因:'',
+             感染の経路は飛沫か飛沫核:'',
+             感染の経路は接触:'',
+             感染の経路はその他:'',
+             感染の地域:'',
+             感染が国内の都道府県名:'',
+             感染が国内の都道府県:'',
+             感染が国内の市区町村名:'',
+             感染が国内の市区町村:'',
+             感染が国外:'',
+             感染が国外の詳細地域:'',
+             感染が国外への出国日:'',
+             感染が国外での帰国日:'',
+             コロナのワクチン１回目の接種:'',
+             コロナのワクチン２回目の接種:'',
+             コロナのワクチン３回目の接種:'',
+             コロナのワクチン１回目の年齢:0,
+             コロナのワクチン１回目の接種年月日:'',
+             コロナのワクチン１回目の種類:'',
+             コロナのワクチン１回目の製造会社:'',
+             コロナのワクチン２回目の年齢:0,
+             コロナのワクチン２回目の接種年月日:'',
+             コロナのワクチン２回目の種類:'',
+             コロナのワクチン２回目の製造会社:'',
+             コロナのワクチン３回目の年齢:0,
+             コロナのワクチン３回目の接種年月日:'',
+             コロナのワクチン３回目の種類:'',
+             コロナのワクチン３回目の製造会社:'',
+             // 19.患者の症状のその他感染症のまん延の防止及び患者の医療のために医師が必要と認める事項
+             届出時点の入院有無:false,
+             入院年月日:'',
+             重症化のリスク因子:{
+               悪性腫瘍:false,
+              '慢性閉塞性肺疾患（COPD）':false,
+               慢性腎臓病:false,
+               高血圧:false,
+               糖尿病:false,
+               脂質異常症:false,
+               '肥満（BMI30 以上）':false,
+               喫煙歴:false
+             },
+             重症化のリスク因子のその他:'',
+             免疫の機能の低下有無:false,
+             妊娠の有無:false,
+             重症度:'',
+             入院の必要性の有無:false,
+             特例の診療の有無:false,
+             メモ:''
+           })
+           _.merge(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書,{
+             宛先:'',
+             診察日:'',
+             受診種別:'',
+             同日同一建物内の別患者の診療の有無:false,
+             陽性確定後の診察Ｎ回目:0,
+             傷病名:'',
+             紹介目的:'',
+             高次医療機関での診察_入院調整を依頼します:false,
+             既往歴及び家族歴:'',
+             症状経過及び検査結果_治療経過_現在の処方_備考:``,
+             体温:0,
+             解熱剤の使用８時間以内:false,
+             聴診所見異常あり:false,
+             聴診所見:'',
+             酸素飽和度:0,
+             酸素投与量:0,
+             呼吸数:0,
+             胸部レントゲン撮影年月日:'',
+             胸部レントゲン撮影所見:``,
+             採血検査年月日:'',
+             採血ＷＢＣ:0,
+             採血リンパ球数:0,
+             採血ＬＤＨ:0,
+             採血ＣＲＰ:0,
+             採血Ｄダイマ:0,
+             採血検査所見:``,
+             その他所見:``
+           })
+           _.merge(this.ラゲブリオカプセル200mgによる治療に係る同意説明文書,{
+             記入日:'',
+             処方箋交付年月日:'',
+             'SARS-CoV-2による感染症':false,
+             禁忌事項_本剤の成分に対し過敏症の既往歴のある患者ではない:false,
+             禁忌事項_妊婦又は妊娠している可能性のある女性ではない:false,
+             'SARS-CoV-2による感染症の重症化リスク因子_１つ以上を有する':false,
+             '患者又は代諾者からの同意取得':false
+           })
          })
        },
-       save:async function(){
-         var document = this.$refs.view.getDocument()
-         _.each(this.file,(value,name)=>document[`set${name}`](value))
-        /*
-         * 保存
-         * 医事課:ＩＤと氏名と生年月日を付与「患者を特定するため」
-         * 発熱外来：非接触対応の為に電話番号を付与「診察終了後の医師や看護師」
-         */
-         var 今日 = moment().format(`NNNNyy年MM月DD日HH時mm分`)
-         var 誕生日 = moment(this.param.patient.当該者の生年月日,'YYYY/MM/DD').format('NNNyy-MM-DD')
-         var ファイル名 = [this.file.Title,今日,this.param.patient.当該者の氏名,` (${this.param.patient.当該者の読み仮名}・${誕生日}・${this.param.patient.当該者の住所の電話番号})`,`ＩＤ (${this.param.patient.当該者のＩＤ})`].filter(Boolean).join('_')
-         var file = new File([await document.save()],`${ファイル名}.pdf`,{type:'application/pdf'})
-         saveAs(file)
-       },
-       trash:function(){
-         this.$toast_confirm('warning','前回の入力をクリアしますか？',()=>{
-           localforage.clear()
-           location.reload()
-         })
-       }
-     },
-     router:new VueRouter({
-       linkActiveClass:'active',
-       linkExactActiveClass:'',
-       routes:[
-          /*
-           * 改訂:2021/11/29 18:03:58
-           * 題名:新型コロナウイルス感染症 発生届
-           * 作者:福島 銀史郎(fukushima-ginjirou)
-           * 入手:https://www.mhlw.go.jp/bunya/kenkou/kekkaku-kansenshou11/01-shitei-01.html
-           */
-         {
-           meta:{
-             path:'docs/新型コロナウイルス感染症の発生届/2021-11-29.pdf'
-           },
-           name:'新型コロナウイルス感染症の発生届',
-           path:`/${encodeURIComponent('新型コロナウイルス感染症の発生届')}`,
-           component:VueLoader('vue/新型コロナウイルス感染症の発生届.vue')
-         },
-         {
-           meta:{
-             path:'docs/新型コロナウイルス感染症自宅療養者等の診察所見報告書/2022-02-18.pdf'
-           },
-           name:'新型コロナウイルス感染症自宅療養者等の診察所見報告書',
-           path:`/${encodeURIComponent('新型コロナウイルス感染症自宅療養者等の診察所見報告書')}`,
-           component:VueLoader('vue/新型コロナウイルス感染症自宅療養者等の診察所見報告書.vue')
-         }
-       ]
-     }),
-     created:async function(){
-
-       setInterval(() => {
-         this.timestamp = moment().valueOf()
-       },1000)
-
-       localforage.getItem('COVID-19 Report Generator').then((o)=>{
-         if(o){
-           _.merge(this.param,o)
-         }
-       }).catch(()=>{
-         this.$toast.info('error','前回入力された情報の復元に失敗しました')
-       })
-      
-       moment.locale('ja')
-       PDFLib.PDFPage.prototype.drawTextZen = function(text,options){
-         this.drawText(jaconv.toZen(text),options)
-       }
-     },
-     mounted:function(){
-
-        this.$watchAll([
-          {name:'pdf.settings',options:{deep:true,immediate:true}}
-        ],_.debounce(async (k,settings)=>{
-          var name = settings.fontname
-          var path = this.font[settings.fontname]
-          this.pdf.font = await fetch(`ttf/${name}/${path}`).then((responce)=>{
-            return responce.arrayBuffer()
-          })
-        },this.pdf.wait))
-
-        this.$watchAll([
-          {name:'param',options:{deep:true,immediate:true}}
-        ],_.debounce(async (k,param)=>{
-          var date = moment(this.param.patient.当該者の生年月日)
+       compute:function(){
+         var date = moment(this.共通.患者の生年月日)
          if(date.isValid()){
-           var age = moment().age(new Date(this.param.patient.当該者の生年月日))
-           this.param.patient.当該者の年齢 = _.toString(age.years)
-           this.param.patient.当該者の年齢のヶ月目 = _.toString(age.months)
+           var age = moment().age(new Date(this.共通.患者の生年月日))
+           this.共通.患者の年齢 = _.toString(age.years)
+           this.共通.患者の年齢のヶ月目 = _.toString(age.months)
+         }
+       },
+       loadPdf:async function(){
+         this.pdf = await fetch('index.pdf').then(r=>r.arrayBuffer())
+       },
+       loadFont:async function(){
+         var name = this.setting.fontname
+         var path = this.setting.listFont[name]
+         this.font = await fetch(`ttf/${name}/${path}`).then((responce)=>{
+           return responce.arrayBuffer()
+         })
+       },
+       drawDocument:async function(){
+
+         this.doc = await PDFLib.PDFDocument.load(this.pdf)
+         this.doc.registerFontkit(fontkit)
+
+         var form = this.doc.getForm()
+         var embedfont = await this.doc.embedFont(this.font)
+         /*
+          * https://github.com/Hopding/pdf-lib/issues/1152
+          */
+         var rawUpdateFieldAppearances = form.updateFieldAppearances.bind(form)
+         form.updateFieldAppearances = function () {
+           return rawUpdateFieldAppearances(embedfont)
          }
 
-          localforage.setItem('COVID-19 Report Generator',param)
-        },this.pdf.wait))
-        
-       $('.item',this.$refs.menu).tab({
-         autoTabActivation:'a'
-       })
+         var style = {
+           ellipse:{
+             borderColor:PDFLib.rgb(0,0,0),
+             backgroundColor:PDFLib.rgb(1,1,1)
+           },
+           circle:{
+             size:5,
+             opacity:0.5,
+             thickness:9,
+             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.mark).toFloatRgb()))
+           },
+           line:{
+             opacity:0.5,
+             thickness:9,
+             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.mark).toFloatRgb()))
+           }
+         }
+
+         var page = this.doc.getPages()[0]
+             page.setFontSize(9)
+             page.setFont(embedfont)
+             page.drawText('病院の患者の管理ＩＤ',{x:60,y:704})
+             page.drawText('診療時間外の電話番号',{x:60,y:684})
+             page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.text).toFloatRgb())))
+         var date = moment(this.新型コロナウイルス感染症の発生届.報告年月日)
+          if(date.isValid()){
+             page.drawTextZen(date.format('yy'),{x:457,y:734})
+             page.drawTextZen(date.format('MM'),{x:484,y:734})
+             page.drawTextZen(date.format('DD'),{x:511,y:734})
+          }
+             page.drawText(`${this.共通.医師の氏名} ${this.共通.医師の氏名の読み仮名}`,{x:290,y:721})
+             page.drawText(this.共通.医師の従事病院または診療所の名称,{x:290,y:709})
+             page.drawText(this.共通.医師の従事病院または診療所の所在地,{x:290,y:697})
+         var phne = this.共通.医師の従事病院または診療所の電話番号.split('-')
+             page.drawTextZen(phne[0] || '',{x:280,y:685})
+             page.drawTextZen(phne[1] || '',{x:338,y:685})
+             page.drawTextZen(phne[2] || '',{x:405,y:685})
+             page.drawTextZen(this.共通.患者のＩＤ,{x:60,y:694})
+             page.drawTextZen(this.共通.医師の従事病院または診療所の時間外の電話番号.split('-').join('-') || '',{x:60,y:672})
+             page.drawLine(_.merge({
+              '':{start:{x:0,y:0},end:{x:0,y:0}},
+              '患者（確定例）':{start:{x:70,y:650},end:{x:130,y:650}},
+              '無患者の症状病原体保有者':{start:{x:145,y:650},end:{x:230,y:650}},
+              '疑似症患者（*）':{start:{x:245,y:650},end:{x:315,y:650}},
+              '感染症死亡者の死体':{start:{x:325,y:650},end:{x:415,y:650}},
+              '感染症死亡疑い者の死体':{start:{x:430,y:650},end:{x:530,y:650}}
+             }[this.新型コロナウイルス感染症の発生届.患者の類型],
+               style.line
+             ))
+             page.drawText(jaconv.toHan(this.共通.患者の読み仮名),{x:61,y:608})
+             page.drawCircle(_.merge({
+               '':{x:0,y:0},
+              '男':{x:201,y:612},
+              '女':{x:219,y:612}
+             }[this.共通.患者の性別],
+               style.circle
+             ))
+         var date = moment(this.共通.患者の生年月日)
+          if(date.isValid()){
+             page.drawTextZen(date.format('NNNN'),{x:235,y:622})
+             page.drawTextZen(date.format('yy'),{x:237,y:609})
+             page.drawTextZen(date.format('MM'),{x:268,y:609})
+             page.drawTextZen(date.format('DD'),{x:294,y:609})
+             page.drawTextZen(this.共通.患者の年齢,{x:340,y:609})
+             page.drawTextZen(this.共通.患者の年齢のヶ月目,{x:397,y:609})}
+             page.drawText(this.共通.患者の職業,{x:448,y:609})
+             page.drawText([this.共通.患者の住所の県市区町村,this.共通.患者の住所].join(''),{x:128,y:594})
+         var phne = this.共通.医師の従事病院または診療所の電話番号.split('-')
+             page.drawText(phne[0] || '',{x:457,y:595})
+             page.drawText(phne[1] || '',{x:485,y:595})
+             page.drawText(phne[2] || '',{x:517,y:595})
+             page.drawText(this.共通.患者の所在地,{x:140,y:581})
+         var phne = this.共通.患者の所在地の電話番号.split('-')
+             page.drawText(phne[0] || '',{x:457,y:581})
+             page.drawText(phne[1] || '',{x:485,y:581})
+             page.drawText(phne[2] || '',{x:517,y:581})
+          if(_.toNumber(this.共通.患者の年齢) < 20){
+             page.drawText(this.共通.患者の保護者の読み仮名,{x:61,y:556})
+             page.drawText(this.共通.患者の保護者の住所,{x:198,y:556})
+         var phne = this.共通.患者の保護者の電話番号.split('-')
+             page.drawText(phne[0] || '',{x:457,y:556})
+             page.drawText(phne[1] || '',{x:485,y:556})
+             page.drawText(phne[2] || '',{x:517,y:556})}
+         var 患者の症状 = {
+              '':{start:{x:0,y:0},end:{x:0,y:0}},
+              '発熱':{start:{x:91,y:533},end:{x:112,y:533}},
+              '咳':{start:{x:137,y:533},end:{x:147,y:533}},
+              '咳以外の急性呼吸器の症状':{start:{x:173,y:533},end:{x:273,y:533}},
+              '肺炎像':{start:{x:91,y:521},end:{x:121,y:521}},
+              '重篤な肺炎':{start:{x:137,y:521},end:{x:184,y:521}},
+              '急性呼吸窮迫症候群':{start:{x:200,y:521},end:{x:279,y:521}},
+              '多臓器不全':{start:{x:91,y:509},end:{x:138,y:509}},
+              '全身倦怠感':{start:{x:155,y:509},end:{x:202,y:509}},
+              '頭痛':{start:{x:218,y:509},end:{x:237,y:509}},
+              '嘔気/嘔吐':{start:{x:253,y:509},end:{x:297,y:509}},
+              '下痢':{start:{x:91,y:497},end:{x:111,y:497}},
+              '結膜炎':{start:{x:137,y:497},end:{x:166,y:497}},
+              '嗅覚・味覚障害':{start:{x:181,y:497},end:{x:247,y:497}}}
+          if(this.新型コロナウイルス感染症の発生届.患者の症状なし){
+             page.drawLine(_.merge({start:{x:258,y:472},end:{x:296,y:472}},style.line))}
+           _(this.新型コロナウイルス感染症の発生届.患者の症状).pickBy(_.identity).each((check,name)=>{
+             page.drawLine(_.merge(患者の症状[name],style.line))
+           })
+             page.drawText(_.toString(this.新型コロナウイルス感染症の発生届['患者の酸素飽和度（室内気）']),{x:198,y:481})
+             page.drawText(this.新型コロナウイルス感染症の発生届.患者の症状のその他,{x:129,y:469})
+         var date = moment(this.新型コロナウイルス感染症の発生届.検出の検体の採取日)
+      switch(this.新型コロナウイルス感染症の発生届.検出の種類){
+       case '分離・同定による病原体の検出':
+             page.drawLine(_.merge({
+              '':{start:{x:0,y:0},end:{x:0,y:0}},
+              '喀痰':{start:{x:116,y:445},end:{x:137,y:445}},
+              '気管吸引液':{start:{x:143,y:445},end:{x:187,y:445}},
+              '肺胞洗浄液':{start:{x:195,y:445},end:{x:242,y:445}},
+              '咽頭拭い液':{start:{x:248,y:445},end:{x:294,y:445}},
+              '鼻腔吸引液':{start:{x:92,y:432},end:{x:137,y:432}},
+              '鼻腔拭い液':{start:{x:144,y:432},end:{x:189,y:432}},
+              '鼻咽頭拭い液':{start:{x:196,y:432},end:{x:252,y:432}},
+              '便':{start:{x:257,y:432},end:{x:266,y:432}},
+              '唾液':{start:{x:273,y:432},end:{x:293,y:432}},
+              '剖検材料':{start:{x:92,y:419},end:{x:128,y:419}}
+             }[this.新型コロナウイルス感染症の発生届.検出の検体],
+               highligh.line
+             ))
+             page.drawText(this.新型コロナウイルス感染症の発生届.検出の検体のその他,{x:176,y:416})
+          if(date.isValid()){
+             page.drawTextZen(date.format('MM'),{x:158,y:403})
+             page.drawTextZen(date.format('DD'),{x:190,y:403})}
+             page.drawLine(_.merge({start:{x:131,y:394},end:{x:150,y:394}},style.line))
+             break
+       case '検体から核酸増減法（ＰＣＲ法・ＬＡＭＰ法など）':
+             page.drawLine(_.merge({
+               '':{start:{x:0,y:0},end:{x:0,y:0}},
+               '喀痰':{start:{x:116,y:348},end:{x:137,y:348}},
+               '気管吸引液':{start:{x:143,y:348},end:{x:187,y:348}},
+               '肺胞洗浄液':{start:{x:195,y:348},end:{x:242,y:348}},
+               '咽頭拭い液':{start:{x:248,y:348},end:{x:294,y:348}},
+               '鼻腔吸引液':{start:{x:92,y:335},end:{x:137,y:335}},
+               '鼻腔拭い液':{start:{x:144,y:335},end:{x:189,y:335}},
+               '鼻咽頭拭い液':{start:{x:196,y:335},end:{x:252,y:335}},
+               '便':{start:{x:257,y:335},end:{x:266,y:335}},
+               '唾液':{start:{x:273,y:335},end:{x:293,y:335}},
+               '剖検材料':{start:{x:92,y:318},end:{x:128,y:318}}
+             }[this.新型コロナウイルス感染症の発生届.検出の検体],
+               style.line
+             ))
+             page.drawText(this.新型コロナウイルス感染症の発生届.検出の検体のその他,{x:172,y:319})
+             if(date.isValid()){
+               page.drawTextZen(date.format('MM'),{x:157,y:306})
+               page.drawTextZen(date.format('DD'),{x:188,y:306})
+             }
+             page.drawLine(_.merge({start:{x:131,y:296},end:{x:150,y:296}},style.line))
+             break
+       case '抗原定性検査による病原体の抗原の検出':
+             page.drawLine(_.merge({
+              '':{start:{x:0,y:0},end:{x:0,y:0}},
+              '鼻腔拭い液':{start:{x:120,y:264},end:{x:165,y:264}},
+              '鼻咽頭拭い液':{start:{x:173,y:264},end:{x:228,y:264}}
+             }[this.新型コロナウイルス感染症の発生届.検出の検体],
+               style.line
+            ))
+          if(date.isValid()){
+             page.drawTextZen(date.format('MM'),{x:157,y:248})
+             page.drawTextZen(date.format('DD'),{x:188,y:248}) 
+          }
+             page.drawLine(_.merge({start:{x:131,y:238},end:{x:150,y:238}},style.line))
+            break
+       case '抗原定量検査による病原体の抗原の検出':
+             page.drawLine(_.merge({
+               '':{start:{x:0,y:0},end:{x:0,y:0}},
+               '鼻腔拭い液':{start:{x:120,y:216},end:{x:165,y:205}},
+               '鼻咽頭拭い液':{start:{x:173,y:205},end:{x:228,y:205}},
+               '唾液':{start:{x:236,y:205},end:{x:255,y:205}},
+             }[this.新型コロナウイルス感染症の発生届.検出の検体],
+               style.line
+             ))
+             if(date.isValid()){
+               page.drawTextZen(date.format('MM'),{x:157,y:190})
+               page.drawTextZen(date.format('DD'),{x:188,y:190})
+             }
+             page.drawLine(_.merge({start:{x:131,y:180},end:{x:150,y:180}},style.line))
+            break
+      }
+         var tamp = function(date,y){
+         var date = moment(date)
+          if(date.isValid()){
+             page.drawText(date.format('yy'),{x:221,y:y})
+             page.drawText(date.format('MM'),{x:246,y:y})
+             page.drawText(date.format('DD'),{x:273,y:y})
+           }
+         }
+             tamp(this.新型コロナウイルス感染症の発生届['初診年月日'],127)
+             tamp(this.新型コロナウイルス感染症の発生届['診断（検案（※））年月日'],114)
+             tamp(this.新型コロナウイルス感染症の発生届['感染したと推定される年月日'],102)
+             tamp(this.新型コロナウイルス感染症の発生届['発病年月日'],89)
+             tamp(this.新型コロナウイルス感染症の発生届['死亡年月日'],76)
+          if(this.新型コロナウイルス感染症の発生届.感染の経路と原因 != '不明'){
+             page.drawLine(_.merge({
+              '':{start:{x:0,y:0},end:{x:0,y:0}},
+              '確定':{start:{x:416,y:518},end:{x:434,y:518}},
+              '推定':{start:{x:444,y:518},end:{x:464,y:518}},
+          }[this.新型コロナウイルス感染症の発生届.感染の経路と原因],
+             style.line
+          ))
+             page.drawText(this.新型コロナウイルス感染症の発生届.感染の経路は飛沫か飛沫核,{x:327,y:495})
+             page.drawText(this.新型コロナウイルス感染症の発生届.感染の経路は接触,{x:327,y:475})
+             page.drawText(this.新型コロナウイルス感染症の発生届.感染の経路は接触,{x:364,y:465})
+           }
+          if(this.新型コロナウイルス感染症の発生届.感染の地域 != '不明'){
+             page.drawLine(_.merge({
+               '':{start:{x:0,y:0},end:{x:0,y:0}},
+               '確定':{start:{x:380,y:458},end:{x:400,y:458}},
+               '推定':{start:{x:407,y:458},end:{x:427,y:458}}
+             }[this.新型コロナウイルス感染症の発生届.感染の経路と原因],
+               style.line
+             ))
+             page.drawText(this.新型コロナウイルス感染症の発生届.感染が国内の都道府県名,{x:372,y:445})
+             page.drawLine(_.merge({
+               '':{start:{x:0,y:0},end:{x:0,y:0}},
+               '都':{start:{x:399,y:448},end:{x:408,y:448}},
+               '道':{start:{x:408,y:448},end:{x:417,y:448}},
+               '府':{start:{x:417,y:448},end:{x:426,y:448}},
+               '県':{start:{x:426,y:448},end:{x:435,y:448}}
+           }[this.新型コロナウイルス感染症の発生届.感染が国内の都道府県],
+             style.line
+           ))
+             page.drawText(this.新型コロナウイルス感染症の発生届.感染が国内の市区町村名,{x:435,y:445})
+             page.drawLine(_.merge({
+               '':{start:{x:0,y:0},end:{x:0,y:0}},
+               '市':{start:{x:472,y:448},end:{x:480,y:448}},
+               '区':{start:{x:481,y:448},end:{x:489,y:448}},
+               '町':{start:{x:489,y:448},end:{x:498,y:448}},
+               '村':{start:{x:499,y:448},end:{x:507,y:448}}
+             }[this.新型コロナウイルス感染症の発生届.感染が国内の市区町村],
+               style.line
+             ))
+             page.drawText(this.新型コロナウイルス感染症の発生届.感染が国外,{x:355,y:435})
+             page.drawText(this.新型コロナウイルス感染症の発生届.感染が国外の詳細地域,{x:364,y:425})
+          }
+         var tamp = function(date,x){
+         var date = moment(date)
+          if(date.isValid()){
+             page.drawText(date.format('yy'),{x:x,y:405})
+             page.drawText(date.format('MM'),{x:x+18,y:405})
+             page.drawText(date.format('DD'),{x:x+36,y:405})
+           }
+         }
+             tamp(this.新型コロナウイルス感染症の発生届.感染が国外への出国日,397)
+             tamp(this.新型コロナウイルス感染症の発生届.感染が国外での帰国日,484)
+         var tamp = function(date,y){
+         var date = moment(date)
+           if(date.isValid()){
+             page.drawText(date.format('yy'),{x:377,y:y})
+             page.drawText(date.format('MM'),{x:395,y:y})
+             page.drawText(date.format('DD'),{x:412,y:y})
+           }
+         }
+         var func = function(type,y){
+           switch(type){
+             case '有り':
+               page.drawCircle(_.merge({x:350,y:y},style.circle))
+               break
+             case '無し':
+               page.drawCircle(_.merge({x:408,y:y},style.circle))
+               break
+             case '不明':
+               page.drawLine(_.merge({start:{x:422,y:y},end:{x:440,y:y}},style.circle))
+               break
+           }
+         }
+             func(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の接種,378)
+             func(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の接種,348)
+             func(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の接種,318)
+             page.drawText(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の種類,{x:444,y:365})
+             page.drawText(jaconv.toHan(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の製造会社),{x:480,y:365})
+          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の製造会社.length == 0){
+             page.drawLine(_.merge({start:{x:516,y:369},end:{x:534,y:369}},style.line))
+          }
+             tamp(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の接種年月日,355)
+          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の接種年月日.length == 0){
+             page.drawLine(_.merge({start:{x:440,y:359},end:{x:458,y:359}},style.line))
+          }
+          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の接種年月日.length > 0){
+         var 年齢 = moment(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の接種年月日,'YYYY/MM/DD').age(new Date(this.共通.患者の生年月日)).years
+             page.drawText(_.toString(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の接種年月日.length > 0 ? 年齢 : this.コロナのワクチン１回目の年齢),{x:367,y:375})
+          }
+          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の接種年月日.length > 0){
+         var 年齢 = moment(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の接種年月日,'YYYY/MM/DD').age(new Date(this.共通.患者の生年月日)).years
+             page.drawText(_.toString(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の接種年月日.length > 0 ? 年齢 : this.コロナのワクチン２回目の年齢),{x:367,y:345})
+          }
+          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の接種年月日.length > 0){
+         var 年齢 = moment(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の接種年月日,'YYYY/MM/DD').age(new Date(this.共通.患者の生年月日)).years
+             page.drawText(_.toString(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の接種年月日.length > 0 ? 年齢 : this.コロナのワクチン３回目の年齢),{x:367,y:315})
+          }
+             page.drawText(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の種類,{x:444,y:335,size:9})
+             page.drawText(jaconv.toHan(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の製造会社),{x:480,y:335,size:9})
+          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の製造会社.length == 0){
+             page.drawLine(_.merge({start:{x:516,y:339},end:{x:534,y:339}},style.line))
+          }
+             tamp(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の接種年月日,325)
+          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の接種年月日.length == 0){
+             page.drawLine(_.merge({start:{x:440,y:329},end:{x:458,y:329}},style.line))
+          }
+             page.drawText(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の種類,{x:444,y:305,size:9})
+             page.drawText(jaconv.toHan(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の製造会社),{x:480,y:305,size:9})
+          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の製造会社.length == 0){
+             page.drawLine(_.merge({start:{x:516,y:309},end:{x:534,y:309}},style.line))
+          }
+             tamp(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の接種年月日,295)
+          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の接種年月日.length == 0){
+             page.drawLine(_.merge({start:{x:440,y:299},end:{x:458,y:299}},style.line))
+          }
+             page.drawCircle(_.merge(this.新型コロナウイルス感染症の発生届.届出時点の入院有無 ? {x:412,y:261} : {x:428,y:261},style.circle))
+         var date = moment(this.新型コロナウイルス感染症の発生届.入院年月日)
+          if(date.isValid()){
+             page.drawText(date.format('yy'),{x:444,y:246,size:9})
+             page.drawText(date.format('MM'),{x:467,y:246,size:9})
+             page.drawText(date.format('DD'),{x:493,y:246,size:9})
+          }
+             page.drawCircle(_.merge(this.重症化のリスク因子となる疾患等の有無 ? {x:478,y:236} : {x:494,y:236},style.circle))
+         var 重症化のリスク因子 = {
+               '':{start:{x:0,y:0},end:{x:0,y:0}},
+               悪性腫瘍:{start:{x:330,y:212},end:{x:363,y:212}},
+               '慢性閉塞性肺疾患（COPD）':{start:{x:370,y:212},end:{x:464,y:212}},
+               慢性腎臓病:{start:{x:473,y:212},end:{x:516,y:212}},
+               高血圧:{start:{x:330,y:200},end:{x:354,y:200}},
+               糖尿病:{start:{x:362,y:200},end:{x:387,y:200}},
+               脂質異常症:{start:{x:395,y:200},end:{x:437,y:200}},
+               '肥満（BMI30 以上）':{start:{x:444,y:200},end:{x:512,y:200}},
+               喫煙歴:{start:{x:330,y:188},end:{x:354,y:188}},
+             }
+           _(this.新型コロナウイルス感染症の発生届.重症化のリスク因子).pickBy(_.identity).each((check,name)=>{
+             page.drawLine(_.merge(重症化のリスク因子[name],style.line))
+           })
+             page.drawText(this.新型コロナウイルス感染症の発生届.重症化のリスク因子のその他,{x:397,y:185,size:9})
+             page.drawCircle(_.merge(this.新型コロナウイルス感染症の発生届.免疫の機能の低下有無 ? {x:494,y:164} : {x:511,y:164},style.circle))
+             page.drawCircle(_.merge(this.新型コロナウイルス感染症の発生届.妊娠の有無 ? {x:372,y:152} : {x:386,y:152},style.circle))
+             page.drawLine(_.merge({
+               '':{start:{x:0,y:0},end:{x:0,y:0}},
+               軽症:{start:{x:374,y:127},end:{x:392,y:127}},
+               中等症Ⅰ:{start:{x:398,y:127},end:{x:432,y:127}},
+               中等症Ⅱ:{start:{x:440,y:127},end:{x:472,y:127}},
+               重症:{start:{x:480,y:127},end:{x:498,y:127}}
+             }[this.新型コロナウイルス感染症の発生届.重症度],
+               style.line
+             ))
+             page.drawCircle(_.merge(this.新型コロナウイルス感染症の発生届.入院の必要性の有無 ? {x:404,y:115} : {x:421,y:115},style.circle))
+             page.drawCircle(_.merge(this.新型コロナウイルス感染症の発生届.特例の診療の有無 ? {x:359,y:75} : {x:377,y:75},style.circle))
+             page.drawTextBox(this.新型コロナウイルス感染症の発生届.メモ,{
+              x:247,
+              y:14,
+              width:297,
+              height:27,
+              font:embedfont,
+              textColor:PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.text).toFloatRgb()))
+            },9)
+
+         var page = this.doc.getPages()[1]
+             page.setFontSize(9)
+             page.setFont(embedfont)
+             page.drawText('診療時間外',{x:390,y:687,size:9})
+             page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.text).toFloatRgb())))
+             page.drawText(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.宛先,{x:40,y:757,size:11})
+         var date = moment(this.共通.患者の生年月日)
+          if(date.isValid()){
+             page.drawTextZen(moment(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.診察日).format('NNNNyy年MM月DD日'),{x:395,y:744,size:11})
+          }
+             page.drawText(this.共通.医師の従事病院または診療所の名称,{x:325,y:717,size:9})
+             page.drawText(this.共通.医師の従事病院または診療所の所在地,{x:325,y:702,size:9})
+             page.drawText(this.共通.医師の従事病院または診療所の電話番号,{x:325,y:687,size:9})
+             page.drawText(this.共通.医師の氏名,{x:325,y:670,size:9})
+             page.drawText(this.共通.医師の従事病院または診療所の時間外の電話番号,{x:442,y:687,size:9})
+             page.drawText(`${this.共通.患者の氏名} ${this.共通.患者の読み仮名}`,{x:84,y:639,size:10})
+             page.drawText(this.共通.患者の性別,{x:362,y:639,size:10})
+             page.drawText(this.共通.患者の住所の電話番号,{x:362,y:619,size:10})
+             page.drawText(this.共通.患者の住所の県市区町村,{x:84,y:624,size:10})
+             page.drawText(this.共通.患者の住所,{x:84,y:610,size:10})
+         var date = moment(this.共通.患者の生年月日)
+          if(date.isValid()){
+         var 年齢 = moment().age(new Date(this.共通.患者の生年月日))
+             page.drawTextZen(`${date.format('NNNN')}${date.format('yy')}年${date.format('MM')}月${date.format('DD')}日（${_.toString(年齢.years)}歳${_.toString(年齢.months)}ヶ月）`,{x:84,y:598,size:10})
+          }
+             page.drawText(this.共通.患者の職業,{x:362,y:598,size:10})
+             page.drawCheckBox(true,{
+               '':{x:0,y:0},
+               '電話WEB診療':{x:40,y:575},
+               '外来受診':{x:124,y:575},
+               '往診': {x:40,y:555}
+           }[this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.受診種別])
+          if(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.受診種別 == '往診'){
+            page.drawCheckBox(true,this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.同日同一建物内の別患者の診療の有無 ? {x:277,y:555} : {x:318,y:555})
+          }
+            page.drawTextZen(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.陽性確定後の診察Ｎ回目,{x:480,y:566,size:10})
+            page.drawText(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.傷病名,{x:84,y:516,size:11})
+            page.drawText(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.紹介目的,{x:84,y:470,size:12})
+            page.drawCheckBox(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.高次医療機関での診察_入院調整を依頼します,{x:162,y:450})
+            page.drawText(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.既往歴及び家族歴,{x:127,y:430,size:10})
+            page.drawTextBox(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.症状経過及び検査結果_治療経過_現在の処方_備考,{
+              x:40,
+              y:238,
+              width:517,
+              height:165,
+              font:embedfont,
+              textColor:PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.text).toFloatRgb()))
+            })
+            page.drawTextZen(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.体温,{x:158,y:220,size:10})
+            page.drawEllipse(_.merge(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.解熱剤の使用８時間以内 ? {x:372,y:224,xScale:15,yScale:10} : {x:424,y:224,xScale:15,yScale:10},style.ellipse))
+            page.drawEllipse(_.merge(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.聴診所見異常あり ? {x:244,y:203,xScale:24,yScale:10} : {x:172,y:203,xScale:24,yScale:10},style.ellipse))
+            page.drawTextZen(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.聴診所見,{x:278,y:199,size:10})
+            page.drawTextZen(`${this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.酸素飽和度}`,{x:158,y:178,size:10})
+         if(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.酸素投与量 > 0){
+            page.drawTextZen(`${this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.酸素投与量}`,{x:255,y:178,size:10})
+         }else{
+            page.drawEllipse(_.merge({x:327,y:182,xScale:15,yScale:10},style.ellipse))
+         }
+            page.drawTextZen(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.呼吸数,{x:482,y:178,size:10})
+        var date = moment(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.胸部レントゲン撮影年月日)
+         if(date.isValid()){
+            page.drawText(moment(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.胸部レントゲン撮影年月日).format('NNyy/MM/DD'),{x:57,y:148,size:10})
+            page.drawTextZen(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.胸部レントゲン撮影所見,{x:152,y:154,size:10})
+         }else if(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.胸部レントゲン撮影年月日.length  == 0){
+            page.drawEllipse(_.merge({x:520,y:158,xScale:20,yScale:10},style.ellipse))
+         }
+        var date = moment(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血検査年月日)
+         if(date.isValid()){
+            page.drawText(moment(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血検査年月日).format('NNyy/MM/DD'),{x:57,y:110,size:10})
+            page.drawTextZen(`${this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血ＷＢＣ}`,{x:167,y:121,size:10})
+            page.drawTextZen(`${this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血リンパ球数}`,{x:244,y:121,size:10})
+            page.drawTextZen(`${this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血ＬＤＨ}`,{x:330,y:121,size:10})
+            page.drawTextZen(`${this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血ＣＲＰ}`,{x:404,y:121,size:10})
+            page.drawTextZen(`${this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血Ｄダイマ}`,{x:494,y:121,size:10})
+            page.drawText(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血検査所見,{x:194,y:103,size:10})
+        }else if(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血検査年月日.length  == 0){
+            page.drawEllipse(_.merge({x:530,y:107,xScale:20,yScale:10},style.ellipse))
+        }
+
+            page.drawText(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.その他所見,{x:152,y:79,size:10})
+
+        var page = this.doc.getPages()[4]
+            page.setFontSize(11)
+            page.setFont(embedfont)
+            page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.text).toFloatRgb())))
+
+            page.drawText(this.共通.医師の氏名,{x:135,y:122})
+            page.drawText(this.共通.医師の従事病院または診療所の名称,{x:135,y:98})
+            page.drawText(this.共通.医師の従事病院または診療所の電話番号,{x:415,y:98})
+        var date = moment(this.ラゲブリオカプセル200mgによる治療に係る同意説明文書.記入日)
+         if(date.isValid()){
+            page.drawTextZen(date.format('yy'),{x:415,y:122})
+            page.drawTextZen(date.format('MM'),{x:452,y:122})
+            page.drawTextZen(date.format('DD'),{x:486,y:122})
+         }
+
+        var page = this.doc.getPages()[5]
+            page.setFontSize(11)
+            page.setFont(embedfont)
+            page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.text).toFloatRgb())))
+            page.drawText(this.共通.医師の氏名,{x:135,y:122})
+            page.drawText(this.共通.医師の従事病院または診療所の名称,{x:135,y:98})
+            page.drawText(this.共通.医師の従事病院または診療所の電話番号,{x:415,y:98})
+        var date = moment(this.ラゲブリオカプセル200mgによる治療に係る同意説明文書.記入日)
+         if(date.isValid()){
+            page.drawTextZen(date.format('yy'),{x:415,y:122})
+            page.drawTextZen(date.format('MM'),{x:452,y:122})
+            page.drawTextZen(date.format('DD'),{x:486,y:122})
+         }
+
+        var page = this.doc.getPages()[7]
+            page.setFontSize(11)
+            page.setFont(embedfont)
+            page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.text).toFloatRgb())))
+            page.drawText(this.共通.医師の従事病院または診療所の名称,{x:185,y:620})
+            page.drawText(this.共通.医師の従事病院または診療所の所在地,{x:185,y:600})
+            page.drawText(this.共通.医師の氏名,{x:185,y:565})
+        var phne = this.共通.医師の従事病院または診療所の電話番号.split('-')
+            page.drawTextZen(phne[0] || '',{x:210,y:537})
+            page.drawTextZen(phne[1] || '',{x:285,y:537})
+            page.drawTextZen(phne[2] || '',{x:365,y:537})
+
+        var date = moment(this.ラゲブリオカプセル200mgによる治療に係る同意説明文書.処方箋交付年月日)
+         if(date.isValid()){
+            page.drawTextZen(date.format('NNNNyy'),{x:255,y:406})
+            page.drawTextZen(date.format('MM'),{x:335,y:406})
+            page.drawTextZen(date.format('DD'),{x:395,y:406})
+         }
+        var date = moment(this.共通.患者の生年月日)
+         if(date.isValid()){
+            page.drawTextZen(`${this.共通.患者の年齢}`,{x:275,y:377})
+            page.drawTextZen(`${this.共通.患者の年齢のヶ月目}ヶ月`,{x:325,y:377})
+         }
+            page.drawCheckBox(true,this.ラゲブリオカプセル200mgによる治療に係る同意説明文書['SARS-CoV-2による感染症'] ? {x:225,y:352} : {x:225,y:332})
+            page.drawCheckBox(this.ラゲブリオカプセル200mgによる治療に係る同意説明文書['禁忌事項_本剤の成分に対し過敏症の既往歴のある患者ではない'],{x:225,y:309})
+            page.drawCheckBox(this.ラゲブリオカプセル200mgによる治療に係る同意説明文書['禁忌事項_妊婦又は妊娠している可能性のある女性ではない'],{x:225,y:289})
+            page.drawCheckBox(true,this.ラゲブリオカプセル200mgによる治療に係る同意説明文書['SARS-CoV-2による感染症の重症化リスク因子_１つ以上を有する'] ? {x:225,y:268} : {x:225,y:188})
+            page.drawCheckBox(this.ラゲブリオカプセル200mgによる治療に係る同意説明文書['患者又は代諾者からの同意取得'],{x:225,y:142})
+
+         this.$refs.viewer.src = URL.createObjectURL(new Blob([await this.doc.save()],{type:'application/pdf'}))
+       },
+       downloadDocument:async function(){
+          _.each(this.file,(value,name)=>this.doc[`set${name}`](value))
+          var ファイル名 = [
+            moment().format(`NNNyy年MM月DD日HH時mm分`),
+            `Dr（${this.共通.医師の氏名}）`,
+            `Pt（${this.共通.患者のＩＤ} ${this.共通.患者の氏名})`
+          ].filter(Boolean).join('_')
+          var file = new File([await this.doc.save()],`${ファイル名}.pdf`,{
+            type:'application/pdf'
+          })
+          saveAs(file)
+       }
      }
    })
 </script>
  <style>
-   @import url('js/index.css');
    @import url('ttf/index.css');
+   @import url('js/index.css');
    @import url('css/index.css');
 </style>

@@ -19,8 +19,8 @@
       <dat-value label="message" v-model="message"></dat-value>
       <dat-value label="displayOutline" v-model="displayOutline"></dat-value>
       <dat-value label="explode" @click="explode"></dat-value>
-      <dat-value label="maxSize" v-model="maxSize" :min="0" :max="10" :step='1' :empty='0'></dat-value>
-      <dat-value label="height" v-model="height" :step='5' :empty='0'></dat-value>
+      <dat-value label="maxSize" v-model="maxSize" :min="-10" :max="10" :step='0.25'></dat-value>
+      <dat-value label="height" v-model="height" :step='5'></dat-value>
       <dat-value label="type" v-model="type" :values="[ 'one', 'two', 'three' ]"></dat-value>
       <dat-value label="speed" v-model="speed" :values="{Stopped: 0, Slow: 0.1, Fast: 5}"></dat-value>
       <dat-folder name="Colors">
@@ -88,13 +88,13 @@
     >
     </vue-json-pretty>
   </div>
-  <script src="../2.6.14-custom.js"></script>
-  <script src="../vue-json-pretty/1.8.0-custom.js"></script>
-  <script src="../../dat.gui/0.7.7-custom.js"></script>
+  <script src="../../2.6.14-custom.js"></script>
+  <script src="../../vue-json-pretty/1.8.0-custom.js"></script>
+  <script src="../../../dat.gui/0.7.7-custom.js"></script>
   <script src="0.0.1-custom.js"></script>
   <style>
-    @import url('../vue-json-pretty/1.8.0-custom.css');
-    @import url('../../dat.gui/0.7.7-custom.css');
+    @import url('../../vue-json-pretty/1.8.0-custom.css');
+    @import url('../../../dat.gui/0.7.7-custom.css');
  </style>
   <SCript>
     /* global Vue VueDatGui */
@@ -111,7 +111,7 @@
         maxSize: 6.0,
         speed: 5,
 
-        height: 0,
+        height: 10,
         noiseStrength: 10.2,
         growthSpeed: 0.2,
 

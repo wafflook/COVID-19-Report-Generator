@@ -11,7 +11,7 @@
        <tbody>
          <tr v-for='result,name,n in debug'>
            <td>{{n+1}}</td>
-           <td>{{name}}</td>
+           <td>{{name.split('.')[1]}}</td>
            <td>{{result}}</td>
         </tr>
       </tbody>
