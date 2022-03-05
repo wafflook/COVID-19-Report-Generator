@@ -16,32 +16,6 @@
     <link href='asset/favicon.ico' rel='icon'>
 
     <style>
-      .tree{
-        --border-style:2px solid #333;
-      }
-      .tree span > .ui.label{
-        padding:.5em;
-        color: #FFFFFF;
-        font-weight:normal;
-        border-color: #2185D0;
-        background-color: #2185D0;
-        box-shadow:rgb(16 36 94 / 40%) 0px 1px 2px 0px;
-      }
-      .tree span > .ui.label.image.circular{
-        padding:2px !important;
-      }
-      .tree span > .ui.label.image.circular > img{
-        margin:0;
-        background:white;
-        border-radius:500px;
-      }
-      .tree span > .ui.label:hover{
-        cursor:pointer;
-        border-color: #F2711C;
-        background-color: #F2711C;
-      }
-   </style>
-    <style>
       html,
       body{
         -webkit-text-stroke:.3px;
@@ -65,51 +39,23 @@
         height:100vh;
         overflow-y:scroll;
       }
-      .ui.grid > .row > .column:nth-child(1){
-        width:497px;
-        padding-right:0 !important;
-      }
-      .ui.grid > .row > .column:nth-child(2){
-        padding:0;
-        width:230mm;
-      }
-   </style>
-    <style>
       .ui.grid > .row > .column::-webkit-scrollbar{
         display:none;
       }
-   </style>
-    <style>
-      .dg .cr.focus{
-        background:beige;
+      .ui.grid > .row > .column:nth-child(1){
+        width:428px;
+        padding-left:5em !important;
+      }
+      .ui.grid > .row > .column:nth-child(2){
+        width:210mm;
       }
    </style>
     <style>
-      .viewer{
+      iframe{
         width:100%;
-        border:none;
-        outline:none;
         height:100%;
-      }
-   </style>
-    <style>
-      ul > li > ul > li > ul > li .ui.segment.block{
-        width:360px !important;
-      }
-   </style>
-    <style>
-      .ui.label.focus{
-        background-color: #F2711C !important;
-        border-color: #F2711C !important;
-        color: #FFFFFF !important;
-      }
-   </style>
-    <style>
-      .li-help textarea{
-        width:100%;
         border:none;
         outline:none;
-        display:block;
       }
    </style>
     <style>
@@ -122,847 +68,186 @@
        i.icon.t:before{
          content:"\54";
        }
-    </style>
-     <style>
-       i.icon{
-         pointer-events:none;
+       i.icon.earser:before{
+         content:"\f12d";
        }
     </style>
      <style>
-       .ui.toast-container .toast-box.compact, 
-       .ui.toast-container .toast-box > .compact{
-         width:512px;
+       .item .property-name{
+         display:none;
+       }
+       .item .c{
+         flex:1;
        }
     </style>
+     <style>
+      .dg .cr.focus{
+        background:beige;
+      }
+      .column > .ui.segments{
+        border-bottom: 2px solid rgba(34,36,38,.15) !important;
+    box-shadow: rgb(16 36 94 / 40%) 0 2px 6px 0 !important;
+      }
+   </style>
  </head>
   <body>
     <main>
       <div class='ui grid internally celled'>
         <div class='row'>
           <div class='column'>
-            <ul class='tree horizontal flip fork' v-enter-to-next-input>
-              <li class='node'>
-                <div>
-                  <span>
-                    <div class='ui label circular image'>
-                      <img src='https://healthicons.org/icons/svg/outline/symbols/clinical_f.svg'>
-                   </div>
-                 </span>
-               </div>
-                <ul>
-                  <li class='node'>
-                    <div>
-                      <span>
-                        <div class='ui label circular image'>
-                          <img src='https://healthicons.org/icons/svg/outline/symbols/simple_logo.svg'>
-                       </div>
-                     </span>
-                   </div>
-                    <ul>
-                      <li class='node'>
-                        <div>
-                          <div class='ui segments block'>
-                            <div class='ui segment fitted block'>
-                              <div class='content fitted'>
-                                <div class='ui card fluid basic'>
-                                  <div class='content'>
-                                    <img class='ui image floated left mini' src='asset/me.jpg'>
-                                    <div class='header'>
-                                      COVID-19 Case Report Generator
-                                   </div>
-                                    <div class='meta'>
-                                      <a href='https://www.mhlw.go.jp/bunya/kenkou/kekkaku-kansenshou11/01-shitei-01.html'>発生届</a>：2021/11/29 18:03:58（版）
-                                   </div>
-                                    <div class='description'>
-                                      <p>発生届をＰＣから入力可能にしました。問題があれば<a href='http://twitter.com/wafflook' target='_blank'>連絡</a>下さい</p>
-                                   </div>
-                                 </div>
-                               </div>
-                             </div>
-                           </div>
-                            <div class='ui segment block'>
-                              <div class='content fitted'>
-                                <div class='ui menu basic pointing icon'>
-                                  <a class='item' @click='view.dat.open = !view.dat.open' v-micron:m1="'pop'">
-                                    <i :class="['icon folder', view.dat.open ? 'open' : '']" id='m1'></i>
-                                 </a>
-                                  <a class='item' @click='view.dat.expand = !view.dat.expand' v-micron:m2="'pop'">
-                                    <i :class="['icon', view.dat.expand ? 'i' : 't']" id='m2'></i>
-                                 </a>
-                                  <a class='item' @click='view.help.open = !view.help.open' v-micron:m3="'pop'">
-                                    <i :class="['icon', view.help.open ? 'info' : 'question']" id='m3'></i>
-                                 </a>
-                                  <a class='item' @click='view.fullScreen = !view.fullScreen' v-micron:m4="'pop'">
-                                    <i class='icon expand' id='m4'></i>
-                                 </a>
-                                  <a class='item right' @click='clear' v-micron:m5="'pop'">
-                                    <div class='ui label floating top blue'>
-                                      消
-                                   </div>
-                                    <i class='icon eraser' id='m5'></i>
-                                 </a>
-                               </div>
-                             </div>
-                           </div>
-                         </div>
-                          <div class='ui divider horizontal fitted'>
-                            ＰＤＦの情報
-                         </div>
-                       </div>
-                     </li>
-                   </ul>
-                 </li>
-                  <li-help input='文書（情報）' icon='https://healthicons.org/icons/svg/outline/symbols/register_book.svg'>
-                    <div class='ui segments block'>
-                      <div class='ui segment fitted block'>
-                        <div class='content fitted'>
-                          <document-version>
-                         </document-version>
-                       </div>
-                     </div>
-                      <div class='ui segment block fitted teal'>
-                        <div class="ui label floating point right pointing teal">
-                          文書
-                       </div>
-                        <div class='content fitted'>
-                          <dat-gui>
-                            <dat-value v-model='file.Language' label='言語' readonly></dat-value>
-                            <dat-value v-model='file.Title' label='タイトル' readonly></dat-value>
-                            <dat-value v-model='file.Author' label='作成者' readonly></dat-value>
-                            <dat-value v-model='file.Subject' label='サブタイトル' readonly></dat-value>
-                            <dat-value v-model="file.Keywords.join(',')" label='キーワード' readonly></dat-value>
-                            <dat-value :value="file.CreationDate | moment('YYYY/MM/DD HH:mm:ss')" label='作成日' readonly></dat-value>
-                            <dat-value :value="file.ModificationDate | moment('YYYY/MM/DD HH:mm:ss')" label='更新日' readonly></dat-value>
-                         </dat-gui>
-                       </div>
-                     </div>          
-                   </div>
-                 </li-help>
-                  <li-help input='設定（情報）' icon='https://healthicons.org/icons/svg/outline/symbols/ui_settings.svg'>
-                    <div class='ui segments block'>
-                      <div class='ui segment block black'>
-                        <div class='ui label floating point right pointing black'>
-                          設定
-                       </div>
-                        <div class='content fitted'>
-                          <dat-gui>
-                            <dat-folder name='カラー' open>
-                              <dat-color v-model='setting.listColor.text' label='文字色'></dat-color>
-                              <dat-color v-model='setting.listColor.mark' label='塗潰色'></dat-color>
-                           </dat-folder>
-                            <dat-folder name='フォント' open>
-                              <dat-value v-model='setting.fontname' label='ファミリ' :values='_.keys(setting.listFont)'></dat-value>   
-                           </dat-folder>
-                            <dat-folder name='ポップアップ' open>
-                              <dat-value v-model='view.waitToast' label='ポップアップの表示秒' :min='0' :max='60' :step='1'></dat-value>
-                           </dat-folder>
-                            <dat-folder name='レンダリング' open>
-                              <dat-value v-model='view.waitDraw' label='入力をＰＤＦに反映' :values="{'０.５秒間入力がなければ反映':500,'１.０秒間入力がなければ反映':1000,'１.５秒間入力がなければ反映':1500}"></dat-value>
-                           </dat-folder>
-                         </dat-gui>
-                       </div>
-                     </div>
-                   </div>
-                 </li-help>
-               </ul>
-             </li>
-              <li class='node'>
-                <div>
-                  <span>
-                    <div class='ui label circular image'>
-                      <img src='https://healthicons.org/icons/svg/outline/symbols/clinical_f.svg'>
-                   </div>
-                 </span>
-               </div>
-                <ul>
-                  <li-help input='病院（情報）' icon='https://healthicons.org/icons/svg/outline/places/hospital.svg'>
-                    <template>
-                      <div class='ui divider horizontal fitted'>
-                        共通の情報
-                     </div>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.報告年月日' label='報告日は？' comment='新型コロナウイルス発生届の報告年月日' type='yyyymmdd' ref='first'></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                        <div class='ui segment block fitted orange'>
-                          <div class="ui label floating point right pointing orange">
-                            病院
-                         </div>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-folder name='病院'>
-                                <dat-value v-model='共通.医師の従事病院または診療所の名称' label='病院は？'></dat-value>
-                                <dat-value v-model='共通.医師の従事病院または診療所の所在地' label='病院の住所は？'></dat-value>
-                                <dat-value v-model='共通.医師の従事病院または診療所の電話番号'label='病院の連絡先は？' type='phone'></dat-value>
-                                <dat-value v-model='共通.医師の従事病院または診療所の時間外の電話番号' label='診療時間外の連絡先は？' comment='診療時間外の連絡先' type='phone'></dat-value>
-                             </dat-folder>
-                           </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-                  <li-help input='医者（情報）' icon='https://healthicons.org/icons/svg/outline/people/doctor.svg'>
-                    <template>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model="新型コロナウイルス感染症の発生届['診断（検案（※））年月日']" label='診断日は？' comment='新型コロナウイルス発生届の診断年月日' type='yyyymmdd'></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                        <div class='ui segment block fitted basic orange'>
-                          <div class="ui label floating point right pointing orange">
-                            医師
-                         </div>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-folder :name='`医師（${共通.医師の氏名}）` | toZen'>
-                                <dat-value v-model='共通.医師の氏名' label='氏名は？'></dat-value>
-                                <dat-value v-model='共通.医師の氏名の読み仮名' label='読み仮名は？'></dat-value>
-                             </dat-folder>
-                           </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-                  <li-help input='患者（情報）' icon='https://healthicons.org/icons/svg/outline/people/person.svg'>
-                    <template>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.初診年月日' label='初診日は？' comment='新型コロナウイルス発生届の初診年月日' type='yyyymmdd'></dat-value>
-                            </dat-gui>
+             <div class='ui segments block animate__animated animate__bounce' v-enter-to-next-input>
+               <div class='ui segment block fitted'>
+                 <div class='content fitted'>
+                   <div class='ui card fluid basic'>
+                     <div class='content'>
+                       <img class='ui image floated left mini' src='asset/me.jpg'>
+                       <div class='header'>
+                         COVID-19 Case Report Generator
+                      </div>
+                       <div class='meta'>
+                         <a href='https://www.mhlw.go.jp/bunya/kenkou/kekkaku-kansenshou11/01-shitei-01.html'>発生届</a>：2021/11/29 18:03:58（版）
+                      </div>
+                       <div class='description'>
+                         発生届をＰＣから入力可能にしました。問題があれば<a href='http://twitter.com/wafflook' target='_blank'>連絡</a>下さい</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                 <a class='ui label corner' @click='view.setting = !view.setting'>
+                   <i class='icon setting'></i>
+                </a>
+              </div>
+               <div class='ui segment block' v-if='view.setting'>
+                 <div class='content fitted'>
+                   <dat-gui>
+                     <dat-folder name='カラー'>
+                       <dat-color v-model='設定.listColor.text' label='文字色'></dat-color>
+                       <dat-color v-model='設定.listColor.mark' label='塗潰色'></dat-color>
+                    </dat-folder>
+                     <dat-folder name='フォント'>
+                       <dat-value v-model='設定.fontname' label='ファミリ' :values='_.keys(設定.listFont)'></dat-value>   
+                    </dat-folder>
+                     <dat-folder name='レンダリング'>
+                       <dat-value v-model='view.waitDraw' label='入力をＰＤＦに反映' :values="{'０.５秒間入力がなければ反映':500,'１.０秒間入力がなければ反映':1000,'１.５秒間入力がなければ反映':1500}"></dat-value>
+                    </dat-folder>
+                  </dat-gui>
+                </div>
+              </div>
+               <div class='ui segment block black'>
+                 <div class='content fitted'>
+                   <dat-gui expand>
+                     <dat-value v-model='search' label='検索' placeholder='検索'></dat-value>
+                  </dat-gui>
+                </div>
+              </div>
+            </div>
+             <div class='ui segments block'>
+               <template v-for='name,i in documents'>
+                 <div class='ui segment block green'>
+                   <div class='content fitted'>
+                     <div class='ui divided selection list'>
+                       <a class='item' @click='(tab == name) ? tab = undefined : tab = name'>
+                         {{name}}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                 <template v-if='tab == name'>
+                   <component ref='document' @update='drawPdf' :is='name'>
+                     <template v-slot:header>
+                       <div class='ui segment block fitted basic'>
+                         <div class='content fitted'>
+                           <div class='ui menu basic pointing icon'>
+                             <a class='item' @click='view.dat.open = !view.dat.open' v-micron:m1="'pop'">
+                               <i :class="['icon folder', view.dat.open ? 'open' : '']" id='m1'></i>
+                            </a>
+                             <a class='item' @click='view.dat.expand = !view.dat.expand' v-micron:m2="'pop'">
+                               <i :class="['icon', view.dat.expand ? 'i' : 't']" id='m2'></i>
+                            </a>
+                             <a class='item' @click='view.fullScreen = !view.fullScreen' v-micron:m4="'pop'">
+                               <i class='icon expand' id='m4'></i>
+                            </a>
                           </div>
-                       </div>
-                        <div class='ui segment block fitted orange'>
-                          <div class="ui label floating point right pointing orange">
-                            患者
-                         </div>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-folder :name='`患者（${共通.患者のＩＤ}${共通.患者の氏名}）` | toZen'>
-                                <dat-value v-model='共通.患者のＩＤ' label='患者ＩＤ' comment='患者のＩＤ'></dat-value>
-                                <dat-value v-model='共通.患者の氏名' label='氏名は？' ></dat-value>
-                                <dat-value v-model='共通.患者の読み仮名' label='読み仮名は？' ></dat-value>
-                                <dat-value v-model='共通.患者の性別' label='性別は？' :values="['男','女']"></dat-value>
-                                <dat-value v-model='共通.患者の生年月日' label='誕生は？' type='yyyymmdd' comment='患者の年齢'></dat-value>
-                                <dat-value v-model='共通.患者の年齢' label='年齢は' readonly></dat-value>
-                                <dat-value v-model='共通.患者の年齢のヶ月目' label='年齢のヶ月は' readonly></dat-value>
-                                <dat-value v-model='共通.患者の職業' label='職業は？' comment='患者の職業'></dat-value>
-                                <dat-value v-model='共通.患者の住所の県市区町村' label='住所（都道府県と市）は？' ></dat-value>
-                                <dat-value v-model='共通.患者の住所' label='住所は？' comment='患者の住所'></dat-value>
-                                <dat-value v-model='共通.患者の住所の電話番号' label='住所の連絡先は？'type='phone'></dat-value>
-                                <dat-value v-model='共通.患者の所在地' label='所在地は？' comment='患者の住所と所在地'></dat-value>
-                                <dat-value v-model='共通.患者の所在地の電話番号' label='所在地の連絡先は？' type='phone'></dat-value>
-                             </dat-folder>
-                           </dat-gui>
-                         </div>
-                       </div>
-                        <div class='ui semgent fitted' v-show='共通.患者の年齢 < 20'>
-                          <dat-gui>
-                            <dat-folder :name='`保護（患者の${共通.患者の保護者の続柄}/${共通.患者の保護者の氏名}）` | toZen'>
-                              <dat-value v-model='共通.患者の保護者の続柄' label='続柄は？' ></dat-value>
-                              <dat-value v-model='共通.患者の保護者の氏名' label='氏名は？' ></dat-value>
-                              <dat-value v-model='共通.患者の保護者の読み仮名' label='読み仮名は？' ></dat-value>
-                              <dat-value v-model='共通.患者の保護者の住所' label='住所は？' ></dat-value>
-                              <dat-value v-model='共通.患者の保護者の電話番号' label='連絡先は？' type='phone'></dat-value>
-                           </dat-folder>
-                         </dat-gui>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-                  <li-help input='接種（Ｎ回）' icon='https://healthicons.org/icons/svg/outline/devices/syringe-vaccine.svg'>
-                    <div class='ui segments block'>
-                      <div class='ui segment block fitted'>
-                        <div class='content fitted'>
-                          <dat-gui>
-                            <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン１回目の接種' label='１回目の接種' :values="['有り','無し','不明']"></dat-value>
-                            <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン２回目の接種' label='２回目の接種' :values="['有り','無し','不明']"></dat-value>
-                            <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン３回目の接種' label='３回目の接種' :values="['有り','無し','不明']"></dat-value>  
-                         </dat-gui>
-                       </div>
-                     </div>
-                      <div class='ui segment block fitted orange'>
-                        <div class="ui label floating point right pointing orange">
-                          接種
-                       </div>
-                        <div class='content fitted'>
-                          <dat-gui>
-                            <dat-folder :name='`１回目は${新型コロナウイルス感染症の発生届.コロナのワクチン１回目の年齢}の時に${新型コロナウイルス感染症の発生届.コロナのワクチン１回目の製造会社}` | toZen'>
-                              <dat-value v-model="新型コロナウイルス感染症の発生届.コロナのワクチン１回目の年齢" label='１回目の年齢' :min='1' :max='125' :step='1' :empty='0'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン１回目の製造会社' label='１回目の製造社は？'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン１回目の種類' label='１回目の種類は？'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン１回目の接種年月日' label='１回目の接種日は？'  type='yyyymmdd'></dat-value>
-                           </dat-folder>
-                            <dat-folder :name='`２回目は${新型コロナウイルス感染症の発生届.コロナのワクチン２回目の年齢}の時に${新型コロナウイルス感染症の発生届.コロナのワクチン２回目の製造会社}` | toZen'>
-                              <dat-value v-model="新型コロナウイルス感染症の発生届.コロナのワクチン２回目の年齢" label='２回目の年齢' :min='1' :max='125' :step='1' :empty='0'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン２回目の製造会社' label='２回目の製造社は？'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン２回目の種類' label='２回目の種類は？'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン２回目の接種年月日' label='２回目の接種日は？'  type='yyyymmdd'></dat-value>
-                           </dat-folder>
-                            <dat-folder :name='`３回目は${新型コロナウイルス感染症の発生届.コロナのワクチン３回目の年齢}の時に${新型コロナウイルス感染症の発生届.コロナのワクチン３回目の製造会社}` | toZen'>
-                              <dat-value v-model="新型コロナウイルス感染症の発生届.コロナのワクチン３回目の年齢" label='３回目の年齢' :min='1' :max='125' :step='1' :empty='0'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン３回目の製造会社' label='３回目の製造社は？'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン３回目の種類' label='３回目の種類は？'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.コロナのワクチン３回目の接種年月日' label='３回目の接種日は？'  type='yyyymmdd'></dat-value>
-                           </dat-folder>
-                         </dat-gui>
-                       </div>
-                     </div>
-                   </div>
-                 </li-help>
-               </ul> 
-             </li>
-              <li class='node'>
-                <div>
-                  <span>
-                    <div class='ui label circular image'>
-                      <img src='https://healthicons.org/icons/svg/outline/symbols/clinical_f.svg'>
-                   </div>
-                 </span>
-               </div>
-                <ul>
-                  <li-help input='診療（特例）' icon='https://healthicons.org/icons/svg/outline/symbols/yes.svg'>
-                    <template>
-                      <div class='ui divider horizontal fitted'>
-                        新型コロナウイルス感染症　発生届
-                     </div>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.特例の診療の有無' label='電話/Web診療しましたか？' ref='特例の診療の有無'></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-                  <li-help input='入院（有無）' icon='https://healthicons.org/icons/svg/outline/devices/hospitalized.svg'>
-                    <template>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.入院年月日' label='入院年月日' ></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                        <div class='ui segment block fitted green'>
-                          <div class="ui label floating point right pointing green">
-                            入院
-                         </div>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.届出時点の入院有無' label='届出時点で入院中ですか？' ></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-                  <li-help input='検査（採取）' icon='https://healthicons.org/icons/svg/outline/diagnostics/rdt_result.svg'>
-                    <template>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.検出の検体の採取日' label='採取日は？' type='yyyymmdd'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.検出の種類' label='検出法は？' :values="['分離・同定による病原体の検出','検体から核酸増減法（ＰＣＲ法・ＬＡＭＰ法など）','抗原定性検査による病原体の抗原の検出','抗原定量検査による病原体の抗原の検出']"></dat-value>
-                           </dat-gui>
-                          </div>
-                       </div>
-                        <div class='ui segment block fitted green'>
-                          <div class="ui label floating point right pointing green">
-                            検査
-                         </div>
-                          <div class='content fitted'>
-                            <div v-switch='新型コロナウイルス感染症の発生届.検出の種類'>
-                              <div v-case="'分離・同定による病原体の検出'">
-                                <dat-gui>
-                                  <dat-value v-model='新型コロナウイルス感染症の発生届.検出の検体' label='検体種は？' :values="['喀痰','気管吸引液','肺胞洗浄液','咽頭拭い液','鼻腔吸引液','鼻腔拭い液','鼻咽頭拭い液','便','唾液','剖検材料','その他']"></dat-value>
-                               </dat-gui>
-                             </div>
-                              <div v-case="'検体から核酸増減法（ＰＣＲ法・ＬＡＭＰ法など）'">
-                                <dat-gui name='検体から核酸増減法（ＰＣＲ法・ＬＡＭＰ法など）'>
-                                  <dat-value v-model='新型コロナウイルス感染症の発生届.検出の検体' label='検出の検体' :values="['喀痰','気管吸引液','肺胞洗浄液','咽頭拭い液','鼻腔吸引液','鼻腔拭い液','鼻咽頭拭い液','便','唾液','剖検材料','その他']"></dat-value>
-                               </dat-gui>
-                             </div>
-                              <div v-case="'抗原定性検査による病原体の抗原の検出'">
-                                <dat-gui>
-                                  <dat-value v-model='新型コロナウイルス感染症の発生届.検出の検体' label='検出の検体' :values="['鼻腔拭い液','鼻咽頭拭い液']"></dat-value>
-                               </dat-gui>
-                             </div>
-                              <div v-case="'抗原定量検査による病原体の抗原の検出'">
-                                <dat-gui>
-                                  <dat-value v-model='新型コロナウイルス感染症の発生届.検出の検体' label='検出の検体' :values="['鼻腔拭い液','鼻咽頭拭い液','唾液']"></dat-value>
-                               </dat-gui>
-                             </div>
-                           </div>
-                         </div>
-                       </div>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.検出の検体のその他' label='検体種は？（その他）'></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-                  <li-help input='発病（症状）' icon='https://healthicons.org/icons/svg/outline/people/symptom.svg'>
-                    <template>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.発病年月日' label='発病日は？' comment='新型コロナウイルス発生届の発病年月日' type='yyyymmdd'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状のその他' label='その他の症状'></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                        <div class='ui segment block fitted green'>
-                          <div class="ui label floating point right pointing green">
-                            症状
-                         </div>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-folder :name='`患者の症状（${_.filter(新型コロナウイルス感染症の発生届.患者の症状,Boolean).length}個にチェック）` | toZen'>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.発熱' label='発熱' comment='新型コロナウイルスの症状'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.咳' label='咳'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.咳以外の急性呼吸器の症状' label='咳以外の急性呼吸器の症状'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.肺炎像' label='肺炎像'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.重篤な肺炎' label='重篤な肺炎'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.急性呼吸窮迫症候群' label='急性呼吸窮迫症候群'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.多臓器不全' label='多臓器不全'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.全身倦怠感' label='全身倦怠感'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.頭痛' label='頭痛'></dat-value>
-                                <dat-value v-model="新型コロナウイルス感染症の発生届.患者の症状['嘔気/嘔吐']" label='嘔気/嘔吐'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.下痢' label='下痢'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.患者の症状.結膜炎' label='結膜炎'></dat-value>
-                                <dat-value v-model="新型コロナウイルス感染症の発生届.患者の症状['嗅覚・味覚障害']" label='嗅覚・味覚障害'></dat-value>
-                             </dat-folder>
-                           </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-                  <li-help input='重症（因子）' icon='https://healthicons.org/icons/svg/outline/conditions/viral_lung_infection.svg'>
-                    <template>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.重症度' label='重症度は？' comment='新型コロナウイルスの重症度' :values="['軽症','中等症Ⅰ','中等症Ⅱ','重症']"></dat-value>
-                              <dat-value v-model="新型コロナウイルス感染症の発生届['患者の酸素飽和度（室内気）']" label='酸素飽和度は？' :min='0' :max='100' :step='1' :empty='0'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.重症化のリスク因子のその他' label='その他の疾患は？'></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                        <div class='ui segment block fitted green'>
-                          <div class="ui label floating point right pointing green">
-                            因子
-                         </div>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-folder :name='`重症化のリスク因子（${_.filter(新型コロナウイルス感染症の発生届.重症化のリスク因子,Boolean).length}個のチェック）` | toZen'>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.重症化のリスク因子.悪性腫瘍' label='悪性腫瘍' comment='新型コロナウイルスの重症化の因子となる疾患' ></dat-value>
-                                <dat-value v-model="新型コロナウイルス感染症の発生届.重症化のリスク因子['慢性閉塞性肺疾患（COPD）']" label='慢性閉塞性肺疾患'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.重症化のリスク因子.慢性腎臓病' label='慢性腎臓病'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.重症化のリスク因子.高血圧' label='高血圧'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.重症化のリスク因子.糖尿病' label='糖尿病'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.重症化のリスク因子.脂質異常症' label='脂質異常症'></dat-value>
-                                <dat-value v-model="新型コロナウイルス感染症の発生届.重症化のリスク因子['肥満（BMI30 以上）']"  label='肥満（BMI30 以上）'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.重症化のリスク因子.喫煙歴' label='喫煙歴'></dat-value>
-                              </dat-folder>
-                           </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-                  <li-help input='診断（状態）' icon='https://healthicons.org/icons/svg/outline/symbols/virus.svg'>
-                    <template>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.感染したと推定される年月日' label='感染日は？' comment='新型コロナウイルス発生届の感染年月日' type='yyyymmdd'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.患者の類型' label='類型は？' comment='新型コロナウイルスの類型' :values="['患者（確定例）','無患者の症状病原体保有者','疑似症患者（*）','感染症死亡者の死体','感染症死亡疑い者の死体']"></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                        <div class='ui segment block fitted' v-if="新型コロナウイルス感染症の発生届.患者の類型 == '感染症死亡者の死体' || 新型コロナウイルス感染症の発生届.患者の類型 == '感染症死亡疑い者の死体'">
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.死亡年月日' label='死亡日は？' comment='新型コロナウイルス発生届の死亡年月日' type='yyyymmdd'></dat-value>
-                            </dat-gui>
-                         </div>
-                       </div>
-                        <div class='ui segment block fitted green'>
-                          <div class="ui label floating point right pointing green">
-                            病院
-                         </div>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.免疫の機能の低下有無' label='免疫は低下してますか？'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.妊娠の有無' label='妊娠はしてますか？'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.入院の必要性の有無' label='入院が必要ですか？'></dat-value>
-                              <dat-text  v-model='新型コロナウイルス感染症の発生届.メモ' label='メモ' placeholder='症状経過&#10;検査結果&#10;治療経過&#10;現在処方&#10;備考など' ref='multiline1'></dat-text>
-                          </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-                  <li-help input='感染（経路）' icon='https://healthicons.org/icons/svg/outline/emotions/coughing.svg'>
-                    <template>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.感染の経路と原因' label='感染源は？' comment='感染原因・感染経路・感染地域' :values="['不明','確定','推定']"></dat-value>
-                            </dat-gui>
-                         </div>
-                       </div>
-                        <div class='ui segment block fitted green' v-if="新型コロナウイルス感染症の発生届.感染の経路と原因 != '不明'">
-                          <div class="ui label floating point right pointing green">
-                            経路
-                         </div>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-folder name='感染経路'>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染の経路は飛沫か飛沫核' label='飛沫か？'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染の経路は接触' label='接触か？'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染の経路はその他' label='その他？'></dat-value>
+                        </div>
+                      </div>
+                       <div class='ui segment block fitted teal'>
+                         <div class='ui label floating point right pointing teal'>
+                           病院
+                        </div>
+                         <div class='content fitted'>
+                           <dat-gui>
+                             <dat-folder name='病院'>
+                               <dat-value v-model='共通.医師の従事病院または診療所の名称' label='病院は？'></dat-value>
+                               <dat-value v-model='共通.医師の従事病院または診療所の所在地' label='病院の住所は？'></dat-value>
+                               <dat-value v-model='共通.医師の従事病院または診療所の電話番号'label='病院の連絡先は？' type='phone'></dat-value>
+                               <dat-value v-model='共通.医師の従事病院または診療所の時間外の電話番号' label='診療時間外の連絡先は？' comment='診療時間外の連絡先' type='phone'></dat-value>
                             </dat-folder>
-                           </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-                  <li-help input='感染（地域）' icon='https://healthicons.org/icons/svg/outline/symbols/global-pandemic.svg'>
-                    <template>
-                      <div class='ui segments'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症の発生届.感染の地域' label='感染域は？' :values="['不明','確定','推定']"></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                        <div class='ui segment block fitted green' v-if="新型コロナウイルス感染症の発生届.感染の地域 != '不明'">
-                          <div class="ui label floating point right pointing green">
-                            地域
-                         </div>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-folder name='感染地域'>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染が国内の都道府県名' label='都道府県名'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染が国内の都道府県' label='都道府県' :values="['都','道','府','県']"></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染が国内の市区町村名' label='市区町村名'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染が国内の市区町村' label='市区町村' :values="['市','区','町','村']"></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染が国外' label='感染した国' :values="['','アイスランド','アイルランド','アゼルバイジャン','アフガニスタン','アブハジア','アメリカ','アラブ首長国連邦','アルジェリア','アルゼンチン','アルバニア','アルメニア','アンゴラ','アンティグア・バーブーダ','アンドラ','イエメン','イギリス','イスラエル','イタリア','イラク','イラン','インド','インドネシア','ウガンダ','ウクライナ','ウズベキスタン','ウルグアイ','エクアドル','エジプト','エストニア','エスワティニ（スワジランド）','エチオピア','エリトリア','エルサルバドル','沿ドニエストル','オーストラリア','オーストリア','オマーン','オランダ','ガーナ','カーボベルデ','ガイアナ','カザフスタン','カタール','カナダ','ガボン','カメルーン','韓国','ガンビア','カンボジア','北キプロス','北朝鮮','ギニア','ギニアビサウ','キプロス','キューバ','ギリシャ','キリバス','キルギス','グアテマラ','クウェート','クック諸島','グレナダ','クロアチア','ケニア','コートジボワール','コスタリカ','コソボ','コモロ','コロンビア','コンゴ共和国','コンゴ民主共和国','サウジアラビア','サモア','サントメ・プリンシペ','ザンビア','サンマリノ','シエラレオネ','ジブチ','ジャマイカ','ジョージア','シリア','シンガポール','ジンバブエ','スイス','スウェーデン','スーダン','スペイン','スリナム','スリランカ','スロバキア','スロベニア','セーシェル','赤道ギニア','セネガル','セルビア','セントクリストファー・ネイビス','セントビンセントおよびグレナディーン諸島','セントルシア','ソマリア','ソマリランド','ソロモン諸島','タイ','台湾','タジキスタン','タンザニア','チェコ','チャド','中央アフリカ共和国','中国','チュニジア','チリ','ツバル','デンマーク','ドイツ','トーゴ','ドミニカ共和国','ドミニカ国','トリニダード・トバゴ','トルクメニスタン','トルコ','トンガ','ナイジェリア','ナウル','ナゴルノ・カラバフ','ナミビア','ニウエ','ニカラグア','ニジェール','西サハラ','日本','ニュージーランド','ネパール','ノルウェー','バーレーン','ハイチ','パキスタン','バチカン','パナマ','バヌアツ','バハマ','パプアニューギニア','パラオ','パラグアイ','バルバドス','パレスチナ','ハンガリー','バングラデシュ','東ティモール','フィジー','フィリピン','フィンランド','ブータン','ブラジル','フランス','ブルガリア','ブルキナファソ','ブルネイ','ブルンジ','ベトナム','ベナン','ベネズエラ','ベラルーシ','ベリーズ','ペルー','ベルギー','ポーランド','ボスニア・ヘルツェゴビナ','ボツワナ','ボリビア','ポルトガル','ホンジュラス','マケドニア旧ユーゴスラビア共和国','マーシャル諸島','マダガスカル','マラウイ','マリ','マルタ','マレーシア','ミクロネシア連邦','南アフリカ','南オセチア','南スーダン','ミャンマー','メキシコ','モーリシャス','モーリタニア','モザンビーク','モナコ','モルディブ','モルドバ','モロッコ','モンゴル','モンテネグロ','ヨルダン','ラオス','ラトビア','リトアニア','リビア','リヒテンシュタイン','リベリア','ルーマニア','ルクセンブルク','ルワンダ','レソト','レバノン','ロシア']"></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染が国外の詳細地域' label='詳細な地域'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染が国外への出国日' label='入国日' type='yyyymmdd'></dat-value>
-                                <dat-value v-model='新型コロナウイルス感染症の発生届.感染が国外での帰国日' label='出国日' type='yyyymmdd'></dat-value>
-                             </dat-folder>
-                           </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-               </ul>
-             </li>
-              <li class='node'>
-                <div>
-                  <span>
-                    <div class='ui label circular image'>
-                      <img src='https://healthicons.org/icons/svg/outline/symbols/health_worker_form.svg'>
-                   </div>
-                 </span>
-               </div>
-                <ul>
-                  <li-help input='診察（宛先）' icon='https://healthicons.org/icons/svg/outline/places/ministry_of_health.svg'>
-                    <template>
-                      <div class='ui divider horizontal fitted'>
-                        自宅療養者等の診察所見報告書
-                     </div>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.診察日' label='診察日は？' type='yyyymmdd'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.宛先' label='宛先は？'></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                        <div class='ui segment block fitted teal'>
-                          <div class="ui label floating point right pointing teal">
-                            連絡
-                         </div>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.紹介目的' label='紹介目的'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.高次医療機関での診察_入院調整を依頼します' label='診察・入院調整の依頼'></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-                  <li-help input='経過（所見）' icon='https://healthicons.org/icons/svg/outline/body/ear.svg'>
-                    <template>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.傷病名' label='傷病名'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.受診種別' label='受診種別は？' :values="['電話WEB診療','外来受診','往診']"></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.陽性確定後の診察Ｎ回目' label='陽性確定後の診察Ｎ回目' :min='0' :max='100' :step='1' :empty='0'></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                        <div class='ui segment block fitted teal'>
-                          <div class="ui label floating point right pointing teal">
-                            患者
-                         </div>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.同日同一建物内の別患者の診療の有無' label='別患者の往診の有無'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.既往歴及び家族歴' label='既往歴及び家族歴'></dat-value>
-                              <dat-text  v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.症状経過及び検査結果_治療経過_現在の処方_備考' label='経過詳細' placeholder='症状経過&#10;検査結果&#10;治療経過&#10;現在処方&#10;備考など' ref='multiline2'></dat-text>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.解熱剤の使用８時間以内' label='８時間以内の解熱剤使用'></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-                  <li-help input='患者（ＢＴ）' icon='https://healthicons.org/icons/svg/outline/devices/oxygen_tank.svg'>
-                    <template>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.体温' label='体温' :min='0' :max='50' :step='.1' :empty='0'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.呼吸数' label='呼吸数' :min='0' :max='60' :step='1' :empty='0'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.酸素飽和度' label='酸素飽和度' :min='0' :max='100' :step='1' :empty='0'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.酸素投与量' label='酸素投与量' :min='0' :max='100' :step='1' :empty='0'></dat-value>
                           </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-                  <li-help input='聴診（所見）' icon='https://healthicons.org/icons/svg/outline/devices/stethoscope.svg'>
-                    <template>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.聴診所見異常あり' label='聴診所見異常あり'></dat-value>
+                        </div>
+                      </div>
+                       <div class='ui segment block fitted teal'>
+                         <div class='ui label floating point right pointing teal'>
+                           医師
+                        </div>
+                         <div class='content fitted'>
+                           <dat-gui>
+                             <dat-folder :name='`医師（${共通.医師の氏名}）` | toZen'>
+                               <dat-value v-model='共通.医師の氏名' label='氏名は？'></dat-value>
+                               <dat-value v-model='共通.医師の氏名の読み仮名' label='読み仮名は？'></dat-value>
+                            </dat-folder>
                           </dat-gui>
-                         </div>
-                       </div>
-                        <div class='ui segment block fitted teal' v-if="新型コロナウイルス感染症自宅療養者等の診察所見報告書.聴診所見異常あり">
-                          <div class="ui label floating point right pointing teal">
-                            胸部
-                         </div>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.聴診所見' label='聴診所見'></dat-value>
+                        </div>
+                      </div>
+                       <div class='ui segment block fitted teal'>
+                         <div class="ui label floating point right pointing teal">
+                           患者
+                        </div>
+                         <div class='content fitted'>
+                           <dat-gui>
+                             <dat-folder :name='`患者（${共通.患者のＩＤ}${共通.患者の氏名}）` | toZen'>
+                               <dat-value v-model='共通.患者のＩＤ' label='患者ＩＤ' comment='患者のＩＤ'></dat-value>
+                               <dat-value v-model='共通.患者の氏名' label='氏名は？' ></dat-value>
+                               <dat-value v-model='共通.患者の読み仮名' label='読み仮名は？' ></dat-value>
+                               <dat-value v-model='共通.患者の性別' label='性別は？' :values="['男','女']"></dat-value>
+                               <dat-value v-model='共通.患者の生年月日' label='誕生は？' type='yyyymmdd' comment='患者の年齢'></dat-value>
+                               <dat-value v-model='共通.患者の年齢' label='年齢は' readonly></dat-value>
+                               <dat-value v-model='共通.患者の年齢のヶ月目' label='年齢のヶ月は' readonly></dat-value>
+                               <dat-value v-model='共通.患者の職業' label='職業は？' comment='患者の職業'></dat-value>
+                               <dat-value v-model='共通.患者の住所の県市区町村' label='住所（都道府県と市）は？' ></dat-value>
+                               <dat-value v-model='共通.患者の住所' label='住所は？' comment='患者の住所'></dat-value>
+                               <dat-value v-model='共通.患者の住所の電話番号' label='住所の連絡先は？'type='phone'></dat-value>
+                               <dat-value v-model='共通.患者の所在地' label='所在地は？' comment='患者の住所と所在地'></dat-value>
+                               <dat-value v-model='共通.患者の所在地の電話番号' label='所在地の連絡先は？' type='phone'></dat-value>
+                            </dat-folder>
                           </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-                  <li-help input='撮影（所見）' icon='https://healthicons.org/icons/svg/outline/devices/xray.svg'>
-                    <template>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.胸部レントゲン撮影年月日' label='胸部レントゲン撮影年月日' type='yyyymmdd'></dat-value>
+                        </div>
+                      </div>
+                       <div class='ui semgent block fitted' v-show='共通.患者の年齢 < 20'>
+                         <div class='content fitted'>
+                           <dat-gui>
+                             <dat-folder :name='`保護（患者の${共通.患者の保護者の続柄}/${共通.患者の保護者の氏名}）` | toZen'>
+                               <dat-value v-model='共通.患者の保護者の続柄' label='続柄は？' ></dat-value>
+                               <dat-value v-model='共通.患者の保護者の氏名' label='氏名は？' ></dat-value>
+                               <dat-value v-model='共通.患者の保護者の読み仮名' label='読み仮名は？' ></dat-value>
+                               <dat-value v-model='共通.患者の保護者の住所' label='住所は？' ></dat-value>
+                               <dat-value v-model='共通.患者の保護者の電話番号' label='連絡先は？' type='phone'></dat-value>
+                           </dat-folder>
                           </dat-gui>
-                         </div>
-                       </div>
-                        <div class='ui segment block fitted teal'>
-                          <div class="ui label floating point right pointing teal">
-                            胸部
-                         </div>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.胸部レントゲン撮影所見' label='レントゲン撮影の所見'></dat-value>
-                          </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-                  <li-help input='採血（所見）' icon='https://healthicons.org/icons/svg/outline/devices/syringe.svg'>
-                    <template>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血検査年月日' label='採血検査年月日' type='yyyymmdd'></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                        <div class='ui segment block fitted teal'>
-                          <div class="ui label floating point right pointing teal">
-                            血液
-                         </div>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血ＷＢＣ' label='ＷＢＣ' :min='0' :max='99.9' :step='.1' :empty='0'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血リンパ球数' label='ＬＹＭ' :min='0' :max='999.9' :step='.1' :empty='0'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血ＬＤＨ' label='ＬＤＨ' :min='0' :max='9999' :step='1' :empty='0'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血ＣＲＰ' label='ＣＲＰ' :min='0' :max='99.9' :step='.1' :empty='0'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血Ｄダイマ' label='Ｄダイマ' :min='0' :max='99.9' :step='.1' :empty='0'></dat-value>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血検査所見' label='その他'></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-                  <li-help input='ほか（所見）' icon='https://healthicons.org/icons/svg/outline/symbols/i_note_action.svg'>
-                    <template>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='新型コロナウイルス感染症自宅療養者等の診察所見報告書.その他所見' label='その他所見'></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-               </ul>
-             </li>
-              <li class='node'>
-                <div>
-                  <span>
-                    <div class='ui label circular image'>
-                      <img src='https://healthicons.org/icons/svg/outline/symbols/prescription_document.svg'>
-                   </div>
-                 </span>
-               </div>
-                <ul>
-                  <li-help input='処方（説明）' icon='https://healthicons.org/icons/svg/outline/medications/medicines.svg'>
-                    <template>
-                      <div class='ui divider horizontal fitted'>
-                        ラゲブリオカプセル200mgによる治療　同意説明文書
-                     </div>
-                      <div class='ui segments block'>
-                        <div class='ui segment block fitted'>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model='ラゲブリオカプセル200mgによる治療に係る同意説明文書.処方箋交付年月日' label='処方箋交付年月日' type='yyyymmdd'></dat-value>
-                           </dat-gui>
-                         </div>
-                       </div>
-                        <div class='ui segment block fitted blue'>
-                          <div class="ui label floating point right pointing blue">
-                            血液
-                         </div>
-                          <div class='content fitted'>
-                            <dat-gui>
-                              <dat-value v-model="ラゲブリオカプセル200mgによる治療に係る同意説明文書['SARS-CoV-2による感染症']" label='SARS-CoV-2感染症ですか'></dat-value>
-                              <dat-value v-model="ラゲブリオカプセル200mgによる治療に係る同意説明文書['禁忌事項_本剤の成分に対し過敏症の既往歴のある患者ではない']" label='成分に過敏症有無'></dat-value>
-                              <dat-value v-model="ラゲブリオカプセル200mgによる治療に係る同意説明文書['禁忌事項_妊婦又は妊娠している可能性のある女性ではない']" label='妊娠してますか'></dat-value>
-                              <dat-value v-model="ラゲブリオカプセル200mgによる治療に係る同意説明文書['SARS-CoV-2による感染症']" label='SARS-CoV-2による感染症'></dat-value>
-                              <dat-value v-model="ラゲブリオカプセル200mgによる治療に係る同意説明文書['SARS-CoV-2による感染症の重症化リスク因子_１つ以上を有する']" label='重症化リスク因子有無'></dat-value>
-                              <dat-value v-model="ラゲブリオカプセル200mgによる治療に係る同意説明文書['患者又は代諾者からの同意取得']" label='同意されていますか'></dat-value>   
-                           </dat-gui>
-                         </div>
-                       </div>
-                     </div>
-                   </template>
-                 </li-help>
-               </ul>
-             </li>
-              <li class='node' v-if='debug'>
-                <div>
-                  <span>
-                    <div class='ui label circular image'>
-                      <img src='https://healthicons.org/icons/svg/outline/body/eye.svg'>
-                   </div>
-                 </span>
-               </div>
-                <ul>
-                  <li-help input='デバッグ（Ａ）' icon='https://healthicons.org/icons/svg/outline/typography/A.svg'>
-                    <div class='ui segments block'>
-                      <div class='ui segment block'>
-                        <div class='content fitted'>
-                          <vue-json-pretty
-                            :data='data'
-                            :deep='1'
-                            :show-line='true'
-                            :show-length='true'
-                            :show-double-quotes='true'
-                            :highlight-selected-node='true'
-                            :highlight-mouseover-node='true'>
-                         </vue-json-pretty>
-                       </div>
-                     </div>
-                   </div>
-                 </li-help>
-                  <li-help input='デバッグ（Ｂ）' icon='https://healthicons.org/icons/svg/outline/typography/B.svg'>
-                    <div class='ui segments block'>
-                      <div class='ui segment block'>
-                        <div class='content fitted'>
-                          <vue-obj-table v-model='data'>
-                         </vue-obj-table>
-                       </div>
-                     </div>
-                   </div>
-                 </li-help>
-               </ul>
-             </li>
-              <li class='node'>
-                <div>
-                  <span>
-                    <div class='ui label circular image'>
-                      <img src='https://healthicons.org/icons/svg/outline/symbols/yes.svg'>
-                   </div>
-                 </span>
-               </div>
-                <ul>
-                  <li-help input='内容（操作）' icon='https://healthicons.org/icons/svg/outline/symbols/i_documents_accepted.svg'>
-                    <div class='ui segments block'>
-                      <div class='ui segment block'>
-                        <div class='content fitted'>
-                          <dat-gui>
-                            <dat-value @click='downloadDocument' label='ダウンロード'></dat-value>
-                         </dat-gui>
-                       </div>
-                     </div>
-                   </div>
-                 </li-help>
-               </ul>
-             </li>
-           </ul>
+                        </div>
+                      </div>
+                    </template>
+                     <template v-slot:footer>
+                       <dat-gui>
+                         <dat-value @click='download' label='download' ></dat-value>
+                      </dat-gui>
+                     </template>
+                  </component>
+                </template>
+              </template>
+            </div>
          </div>
           <div class='column'>
-            <iframe class='viewer' ref='viewer' v-if='ready'>
+            <iframe :src='url'>
            </iframe>
          </div>
        </div>
@@ -982,11 +267,12 @@
  <script src='js/moment-age/1.0.0.js'></script>
  <script src='js/moment/locale/ja.js'></script>
  <script src='js/localForage/1.9.0.js'></script>
+ <script src='js/vue/http-vue-loader/1.4.2-custom.js'></script>
  <script src='js/FileSaver.js/2.0.5.js'></script>
  <script src='js/tabindent.js/0.1.8.js'></script>
+ <script src='signature_pad.umd.js'></script>
  <script src='js/screenfull.js/5.1.0.js'></script>
  <script src='js/dat.gui/0.7.7-custom.js'></script>
- <script src='js/flattie/1.1.0-custom.js'></script>
  <script src='js/TinyColor/1.4.2-custom.js'></script>
  <!-- JQUERY -->
  <script src='js/jquery/4.0.0.js'></script>
@@ -1011,47 +297,6 @@
    Vue.config.productionTip  = false
 </script>
  <script>
-   var VueToast = {
-     install:function(vue,options){
-       Vue.prototype.$toast = function(type,message){
-         $(document.body).toast({
-           className      : {
-             container    : 'ui toast-container block',
-             box          : 'toast-box floating',
-           },
-           newestOnTop:true,
-           displayTime:this.$root.view.waitToast * 1000,
-           message:message,
-           class:type
-         })
-       }
-       Vue.prototype.$toast_confirm = function(type,message,fnc_yes,fnc_no){
-         $(document.body).toast({
-            className      : {
-              container    : 'ui toast-container block',
-              box          : 'toast-box floating',
-            },
-            newestOnTop:true,
-            classActions:'attached top',
-            message:message,
-            displayTime:this.$root.view.waitToast * 1000,
-            class:type,
-            actions:[{
-              text:'はい',
-              class:'green',
-              click:fnc_yes
-            },{
-             text:'いいえ',
-              class:'red',
-              click:fnc_no
-           }]
-         })
-       }    
-     }
-   }
-</script>
- <script>
-   Vue.use(VueToast)
    Vue.use(VueDatGui)
    Vue.use(VueSwitch)
    Vue.use(VueMoment)
@@ -1062,27 +307,20 @@
    Vue.use(FocusTrapVue.DynamicReactiveRefs)
 </script>
  <script>
-   Vue.component('vue-json-pretty', VueJsonPretty.default)
+   Vue.mixin({
+     computed:{
+       key:function(){
+         return this.$options.name || this.$options._componentTag
+       }
+     },
+     mounted:function(){
+       if(this.key){
+         this.$el.classList.add(this.key)
+       }
+     }
+   })
 </script>
  <script>
-   Vue.directive('style',function(el,binding,vnode){
-     vnode.context.$nextTick(function(){
-       var arr = binding.value.split(',') 
-       switch(binding.arg){
-         case 'align':
-           _.each(el.children,function(el,i){
-             var direction = arr[i] == 'l' ? 'left' : arr[i] == 'r' ? 'right' : 'center'
-             $(el).addClass([direction,'aligned'])
-           })
-           break
-         case 'width':
-           _.each(el.children,function(el,i){
-             $(el).css('width',(arr[i] == 'a') ? 'auto' : arr[i] + 'em')
-           })
-           break
-       }
-     })
-   })
    Vue.directive('micron',{
      inserted:function(el,binding,vnode){
        vnode.context.$nextTick(function(){
@@ -1106,7 +344,7 @@
        input = $([
          'button:visible',
          'select:visible',
-         /* 'textarea:visible', */
+         '.button',
          'input[type=text]:visible',
          'input[type=checkbox]:visible',
          'input[type=password]:visible'
@@ -1114,17 +352,6 @@
        callback = {
          focus:async function(event){
            $(event.target).closest('.cr').addClass('focus')
-           $('li.node > div > span > .ui.label').removeClass('focus')
-           $(event.target).parents('li.node').find('> div > span > .ui.label').addClass('focus')
-
-           var has_comment = $(event.target).closest('li').attr('comment')
-           if (has_comment.length > 0) {
-             $.get(`help/${has_comment}.html`, function(data){
-               var html = $('<div></div>').addClass(has_comment).html(data)
-               $(html).find('a').attr('target','_blank')
-               vnode.context.$toast('info',html)
-             })
-           }
          },
          focusout:function(event){
            $(event.target).closest('.cr').removeClass('focus')
@@ -1153,20 +380,6 @@
    })
 </script>
  <script>
-   Vue.mixin({
-     computed:{
-       key:function(){
-         return this.$options.name || this.$options._componentTag
-       }
-     },
-     mounted:function(){
-       if(this.key){
-         this.$el.classList.add(this.key)
-       }
-     }
-   })
-</script>
- <script>
    PDFLib.PDFPage.prototype.drawTextBox = function(text,options,fontSize){
      var form = this.doc.getForm()
      var textField = form.createTextField(`some.text.${(Math.random()*1e32).toString(36)}`)
@@ -1184,8 +397,8 @@
      var form = this.doc.getForm()
      var checkBox = form.createCheckBox(`some.checkbox.${(Math.random()*1e32).toString(36)}`)
      checkBox.addToPage(this,_.merge(options,{
-       width:7,
-       height:7,
+       width:6,
+       height:6,
        borderColor:PDFLib.rgb(1,1,1),
        backgroundColor:PDFLib.rgb(1,1,1)
      }))
@@ -1199,94 +412,21 @@
    }
 </script>
  <script>
-   Vue.component('li-help',{
-     props:{
-       input:{
-         type:String,
-         default:''
-       },
-       icon:{
-         type:String,
-         default:''
-       }
-     },
-     data:function(){
-       return{
-         text:'',
-         toggle:true,
-       }
-     },
-     watch:{
-       toggle:{
-         handler:function(b){
-           if(!b){
-             this.$nextTick(()=>{
-               tabIndent.render(this.$refs.help)
-             })
-           }
-         }
-       },
-       text:{
-         handler:_.debounce(function(s){
-           localforage.setItem(this.input,s)
-         },500)
-       }
-     },
-     created:async function(){
-       this.text = await localforage.getItem(this.input) || ''
-     },
-     template:`
-       <li class='node'>
-         <div>
-           <span>
-             <div class='ui label circular image' @click='toggle = !toggle'>
-               <img :src='icon'>
-            </div>
-          </span>
-        </div>
-         <ul>
-           <li :class="['node',{'help':toggle == false}]">
-             <div v-show='toggle'>
-               <slot>
-              </slot>
-            </div>
-             <div v-if='toggle == false'>
-               <div class='ui segment block'>
-                 <div class='content fitted'>
-                   <textarea v-model='text' placeholder='HELP:' ref='help' v-auto-resize>
-                  </textarea>
-                </div>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </li>
-     `
-   })
-</script>
- <script>
    new Vue({
      el:'main',
      components:{
-       'vue-obj-table':'url:vue/vue-obj-table.vue',
-       'document-version':'url:vue/document-version.vue'
+       '新型コロナウイルス感染症の発生届':'url:vue/新型コロナウイルス感染症の発生届.vue',
+       '新型コロナウイルス感染症の自宅療養者等の診察所見報告書':'url:vue/新型コロナウイルス感染症の自宅療養者等の診察所見報告書.vue',
+       'ラゲブリオ®カプセル200mgによる治療に係る同意説明文書':'url:vue/ラゲブリオ®カプセル200mgによる治療に係る同意説明文書.vue',
+       'ラゲブリオ®カプセル200mg処方にあたっての適格性情報チェックリスト':'url:vue/ラゲブリオ®カプセル200mg処方にあたっての適格性情報チェックリスト.vue'
      },
      computed:{
-       data:function(){
-         return _.pick(this.$data,[
-           '共通',
-           '新型コロナウイルス感染症の発生届',
-           '新型コロナウイルス感染症自宅療養者等の診察所見報告書',
-           'ラゲブリオカプセル200mgによる治療に係る同意説明文書'])
+       controllers:function(){
+         return _.mapDeep(this.$refs.document[0].$children,_.identity,{childrenPath:'$children'})
        },
-       debug:function(){
-         return window.location.search == '?debug'
-       },
-       ready:function(){
-         return this.font != null
-       },
-       components:function(){
-         return _.mapDeep(this.$children,_.identity,{childrenPath:'$children'})
+       documents:function(){
+         var arr = _(this.$options.components).keys().without(this.$options.name).value()
+         return (this.search != '') ? _.filter(arr, name=>name.indexOf(this.search) != -1) : arr
        },
        file:function(){
          return {
@@ -1314,98 +454,56 @@
        deepdash(_)
        moment.locale('ja')
      },
-     created:async function(){
-       this.init()
-       setInterval(() => {
-         this.timestamp = moment().valueOf()
-       }, 1000)
-
-       await this.loadFont()
-       await this.loadPdf().then(async()=>{
-
-         this.compute()
-         this.drawDocument()
-
-         this.$watchAll([
-           {name:'setting',options:{deep:true}}
-         ],_.debounce(async()=>{
-           await this.loadFont()
-           await this.drawDocument()
-         },this.view.waitDraw))
-
-         this.$watchAll([
-           {name:'共通',options:{deep:true}},
-           {name:'新型コロナウイルス感染症の発生届',options:{deep:true}},
-           {name:'新型コロナウイルス感染症自宅療養者等の診察所見報告書',options:{deep:true}},
-           {name:'ラゲブリオカプセル200mgによる治療に係る同意説明文書',options:{deep:true}}
-         ],_.debounce(async(k,o)=>{
-           this.compute()
-           this.drawDocument()
-         },this.view.waitDraw))
-
-       })
-     },
-     mounted:async function(){
-       this.$nextTick(()=>{
-         $(this.$refs.first.$_controller.__input).focus()
-         tabIndent.render(this.$refs.multiline1.$_controller.__input)
-         tabIndent.render(this.$refs.multiline2.$_controller.__input)
-         $('input.birthday').each(function(i,input){
-           new Cleave(input,{delimiter:'-',blocks:[4,2,2]})
-         })
-         $('input.phone').each(function(i,input){
-           new Cleave(input,{delimiter:'-',blocks:[3,4,4]})
-         })
-         $('input.mmdd').each(function(i,input){
-           new Cleave(input,{date:true,datePattern:['m','d']})
-         })
-         $('input.yymmdd').each(function(i,input){
-           new Cleave(input,{date:true,datePattern:['y','m','d']})
-         })
-         $('input.yyyymmdd').each(function(i,input){
-           new Cleave(input,{date:true,datePattern:['Y','m','d']})
-         })
-       })
-     },
      watch:{
        'view.dat.open':function(b){
-         for(folder of this.components.filter(o=>o.key=='DatFolder').map(o=>o.$_gui)){
+         for(folder of this.controllers.filter(o=>o.key=='DatFolder').map(o=>o.$_gui)){
            folder[b ? 'open' : 'close']()
          }
        },
        'view.dat.expand':function(b){
-         for(folder of this.components.filter(o=>o.key=='DatGui'||o.key=='DatFolder').map(o=>o.$_gui)){
+         for(folder of this.controllers.filter(o=>o.key=='DatGui'||o.key=='DatFolder').map(o=>o.$_gui)){
            folder.expand(b)
-         }
-       },
-       'view.help.open':function(b){
-         for(help of this.components.filter(o=>o.key=='li-help')){
-           help.toggle = !help.toggle
          }
        },
        'view.fullScreen':function(){
          screenfull.toggle()
        }
      },
+     created:async function(){
+       await this.loadFont()
+
+       setInterval(() => {
+         this.timestamp = moment().valueOf()
+       }, 1000)
+
+
+       this.$watchAll([
+         {name:'設定',options:{deep:true}},
+         {name:'共通',options:{deep:true}}
+       ],_.debounce(async()=>{
+         await this.loadFont()
+         this.$refs.document[0].draw()
+         
+       },this.view.waitDraw))
+     },
      data:{
-       pdf:null,
+       search:'',
        doc:null,
+       tab:'',
+       url:'',
        font:null,
-       viewer:null,
        timestamp:0,
        view:{
          dat:{
            open:false,
            expand:false,
          },
-         help:{
-           open:false
-         },
+         setting:false,
          waitDraw:1500,
          waitToast:15,
          fullScreen:false
        },
-       setting:{
+       設定:{
          fontname:'うずらフォント',
          listFont:{
            '851手書き雑フォント':'0.883.ttf',
@@ -1445,830 +543,18 @@
          患者の保護者の住所:'東京都千代田区霞が関三丁目２番５号',
          患者の保護者の電話番号:'827-128-9800',
          患者の保護者の続柄:'兄'
-       },
-       新型コロナウイルス感染症の発生届:{
-         報告年月日 :'',
-         患者の類型:'患者（確定例）',
-         // 11.症状
-         患者の症状:{
-           発熱:true,
-           咳:true,
-           咳以外の急性呼吸器の症状:true,
-           肺炎像:true,
-           重篤な肺炎:true,
-           急性呼吸窮迫症候群:true,
-           多臓器不全:true,
-           全身倦怠感:true,
-           頭痛:true,
-           '嘔気/嘔吐':true,
-           下痢:true,
-           結膜炎:true,
-           '嗅覚・味覚障害':true,
-         },
-         患者の症状なし:false,
-         '患者の酸素飽和度（室内気）':0,
-         患者の症状のその他:'胸部Ｘ線両肺野スリガラス影',
-         // 12.診断方法
-         検出の種類:'抗原定性検査による病原体の抗原の検出',
-         検出の検体:'鼻咽頭拭い液',
-         検出の検体のその他:'',
-         検出の検体の採取日:'2021/08/27',
-         // 13.年月日
-         初診年月日:'2021/08/27',
-         '診断（検案（※））年月日':'2021/08/27',
-         感染したと推定される年月日:'2021/08/27',
-         発病年月日:'2021/08/27',
-         死亡年月日:'2021/08/27',
-         // 18.感染原因・感染経路・感染地域
-         感染の経路と原因:'推定',
-         感染の経路は飛沫か飛沫核:'同室者からの咳・くしゃみ',
-         感染の経路は接触:'濃厚接触者（父）',
-          感染の経路はその他:'',
-         感染の地域:'推定',
-         感染が国内の都道府県名:'東京',
-         感染が国内の都道府県:'都',
-         感染が国内の市区町村名:'千代田',
-         感染が国内の市区町村:'区',
-         感染が国外:'アメリカ',
-         感染が国外の詳細地域:'コロラド洲',
-         感染が国外への出国日:'2021/08/27',
-         感染が国外での帰国日:'2021/08/29',
-         コロナのワクチン１回目の接種:'有り',
-         コロナのワクチン２回目の接種:'有り',
-         コロナのワクチン３回目の接種:'有り',
-         コロナのワクチン１回目の年齢:30,
-         コロナのワクチン１回目の接種年月日:'2021/04/19',
-         コロナのワクチン１回目の種類:'mRNA',
-         コロナのワクチン１回目の製造会社:'ファイザ',
-         コロナのワクチン２回目の年齢:30,
-         コロナのワクチン２回目の接種年月日:'2021/05/10',
-         コロナのワクチン２回目の種類:'mRNA',
-         コロナのワクチン２回目の製造会社:'ファイザ',
-         コロナのワクチン３回目の年齢:30,
-         コロナのワクチン３回目の接種年月日:'2022/01/07',
-         コロナのワクチン３回目の種類:'mRNA',
-         コロナのワクチン３回目の製造会社:'ファイザ',
-          // 19.患者の症状のその他感染症のまん延の防止及び患者の医療のために医師が必要と認める事項
-         届出時点の入院有無:true,
-         入院年月日:'2021/08/27',
-         重症化のリスク因子:{
-           悪性腫瘍:true,
-           '慢性閉塞性肺疾患（COPD）':true,
-           慢性腎臓病:true,
-           高血圧:true,
-           糖尿病:true,
-           脂質異常症:true,
-           '肥満（BMI30 以上）':true,
-           喫煙歴:true
-           },
-         重症化のリスク因子のその他:'季節性インフルエンザ',
-         免疫の機能の低下有無:true,
-         妊娠の有無:true,
-         重症度:'軽症',
-         入院の必要性の有無:true,
-         特例の診療の有無:true,
-         メモ:'MEMO:'
-       },
-       新型コロナウイルス感染症自宅療養者等の診察所見報告書:{
-         宛先:'名古屋市保健所 保健センター所長',
-         診察日:'2021/08/27',
-         受診種別:'電話WEB診療',
-         同日同一建物内の別患者の診療の有無:true,
-         陽性確定後の診察Ｎ回目:99,
-         傷病名:'COVID-19 感染症',
-         紹介目的:'精査・加療・入院',
-         高次医療機関での診察_入院調整を依頼します:false,
-         既往歴及び家族歴:'高血圧、高尿酸血症、脂質異常症、前立腺肥大症、叔父が心臓病',
-         症状経過及び検査結果_治療経過_現在の処方_備考:`　　　発端：入居施設に陽性複数
-　陽性確認：２月６日の抗原検査
-　　無症状：ＢＴ安定食事も可能
-　　　処方：発熱時 x10回分
-　　　　　　ムコスタ錠 100mg1錠般
-　　　　　　ロキソニン錠 60mg1錠般
-　　　解除：何もなければ２月１５日予定
-重症化因子：潰瘍性大腸炎
-　　行動歴：陽性者の介護
-　　接触歴：陽性者（母）の介護
-　　移動歴：なし`,
-         体温:36.9,
-         解熱剤の使用８時間以内:false,
-         聴診所見異常あり:true,
-         聴診所見:'',
-         酸素飽和度:100,
-         酸素投与量:0,
-         呼吸数:30,
-         胸部レントゲン撮影年月日:'2022/01/01',
-         胸部レントゲン撮影所見:`両側肺の胸膜下、気管支周囲優位に斑状から結節状の浸潤影`,
-         採血検査年月日:'2022/01/01',
-         採血ＷＢＣ:4.5,
-         採血リンパ球数:30.5,
-         採血ＬＤＨ:230,
-         採血ＣＲＰ:5.0,
-         採血Ｄダイマ:1.3,
-         採血検査所見:``,
-         その他所見:``
-       },
-       'ラゲブリオカプセル200mgによる治療に係る同意説明文書':{
-         記入日:'1991/11/07',
-         処方箋交付年月日:'1991/11/07',
-         'SARS-CoV-2による感染症':true,
-         禁忌事項_本剤の成分に対し過敏症の既往歴のある患者ではない:true,
-         禁忌事項_妊婦又は妊娠している可能性のある女性ではない:true,
-         'SARS-CoV-2による感染症の重症化リスク因子_１つ以上を有する':false,
-         '患者又は代諾者からの同意取得':true
        }
      },
-     methods:{
-       init:function(){
-         this.新型コロナウイルス感染症の発生届.報告年月日 = moment().format('YYYY/MM/DD')
-         this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.診察日 = moment().format('YYYY/MM/DD')
-       },
-       clear:function(){
-         this.$toast_confirm('warning','全ての入力をクリアしますか？',()=>{
-           _.merge(this.共通,{
-             医師の氏名:'',
-             医師の氏名の読み仮名:'',
-             医師の印鑑:'',
-             医師の従事病院または診療所の名称 :'',
-             医師の従事病院または診療所の所在地:'',
-             医師の従事病院または診療所の電話番号:'',
-             医師の従事病院または診療所の時間外の電話番号:'',
-             患者のＩＤ:'',
-             患者の氏名:'',
-             患者の読み仮名:'',
-             患者の性別:'',
-             患者の生年月日:'',
-             患者の年齢:'',
-             患者の年齢のヶ月目:'',
-             患者の職業:'',
-             患者の住所の県市区町村:'',
-             患者の住所:'',
-             患者の住所の電話番号:'',
-             患者の所在地:'',
-             患者の所在地の電話番号:'',
-             患者の保護者の氏名:'',
-             患者の保護者の読み仮名:'',
-             患者の保護者の住所:'',
-             患者の保護者の電話番号:'',
-             患者の保護者の続柄:''
-           })
-           _.merge(this.新型コロナウイルス感染症の発生届,{
-             報告年月日 :'',
-             患者の類型:'',
-             // 11.症状
-             患者の症状:{
-               発熱:false,
-               咳:false,
-               咳以外の急性呼吸器の症状:false,
-               肺炎像:false,
-               重篤な肺炎:false,
-               急性呼吸窮迫症候群:false,
-               多臓器不全:false,
-               全身倦怠感:false,
-               頭痛:false,
-               '嘔気/嘔吐':false,
-               下痢:false,
-               結膜炎:false,
-               '嗅覚・味覚障害':false,
-             },
-             患者の症状なし:false,
-             '患者の酸素飽和度（室内気）':0,
-             患者の症状のその他:'',
-             // 12.診断方法
-             検出の種類:'',
-             検出の検体:'',
-               検出の検体のその他:'',
-             検出の検体の採取日:'',
-             // 13.年月日
-             初診年月日:'',
-             '診断（検案（※））年月日':'',
-             感染したと推定される年月日:'',
-             発病年月日:'',
-             死亡年月日:'',
-             // 18.感染原因・感染経路・感染地域
-             感染の経路と原因:'',
-             感染の経路は飛沫か飛沫核:'',
-             感染の経路は接触:'',
-             感染の経路はその他:'',
-             感染の地域:'',
-             感染が国内の都道府県名:'',
-             感染が国内の都道府県:'',
-             感染が国内の市区町村名:'',
-             感染が国内の市区町村:'',
-             感染が国外:'',
-             感染が国外の詳細地域:'',
-             感染が国外への出国日:'',
-             感染が国外での帰国日:'',
-             コロナのワクチン１回目の接種:'',
-             コロナのワクチン２回目の接種:'',
-             コロナのワクチン３回目の接種:'',
-             コロナのワクチン１回目の年齢:0,
-             コロナのワクチン１回目の接種年月日:'',
-             コロナのワクチン１回目の種類:'',
-             コロナのワクチン１回目の製造会社:'',
-             コロナのワクチン２回目の年齢:0,
-             コロナのワクチン２回目の接種年月日:'',
-             コロナのワクチン２回目の種類:'',
-             コロナのワクチン２回目の製造会社:'',
-             コロナのワクチン３回目の年齢:0,
-             コロナのワクチン３回目の接種年月日:'',
-             コロナのワクチン３回目の種類:'',
-             コロナのワクチン３回目の製造会社:'',
-             // 19.患者の症状のその他感染症のまん延の防止及び患者の医療のために医師が必要と認める事項
-             届出時点の入院有無:false,
-             入院年月日:'',
-             重症化のリスク因子:{
-               悪性腫瘍:false,
-              '慢性閉塞性肺疾患（COPD）':false,
-               慢性腎臓病:false,
-               高血圧:false,
-               糖尿病:false,
-               脂質異常症:false,
-               '肥満（BMI30 以上）':false,
-               喫煙歴:false
-             },
-             重症化のリスク因子のその他:'',
-             免疫の機能の低下有無:false,
-             妊娠の有無:false,
-             重症度:'',
-             入院の必要性の有無:false,
-             特例の診療の有無:false,
-             メモ:''
-           })
-           _.merge(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書,{
-             宛先:'',
-             診察日:'',
-             受診種別:'',
-             同日同一建物内の別患者の診療の有無:false,
-             陽性確定後の診察Ｎ回目:0,
-             傷病名:'',
-             紹介目的:'',
-             高次医療機関での診察_入院調整を依頼します:false,
-             既往歴及び家族歴:'',
-             症状経過及び検査結果_治療経過_現在の処方_備考:``,
-             体温:0,
-             解熱剤の使用８時間以内:false,
-             聴診所見異常あり:false,
-             聴診所見:'',
-             酸素飽和度:0,
-             酸素投与量:0,
-             呼吸数:0,
-             胸部レントゲン撮影年月日:'',
-             胸部レントゲン撮影所見:``,
-             採血検査年月日:'',
-             採血ＷＢＣ:0,
-             採血リンパ球数:0,
-             採血ＬＤＨ:0,
-             採血ＣＲＰ:0,
-             採血Ｄダイマ:0,
-             採血検査所見:``,
-             その他所見:``
-           })
-           _.merge(this.ラゲブリオカプセル200mgによる治療に係る同意説明文書,{
-             記入日:'',
-             処方箋交付年月日:'',
-             'SARS-CoV-2による感染症':false,
-             禁忌事項_本剤の成分に対し過敏症の既往歴のある患者ではない:false,
-             禁忌事項_妊婦又は妊娠している可能性のある女性ではない:false,
-             'SARS-CoV-2による感染症の重症化リスク因子_１つ以上を有する':false,
-             '患者又は代諾者からの同意取得':false
-           })
-         })
-       },
-       compute:function(){
-         var date = moment(this.共通.患者の生年月日)
-         if(date.isValid()){
-           var age = moment().age(new Date(this.共通.患者の生年月日))
-           this.共通.患者の年齢 = _.toString(age.years)
-           this.共通.患者の年齢のヶ月目 = _.toString(age.months)
-         }
-       },
-       loadPdf:async function(){
-         this.pdf = await fetch('index.pdf').then(r=>r.arrayBuffer())
-       },
-       loadFont:async function(){
-         var name = this.setting.fontname
-         var path = this.setting.listFont[name]
-         this.font = await fetch(`ttf/${name}/${path}`).then((responce)=>{
-           return responce.arrayBuffer()
-         })
-       },
-       drawDocument:async function(){
 
-         this.doc = await PDFLib.PDFDocument.load(this.pdf)
-         this.doc.registerFontkit(fontkit)
 
-         var form = this.doc.getForm()
-         var embedfont = await this.doc.embedFont(this.font)
-         /*
-          * https://github.com/Hopding/pdf-lib/issues/1152
-          */
-         var rawUpdateFieldAppearances = form.updateFieldAppearances.bind(form)
-         form.updateFieldAppearances = function () {
-           return rawUpdateFieldAppearances(embedfont)
-         }
 
-         var style = {
-           ellipse:{
-             borderColor:PDFLib.rgb(0,0,0),
-             backgroundColor:PDFLib.rgb(1,1,1)
-           },
-           circle:{
-             size:5,
-             opacity:0.5,
-             thickness:9,
-             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.mark).toFloatRgb()))
-           },
-           line:{
-             opacity:0.5,
-             thickness:9,
-             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.mark).toFloatRgb()))
-           }
-         }
 
-         var page = this.doc.getPages()[0]
-             page.setFontSize(9)
-             page.setFont(embedfont)
-             page.drawText('病院の患者の管理ＩＤ',{x:60,y:704})
-             page.drawText('診療時間外の電話番号',{x:60,y:684})
-             page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.text).toFloatRgb())))
-         var date = moment(this.新型コロナウイルス感染症の発生届.報告年月日)
-          if(date.isValid()){
-             page.drawTextZen(date.format('yy'),{x:457,y:734})
-             page.drawTextZen(date.format('MM'),{x:484,y:734})
-             page.drawTextZen(date.format('DD'),{x:511,y:734})
-          }
-             page.drawText(`${this.共通.医師の氏名} ${this.共通.医師の氏名の読み仮名}`,{x:290,y:721})
-             page.drawText(this.共通.医師の従事病院または診療所の名称,{x:290,y:709})
-             page.drawText(this.共通.医師の従事病院または診療所の所在地,{x:290,y:697})
-         var phne = this.共通.医師の従事病院または診療所の電話番号.split('-')
-             page.drawTextZen(phne[0] || '',{x:280,y:685})
-             page.drawTextZen(phne[1] || '',{x:338,y:685})
-             page.drawTextZen(phne[2] || '',{x:405,y:685})
-             page.drawTextZen(this.共通.患者のＩＤ,{x:60,y:694})
-             page.drawTextZen(this.共通.医師の従事病院または診療所の時間外の電話番号.split('-').join('-') || '',{x:60,y:672})
-             page.drawLine(_.merge({
-              '':{start:{x:0,y:0},end:{x:0,y:0}},
-              '患者（確定例）':{start:{x:70,y:650},end:{x:130,y:650}},
-              '無患者の症状病原体保有者':{start:{x:145,y:650},end:{x:230,y:650}},
-              '疑似症患者（*）':{start:{x:245,y:650},end:{x:315,y:650}},
-              '感染症死亡者の死体':{start:{x:325,y:650},end:{x:415,y:650}},
-              '感染症死亡疑い者の死体':{start:{x:430,y:650},end:{x:530,y:650}}
-             }[this.新型コロナウイルス感染症の発生届.患者の類型],
-               style.line
-             ))
-             page.drawText(jaconv.toHan(this.共通.患者の読み仮名),{x:61,y:608})
-             page.drawCircle(_.merge({
-               '':{x:0,y:0},
-              '男':{x:201,y:612},
-              '女':{x:219,y:612}
-             }[this.共通.患者の性別],
-               style.circle
-             ))
-         var date = moment(this.共通.患者の生年月日)
-          if(date.isValid()){
-             page.drawTextZen(date.format('NNNN'),{x:235,y:622})
-             page.drawTextZen(date.format('yy'),{x:237,y:609})
-             page.drawTextZen(date.format('MM'),{x:268,y:609})
-             page.drawTextZen(date.format('DD'),{x:294,y:609})
-             page.drawTextZen(this.共通.患者の年齢,{x:340,y:609})
-             page.drawTextZen(this.共通.患者の年齢のヶ月目,{x:397,y:609})}
-             page.drawText(this.共通.患者の職業,{x:448,y:609})
-             page.drawText([this.共通.患者の住所の県市区町村,this.共通.患者の住所].join(''),{x:128,y:594})
-         var phne = this.共通.医師の従事病院または診療所の電話番号.split('-')
-             page.drawText(phne[0] || '',{x:457,y:595})
-             page.drawText(phne[1] || '',{x:485,y:595})
-             page.drawText(phne[2] || '',{x:517,y:595})
-             page.drawText(this.共通.患者の所在地,{x:140,y:581})
-         var phne = this.共通.患者の所在地の電話番号.split('-')
-             page.drawText(phne[0] || '',{x:457,y:581})
-             page.drawText(phne[1] || '',{x:485,y:581})
-             page.drawText(phne[2] || '',{x:517,y:581})
-          if(_.toNumber(this.共通.患者の年齢) < 20){
-             page.drawText(this.共通.患者の保護者の読み仮名,{x:61,y:556})
-             page.drawText(this.共通.患者の保護者の住所,{x:198,y:556})
-         var phne = this.共通.患者の保護者の電話番号.split('-')
-             page.drawText(phne[0] || '',{x:457,y:556})
-             page.drawText(phne[1] || '',{x:485,y:556})
-             page.drawText(phne[2] || '',{x:517,y:556})}
-         var 患者の症状 = {
-              '':{start:{x:0,y:0},end:{x:0,y:0}},
-              '発熱':{start:{x:91,y:533},end:{x:112,y:533}},
-              '咳':{start:{x:137,y:533},end:{x:147,y:533}},
-              '咳以外の急性呼吸器の症状':{start:{x:173,y:533},end:{x:273,y:533}},
-              '肺炎像':{start:{x:91,y:521},end:{x:121,y:521}},
-              '重篤な肺炎':{start:{x:137,y:521},end:{x:184,y:521}},
-              '急性呼吸窮迫症候群':{start:{x:200,y:521},end:{x:279,y:521}},
-              '多臓器不全':{start:{x:91,y:509},end:{x:138,y:509}},
-              '全身倦怠感':{start:{x:155,y:509},end:{x:202,y:509}},
-              '頭痛':{start:{x:218,y:509},end:{x:237,y:509}},
-              '嘔気/嘔吐':{start:{x:253,y:509},end:{x:297,y:509}},
-              '下痢':{start:{x:91,y:497},end:{x:111,y:497}},
-              '結膜炎':{start:{x:137,y:497},end:{x:166,y:497}},
-              '嗅覚・味覚障害':{start:{x:181,y:497},end:{x:247,y:497}}}
-          if(this.新型コロナウイルス感染症の発生届.患者の症状なし){
-             page.drawLine(_.merge({start:{x:258,y:472},end:{x:296,y:472}},style.line))}
-           _(this.新型コロナウイルス感染症の発生届.患者の症状).pickBy(_.identity).each((check,name)=>{
-             page.drawLine(_.merge(患者の症状[name],style.line))
-           })
-             page.drawText(_.toString(this.新型コロナウイルス感染症の発生届['患者の酸素飽和度（室内気）']),{x:198,y:481})
-             page.drawText(this.新型コロナウイルス感染症の発生届.患者の症状のその他,{x:129,y:469})
-         var date = moment(this.新型コロナウイルス感染症の発生届.検出の検体の採取日)
-      switch(this.新型コロナウイルス感染症の発生届.検出の種類){
-       case '分離・同定による病原体の検出':
-             page.drawLine(_.merge({
-              '':{start:{x:0,y:0},end:{x:0,y:0}},
-              '喀痰':{start:{x:116,y:445},end:{x:137,y:445}},
-              '気管吸引液':{start:{x:143,y:445},end:{x:187,y:445}},
-              '肺胞洗浄液':{start:{x:195,y:445},end:{x:242,y:445}},
-              '咽頭拭い液':{start:{x:248,y:445},end:{x:294,y:445}},
-              '鼻腔吸引液':{start:{x:92,y:432},end:{x:137,y:432}},
-              '鼻腔拭い液':{start:{x:144,y:432},end:{x:189,y:432}},
-              '鼻咽頭拭い液':{start:{x:196,y:432},end:{x:252,y:432}},
-              '便':{start:{x:257,y:432},end:{x:266,y:432}},
-              '唾液':{start:{x:273,y:432},end:{x:293,y:432}},
-              '剖検材料':{start:{x:92,y:419},end:{x:128,y:419}}
-             }[this.新型コロナウイルス感染症の発生届.検出の検体],
-               highligh.line
-             ))
-             page.drawText(this.新型コロナウイルス感染症の発生届.検出の検体のその他,{x:176,y:416})
-          if(date.isValid()){
-             page.drawTextZen(date.format('MM'),{x:158,y:403})
-             page.drawTextZen(date.format('DD'),{x:190,y:403})}
-             page.drawLine(_.merge({start:{x:131,y:394},end:{x:150,y:394}},style.line))
-             break
-       case '検体から核酸増減法（ＰＣＲ法・ＬＡＭＰ法など）':
-             page.drawLine(_.merge({
-               '':{start:{x:0,y:0},end:{x:0,y:0}},
-               '喀痰':{start:{x:116,y:348},end:{x:137,y:348}},
-               '気管吸引液':{start:{x:143,y:348},end:{x:187,y:348}},
-               '肺胞洗浄液':{start:{x:195,y:348},end:{x:242,y:348}},
-               '咽頭拭い液':{start:{x:248,y:348},end:{x:294,y:348}},
-               '鼻腔吸引液':{start:{x:92,y:335},end:{x:137,y:335}},
-               '鼻腔拭い液':{start:{x:144,y:335},end:{x:189,y:335}},
-               '鼻咽頭拭い液':{start:{x:196,y:335},end:{x:252,y:335}},
-               '便':{start:{x:257,y:335},end:{x:266,y:335}},
-               '唾液':{start:{x:273,y:335},end:{x:293,y:335}},
-               '剖検材料':{start:{x:92,y:318},end:{x:128,y:318}}
-             }[this.新型コロナウイルス感染症の発生届.検出の検体],
-               style.line
-             ))
-             page.drawText(this.新型コロナウイルス感染症の発生届.検出の検体のその他,{x:172,y:319})
-             if(date.isValid()){
-               page.drawTextZen(date.format('MM'),{x:157,y:306})
-               page.drawTextZen(date.format('DD'),{x:188,y:306})
-             }
-             page.drawLine(_.merge({start:{x:131,y:296},end:{x:150,y:296}},style.line))
-             break
-       case '抗原定性検査による病原体の抗原の検出':
-             page.drawLine(_.merge({
-              '':{start:{x:0,y:0},end:{x:0,y:0}},
-              '鼻腔拭い液':{start:{x:120,y:264},end:{x:165,y:264}},
-              '鼻咽頭拭い液':{start:{x:173,y:264},end:{x:228,y:264}}
-             }[this.新型コロナウイルス感染症の発生届.検出の検体],
-               style.line
-            ))
-          if(date.isValid()){
-             page.drawTextZen(date.format('MM'),{x:157,y:248})
-             page.drawTextZen(date.format('DD'),{x:188,y:248}) 
-          }
-             page.drawLine(_.merge({start:{x:131,y:238},end:{x:150,y:238}},style.line))
-            break
-       case '抗原定量検査による病原体の抗原の検出':
-             page.drawLine(_.merge({
-               '':{start:{x:0,y:0},end:{x:0,y:0}},
-               '鼻腔拭い液':{start:{x:120,y:216},end:{x:165,y:205}},
-               '鼻咽頭拭い液':{start:{x:173,y:205},end:{x:228,y:205}},
-               '唾液':{start:{x:236,y:205},end:{x:255,y:205}},
-             }[this.新型コロナウイルス感染症の発生届.検出の検体],
-               style.line
-             ))
-             if(date.isValid()){
-               page.drawTextZen(date.format('MM'),{x:157,y:190})
-               page.drawTextZen(date.format('DD'),{x:188,y:190})
-             }
-             page.drawLine(_.merge({start:{x:131,y:180},end:{x:150,y:180}},style.line))
-            break
-      }
-         var tamp = function(date,y){
-         var date = moment(date)
-          if(date.isValid()){
-             page.drawText(date.format('yy'),{x:221,y:y})
-             page.drawText(date.format('MM'),{x:246,y:y})
-             page.drawText(date.format('DD'),{x:273,y:y})
-           }
-         }
-             tamp(this.新型コロナウイルス感染症の発生届['初診年月日'],127)
-             tamp(this.新型コロナウイルス感染症の発生届['診断（検案（※））年月日'],114)
-             tamp(this.新型コロナウイルス感染症の発生届['感染したと推定される年月日'],102)
-             tamp(this.新型コロナウイルス感染症の発生届['発病年月日'],89)
-             tamp(this.新型コロナウイルス感染症の発生届['死亡年月日'],76)
-          if(this.新型コロナウイルス感染症の発生届.感染の経路と原因 != '不明'){
-             page.drawLine(_.merge({
-              '':{start:{x:0,y:0},end:{x:0,y:0}},
-              '確定':{start:{x:416,y:518},end:{x:434,y:518}},
-              '推定':{start:{x:444,y:518},end:{x:464,y:518}},
-          }[this.新型コロナウイルス感染症の発生届.感染の経路と原因],
-             style.line
-          ))
-             page.drawText(this.新型コロナウイルス感染症の発生届.感染の経路は飛沫か飛沫核,{x:327,y:495})
-             page.drawText(this.新型コロナウイルス感染症の発生届.感染の経路は接触,{x:327,y:475})
-             page.drawText(this.新型コロナウイルス感染症の発生届.感染の経路は接触,{x:364,y:465})
-           }
-          if(this.新型コロナウイルス感染症の発生届.感染の地域 != '不明'){
-             page.drawLine(_.merge({
-               '':{start:{x:0,y:0},end:{x:0,y:0}},
-               '確定':{start:{x:380,y:458},end:{x:400,y:458}},
-               '推定':{start:{x:407,y:458},end:{x:427,y:458}}
-             }[this.新型コロナウイルス感染症の発生届.感染の経路と原因],
-               style.line
-             ))
-             page.drawText(this.新型コロナウイルス感染症の発生届.感染が国内の都道府県名,{x:372,y:445})
-             page.drawLine(_.merge({
-               '':{start:{x:0,y:0},end:{x:0,y:0}},
-               '都':{start:{x:399,y:448},end:{x:408,y:448}},
-               '道':{start:{x:408,y:448},end:{x:417,y:448}},
-               '府':{start:{x:417,y:448},end:{x:426,y:448}},
-               '県':{start:{x:426,y:448},end:{x:435,y:448}}
-           }[this.新型コロナウイルス感染症の発生届.感染が国内の都道府県],
-             style.line
-           ))
-             page.drawText(this.新型コロナウイルス感染症の発生届.感染が国内の市区町村名,{x:435,y:445})
-             page.drawLine(_.merge({
-               '':{start:{x:0,y:0},end:{x:0,y:0}},
-               '市':{start:{x:472,y:448},end:{x:480,y:448}},
-               '区':{start:{x:481,y:448},end:{x:489,y:448}},
-               '町':{start:{x:489,y:448},end:{x:498,y:448}},
-               '村':{start:{x:499,y:448},end:{x:507,y:448}}
-             }[this.新型コロナウイルス感染症の発生届.感染が国内の市区町村],
-               style.line
-             ))
-             page.drawText(this.新型コロナウイルス感染症の発生届.感染が国外,{x:355,y:435})
-             page.drawText(this.新型コロナウイルス感染症の発生届.感染が国外の詳細地域,{x:364,y:425})
-          }
-         var tamp = function(date,x){
-         var date = moment(date)
-          if(date.isValid()){
-             page.drawText(date.format('yy'),{x:x,y:405})
-             page.drawText(date.format('MM'),{x:x+18,y:405})
-             page.drawText(date.format('DD'),{x:x+36,y:405})
-           }
-         }
-             tamp(this.新型コロナウイルス感染症の発生届.感染が国外への出国日,397)
-             tamp(this.新型コロナウイルス感染症の発生届.感染が国外での帰国日,484)
-         var tamp = function(date,y){
-         var date = moment(date)
-           if(date.isValid()){
-             page.drawText(date.format('yy'),{x:377,y:y})
-             page.drawText(date.format('MM'),{x:395,y:y})
-             page.drawText(date.format('DD'),{x:412,y:y})
-           }
-         }
-         var func = function(type,y){
-           switch(type){
-             case '有り':
-               page.drawCircle(_.merge({x:350,y:y},style.circle))
-               break
-             case '無し':
-               page.drawCircle(_.merge({x:408,y:y},style.circle))
-               break
-             case '不明':
-               page.drawLine(_.merge({start:{x:422,y:y},end:{x:440,y:y}},style.circle))
-               break
-           }
-         }
-             func(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の接種,378)
-             func(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の接種,348)
-             func(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の接種,318)
-             page.drawText(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の種類,{x:444,y:365})
-             page.drawText(jaconv.toHan(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の製造会社),{x:480,y:365})
-          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の製造会社.length == 0){
-             page.drawLine(_.merge({start:{x:516,y:369},end:{x:534,y:369}},style.line))
-          }
-             tamp(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の接種年月日,355)
-          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の接種年月日.length == 0){
-             page.drawLine(_.merge({start:{x:440,y:359},end:{x:458,y:359}},style.line))
-          }
-          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の接種年月日.length > 0){
-         var 年齢 = moment(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の接種年月日,'YYYY/MM/DD').age(new Date(this.共通.患者の生年月日)).years
-             page.drawText(_.toString(this.新型コロナウイルス感染症の発生届.コロナのワクチン１回目の接種年月日.length > 0 ? 年齢 : this.コロナのワクチン１回目の年齢),{x:367,y:375})
-          }
-          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の接種年月日.length > 0){
-         var 年齢 = moment(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の接種年月日,'YYYY/MM/DD').age(new Date(this.共通.患者の生年月日)).years
-             page.drawText(_.toString(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の接種年月日.length > 0 ? 年齢 : this.コロナのワクチン２回目の年齢),{x:367,y:345})
-          }
-          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の接種年月日.length > 0){
-         var 年齢 = moment(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の接種年月日,'YYYY/MM/DD').age(new Date(this.共通.患者の生年月日)).years
-             page.drawText(_.toString(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の接種年月日.length > 0 ? 年齢 : this.コロナのワクチン３回目の年齢),{x:367,y:315})
-          }
-             page.drawText(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の種類,{x:444,y:335,size:9})
-             page.drawText(jaconv.toHan(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の製造会社),{x:480,y:335,size:9})
-          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の製造会社.length == 0){
-             page.drawLine(_.merge({start:{x:516,y:339},end:{x:534,y:339}},style.line))
-          }
-             tamp(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の接種年月日,325)
-          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン２回目の接種年月日.length == 0){
-             page.drawLine(_.merge({start:{x:440,y:329},end:{x:458,y:329}},style.line))
-          }
-             page.drawText(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の種類,{x:444,y:305,size:9})
-             page.drawText(jaconv.toHan(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の製造会社),{x:480,y:305,size:9})
-          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の製造会社.length == 0){
-             page.drawLine(_.merge({start:{x:516,y:309},end:{x:534,y:309}},style.line))
-          }
-             tamp(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の接種年月日,295)
-          if(this.新型コロナウイルス感染症の発生届.コロナのワクチン３回目の接種年月日.length == 0){
-             page.drawLine(_.merge({start:{x:440,y:299},end:{x:458,y:299}},style.line))
-          }
-             page.drawCircle(_.merge(this.新型コロナウイルス感染症の発生届.届出時点の入院有無 ? {x:412,y:261} : {x:428,y:261},style.circle))
-         var date = moment(this.新型コロナウイルス感染症の発生届.入院年月日)
-          if(date.isValid()){
-             page.drawText(date.format('yy'),{x:444,y:246,size:9})
-             page.drawText(date.format('MM'),{x:467,y:246,size:9})
-             page.drawText(date.format('DD'),{x:493,y:246,size:9})
-          }
-             page.drawCircle(_.merge(this.重症化のリスク因子となる疾患等の有無 ? {x:478,y:236} : {x:494,y:236},style.circle))
-         var 重症化のリスク因子 = {
-               '':{start:{x:0,y:0},end:{x:0,y:0}},
-               悪性腫瘍:{start:{x:330,y:212},end:{x:363,y:212}},
-               '慢性閉塞性肺疾患（COPD）':{start:{x:370,y:212},end:{x:464,y:212}},
-               慢性腎臓病:{start:{x:473,y:212},end:{x:516,y:212}},
-               高血圧:{start:{x:330,y:200},end:{x:354,y:200}},
-               糖尿病:{start:{x:362,y:200},end:{x:387,y:200}},
-               脂質異常症:{start:{x:395,y:200},end:{x:437,y:200}},
-               '肥満（BMI30 以上）':{start:{x:444,y:200},end:{x:512,y:200}},
-               喫煙歴:{start:{x:330,y:188},end:{x:354,y:188}},
-             }
-           _(this.新型コロナウイルス感染症の発生届.重症化のリスク因子).pickBy(_.identity).each((check,name)=>{
-             page.drawLine(_.merge(重症化のリスク因子[name],style.line))
-           })
-             page.drawText(this.新型コロナウイルス感染症の発生届.重症化のリスク因子のその他,{x:397,y:185,size:9})
-             page.drawCircle(_.merge(this.新型コロナウイルス感染症の発生届.免疫の機能の低下有無 ? {x:494,y:164} : {x:511,y:164},style.circle))
-             page.drawCircle(_.merge(this.新型コロナウイルス感染症の発生届.妊娠の有無 ? {x:372,y:152} : {x:386,y:152},style.circle))
-             page.drawLine(_.merge({
-               '':{start:{x:0,y:0},end:{x:0,y:0}},
-               軽症:{start:{x:374,y:127},end:{x:392,y:127}},
-               中等症Ⅰ:{start:{x:398,y:127},end:{x:432,y:127}},
-               中等症Ⅱ:{start:{x:440,y:127},end:{x:472,y:127}},
-               重症:{start:{x:480,y:127},end:{x:498,y:127}}
-             }[this.新型コロナウイルス感染症の発生届.重症度],
-               style.line
-             ))
-             page.drawCircle(_.merge(this.新型コロナウイルス感染症の発生届.入院の必要性の有無 ? {x:404,y:115} : {x:421,y:115},style.circle))
-             page.drawCircle(_.merge(this.新型コロナウイルス感染症の発生届.特例の診療の有無 ? {x:359,y:75} : {x:377,y:75},style.circle))
-             page.drawTextBox(this.新型コロナウイルス感染症の発生届.メモ,{
-              x:247,
-              y:14,
-              width:297,
-              height:27,
-              font:embedfont,
-              textColor:PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.text).toFloatRgb()))
-            },9)
-
-         var page = this.doc.getPages()[1]
-             page.setFontSize(9)
-             page.setFont(embedfont)
-             page.drawText('診療時間外',{x:390,y:687,size:9})
-             page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.text).toFloatRgb())))
-             page.drawText(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.宛先,{x:40,y:757,size:11})
-         var date = moment(this.共通.患者の生年月日)
-          if(date.isValid()){
-             page.drawTextZen(moment(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.診察日).format('NNNNyy年MM月DD日'),{x:395,y:744,size:11})
-          }
-             page.drawText(this.共通.医師の従事病院または診療所の名称,{x:325,y:717,size:9})
-             page.drawText(this.共通.医師の従事病院または診療所の所在地,{x:325,y:702,size:9})
-             page.drawText(this.共通.医師の従事病院または診療所の電話番号,{x:325,y:687,size:9})
-             page.drawText(this.共通.医師の氏名,{x:325,y:670,size:9})
-             page.drawText(this.共通.医師の従事病院または診療所の時間外の電話番号,{x:442,y:687,size:9})
-             page.drawText(`${this.共通.患者の氏名} ${this.共通.患者の読み仮名}`,{x:84,y:639,size:10})
-             page.drawText(this.共通.患者の性別,{x:362,y:639,size:10})
-             page.drawText(this.共通.患者の住所の電話番号,{x:362,y:619,size:10})
-             page.drawText(this.共通.患者の住所の県市区町村,{x:84,y:624,size:10})
-             page.drawText(this.共通.患者の住所,{x:84,y:610,size:10})
-         var date = moment(this.共通.患者の生年月日)
-          if(date.isValid()){
-         var 年齢 = moment().age(new Date(this.共通.患者の生年月日))
-             page.drawTextZen(`${date.format('NNNN')}${date.format('yy')}年${date.format('MM')}月${date.format('DD')}日（${_.toString(年齢.years)}歳${_.toString(年齢.months)}ヶ月）`,{x:84,y:598,size:10})
-          }
-             page.drawText(this.共通.患者の職業,{x:362,y:598,size:10})
-             page.drawCheckBox(true,{
-               '':{x:0,y:0},
-               '電話WEB診療':{x:40,y:575},
-               '外来受診':{x:124,y:575},
-               '往診': {x:40,y:555}
-           }[this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.受診種別])
-          if(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.受診種別 == '往診'){
-            page.drawCheckBox(true,this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.同日同一建物内の別患者の診療の有無 ? {x:277,y:555} : {x:318,y:555})
-          }
-            page.drawTextZen(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.陽性確定後の診察Ｎ回目,{x:480,y:566,size:10})
-            page.drawText(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.傷病名,{x:84,y:516,size:11})
-            page.drawText(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.紹介目的,{x:84,y:470,size:12})
-            page.drawCheckBox(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.高次医療機関での診察_入院調整を依頼します,{x:162,y:450})
-            page.drawText(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.既往歴及び家族歴,{x:127,y:430,size:10})
-            page.drawTextBox(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.症状経過及び検査結果_治療経過_現在の処方_備考,{
-              x:40,
-              y:238,
-              width:517,
-              height:165,
-              font:embedfont,
-              textColor:PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.text).toFloatRgb()))
-            })
-            page.drawTextZen(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.体温,{x:158,y:220,size:10})
-            page.drawEllipse(_.merge(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.解熱剤の使用８時間以内 ? {x:372,y:224,xScale:15,yScale:10} : {x:424,y:224,xScale:15,yScale:10},style.ellipse))
-            page.drawEllipse(_.merge(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.聴診所見異常あり ? {x:244,y:203,xScale:24,yScale:10} : {x:172,y:203,xScale:24,yScale:10},style.ellipse))
-            page.drawTextZen(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.聴診所見,{x:278,y:199,size:10})
-            page.drawTextZen(`${this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.酸素飽和度}`,{x:158,y:178,size:10})
-         if(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.酸素投与量 > 0){
-            page.drawTextZen(`${this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.酸素投与量}`,{x:255,y:178,size:10})
-         }else{
-            page.drawEllipse(_.merge({x:327,y:182,xScale:15,yScale:10},style.ellipse))
-         }
-            page.drawTextZen(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.呼吸数,{x:482,y:178,size:10})
-        var date = moment(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.胸部レントゲン撮影年月日)
-         if(date.isValid()){
-            page.drawText(moment(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.胸部レントゲン撮影年月日).format('NNyy/MM/DD'),{x:57,y:148,size:10})
-            page.drawTextZen(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.胸部レントゲン撮影所見,{x:152,y:154,size:10})
-         }else if(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.胸部レントゲン撮影年月日.length  == 0){
-            page.drawEllipse(_.merge({x:520,y:158,xScale:20,yScale:10},style.ellipse))
-         }
-        var date = moment(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血検査年月日)
-         if(date.isValid()){
-            page.drawText(moment(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血検査年月日).format('NNyy/MM/DD'),{x:57,y:110,size:10})
-            page.drawTextZen(`${this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血ＷＢＣ}`,{x:167,y:121,size:10})
-            page.drawTextZen(`${this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血リンパ球数}`,{x:244,y:121,size:10})
-            page.drawTextZen(`${this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血ＬＤＨ}`,{x:330,y:121,size:10})
-            page.drawTextZen(`${this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血ＣＲＰ}`,{x:404,y:121,size:10})
-            page.drawTextZen(`${this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血Ｄダイマ}`,{x:494,y:121,size:10})
-            page.drawText(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血検査所見,{x:194,y:103,size:10})
-        }else if(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.採血検査年月日.length  == 0){
-            page.drawEllipse(_.merge({x:530,y:107,xScale:20,yScale:10},style.ellipse))
-        }
-
-            page.drawText(this.新型コロナウイルス感染症自宅療養者等の診察所見報告書.その他所見,{x:152,y:79,size:10})
-
-        var page = this.doc.getPages()[4]
-            page.setFontSize(11)
-            page.setFont(embedfont)
-            page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.text).toFloatRgb())))
-
-            page.drawText(this.共通.医師の氏名,{x:135,y:122})
-            page.drawText(this.共通.医師の従事病院または診療所の名称,{x:135,y:98})
-            page.drawText(this.共通.医師の従事病院または診療所の電話番号,{x:415,y:98})
-        var date = moment(this.ラゲブリオカプセル200mgによる治療に係る同意説明文書.記入日)
-         if(date.isValid()){
-            page.drawTextZen(date.format('yy'),{x:415,y:122})
-            page.drawTextZen(date.format('MM'),{x:452,y:122})
-            page.drawTextZen(date.format('DD'),{x:486,y:122})
-         }
-
-        var page = this.doc.getPages()[5]
-            page.setFontSize(11)
-            page.setFont(embedfont)
-            page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.text).toFloatRgb())))
-            page.drawText(this.共通.医師の氏名,{x:135,y:122})
-            page.drawText(this.共通.医師の従事病院または診療所の名称,{x:135,y:98})
-            page.drawText(this.共通.医師の従事病院または診療所の電話番号,{x:415,y:98})
-        var date = moment(this.ラゲブリオカプセル200mgによる治療に係る同意説明文書.記入日)
-         if(date.isValid()){
-            page.drawTextZen(date.format('yy'),{x:415,y:122})
-            page.drawTextZen(date.format('MM'),{x:452,y:122})
-            page.drawTextZen(date.format('DD'),{x:486,y:122})
-         }
-
-        var page = this.doc.getPages()[7]
-            page.setFontSize(11)
-            page.setFont(embedfont)
-            page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.setting.listColor.text).toFloatRgb())))
-            page.drawText(this.共通.医師の従事病院または診療所の名称,{x:185,y:620})
-            page.drawText(this.共通.医師の従事病院または診療所の所在地,{x:185,y:600})
-            page.drawText(this.共通.医師の氏名,{x:185,y:565})
-        var phne = this.共通.医師の従事病院または診療所の電話番号.split('-')
-            page.drawTextZen(phne[0] || '',{x:210,y:537})
-            page.drawTextZen(phne[1] || '',{x:285,y:537})
-            page.drawTextZen(phne[2] || '',{x:365,y:537})
-
-        var date = moment(this.ラゲブリオカプセル200mgによる治療に係る同意説明文書.処方箋交付年月日)
-         if(date.isValid()){
-            page.drawTextZen(date.format('NNNNyy'),{x:255,y:406})
-            page.drawTextZen(date.format('MM'),{x:335,y:406})
-            page.drawTextZen(date.format('DD'),{x:395,y:406})
-         }
-        var date = moment(this.共通.患者の生年月日)
-         if(date.isValid()){
-            page.drawTextZen(`${this.共通.患者の年齢}`,{x:275,y:377})
-            page.drawTextZen(`${this.共通.患者の年齢のヶ月目}ヶ月`,{x:325,y:377})
-         }
-            page.drawCheckBox(true,this.ラゲブリオカプセル200mgによる治療に係る同意説明文書['SARS-CoV-2による感染症'] ? {x:225,y:352} : {x:225,y:332})
-            page.drawCheckBox(this.ラゲブリオカプセル200mgによる治療に係る同意説明文書['禁忌事項_本剤の成分に対し過敏症の既往歴のある患者ではない'],{x:225,y:309})
-            page.drawCheckBox(this.ラゲブリオカプセル200mgによる治療に係る同意説明文書['禁忌事項_妊婦又は妊娠している可能性のある女性ではない'],{x:225,y:289})
-            page.drawCheckBox(true,this.ラゲブリオカプセル200mgによる治療に係る同意説明文書['SARS-CoV-2による感染症の重症化リスク因子_１つ以上を有する'] ? {x:225,y:268} : {x:225,y:188})
-            page.drawCheckBox(this.ラゲブリオカプセル200mgによる治療に係る同意説明文書['患者又は代諾者からの同意取得'],{x:225,y:142})
-
-         this.$refs.viewer.src = URL.createObjectURL(new Blob([await this.doc.save()],{type:'application/pdf'}))
-       },
-       downloadDocument:async function(){
+      methods:{
+        download:async function(){
           _.each(this.file,(value,name)=>this.doc[`set${name}`](value))
           var ファイル名 = [
             moment().format(`NNNyy年MM月DD日HH時mm分`),
+            `${this.tab}`,
             `Dr（${this.共通.医師の氏名}）`,
             `Pt（${this.共通.患者のＩＤ} ${this.共通.患者の氏名})`
           ].filter(Boolean).join('_')
@@ -2276,6 +562,25 @@
             type:'application/pdf'
           })
           saveAs(file)
+        },
+        compute:function(){
+         var date = moment(this.共通.患者の生年月日)
+         if(date.isValid()){
+           var age = moment().age(new Date(this.共通.患者の生年月日))
+           this.共通.患者の年齢 = _.toString(age.years)
+           this.共通.患者の年齢のヶ月目 = _.toString(age.months)
+         }
+       },
+        drawPdf:async function(o){
+          this.doc = o
+          this.url = URL.createObjectURL(new Blob([await o.save()],{type:'application/pdf'}))
+        },
+        loadFont:async function(){
+         var name = this.設定.fontname
+         var path = this.設定.listFont[name]
+         this.font = await fetch(`ttf/${name}/${path}`).then((responce)=>{
+           return responce.arrayBuffer()
+         })
        }
      }
    })
