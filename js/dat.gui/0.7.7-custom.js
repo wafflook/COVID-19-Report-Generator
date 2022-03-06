@@ -2406,7 +2406,6 @@ Common.extend(GUI.prototype,
         case controller instanceof NumberControllerSlider:
         case controller instanceof NumberControllerBox:
         case controller instanceof PlotterController:
-        case controller instanceof OptionController:
         case controller instanceof StringController:
         case controller instanceof ImageController:
         case controller instanceof TextController:

@@ -155,6 +155,41 @@
        }
      },
      methods:{
+       clear:function(){
+
+         this.$toast_confirm('warning','全ての入力をクリアしますか？',()=>{
+           _.merge(this.$data,{
+             宛先:'',
+             診察日:'',
+             受診種別:'',
+             同日同一建物内の別患者の診療の有無:false,
+             陽性確定後の診察Ｎ回目:0,
+             傷病名:'',
+             紹介目的:'',
+             高次医療機関での診察_入院調整を依頼します:false,
+             既往歴及び家族歴:'',
+             症状経過及び検査結果_治療経過_現在の処方_備考:``,
+             体温:0,
+             解熱剤の使用８時間以内:false,
+             聴診所見異常あり:false,
+             聴診所見:'',
+             酸素飽和度:0,
+             酸素投与量:0,
+             呼吸数:0,
+             胸部レントゲン撮影年月日:'',
+             胸部レントゲン撮影所見:``,
+             採血検査年月日:'',
+             採血ＷＢＣ:0,
+             採血リンパ球数:0,
+             採血ＬＤＨ:0,
+             採血ＣＲＰ:0,
+             採血Ｄダイマ:0,
+             採血検査所見:``,
+             その他所見:``
+           })
+         })
+
+       },
        draw:async function(){
      var doc = await PDFLib.PDFDocument.load(await fetch(`${this.$options.name}.pdf`).then(r=>r.arrayBuffer()))
          doc.registerFontkit(fontkit)

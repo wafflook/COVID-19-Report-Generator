@@ -9,7 +9,7 @@
              <dat-value v-model="this['同意及び情報提供に関する特記事項']" label='特記事項' ref='first'></dat-value>
              <dat-value v-model="this['SARS-CoV-2による感染症']" label='SARS-CoV-2感染症ですか'></dat-value>
              <dat-value v-model="this['禁忌事項_本剤の成分に対し過敏症の既往歴のある患者ではない']" label='成分に過敏症有無'></dat-value>
-             <dat-value v-model="this['禁忌事項_妊婦又は妊娠している可能性のある女性ではない']" label='妊娠してますか'></dat-value>
+             <dat-value v-model="this['禁忌事項_妊婦又は妊娠している可能性のある女性ではない']" label='妊娠していない'></dat-value>
              <dat-value v-model="this['SARS-CoV-2による感染症']" label='SARS-CoV-2による感染症'></dat-value>
              <dat-value v-model="this['SARS-CoV-2による感染症の重症化リスク因子_１つ以上を有する']" label='重症化リスク因子有無'></dat-value>
              <dat-value v-model="this['患者又は代諾者からの同意取得']" label='同意されていますか'></dat-value>
@@ -38,6 +38,18 @@
        })
      },
      methods:{
+       clear:function(){
+         this.$toast_confirm('warning','全ての入力をクリアしますか？',()=>{
+           _.merge(this.$data,{
+            同意及び情報提供に関する特記事項:false,
+            'SARS-CoV-2による感染症':false,
+            禁忌事項_本剤の成分に対し過敏症の既往歴のある患者ではない:false,
+            禁忌事項_妊婦又は妊娠している可能性のある女性ではない:false,
+            'SARS-CoV-2による感染症の重症化リスク因子_１つ以上を有する':false,
+            '患者又は代諾者からの同意取得':false
+           })
+         })
+       },
        draw:async function(){
      var doc = await PDFLib.PDFDocument.load(await fetch(`${this.$options.name}.pdf`).then(r=>r.arrayBuffer()))
          doc.registerFontkit(fontkit)
@@ -104,8 +116,7 @@
          禁忌事項_本剤の成分に対し過敏症の既往歴のある患者ではない:true,
          禁忌事項_妊婦又は妊娠している可能性のある女性ではない:true,
          'SARS-CoV-2による感染症の重症化リスク因子_１つ以上を有する':false,
-         '患者又は代諾者からの同意取得':true,
-         署名:null
+         '患者又は代諾者からの同意取得':true
        }
      }
    }

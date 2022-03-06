@@ -101,6 +101,7 @@
          <div class='content fitted'>
            <dat-gui>
             <dat-value v-model='重症度' label='重症度は？' comment='新型コロナウイルスの重症度' :values="['軽症','中等症Ⅰ','中等症Ⅱ','重症']"></dat-value>
+            <dat-value v-model="$data['患者の酸素飽和度（室内気）']" label='酸素飽和度は？' :min='0' :max='100' :step='1' :empty='0'></dat-value>
             <dat-value v-model='重症化のリスク因子のその他' label='その他の疾患は？'></dat-value>
           </dat-gui>
         </div>
@@ -273,6 +274,103 @@
        }
      },
      methods:{
+       clear:function(){
+         this.$toast_confirm('warning','全ての入力をクリアしますか？',()=>{
+           _.merge(this.$data,{
+             報告年月日 :'',
+             患者の類型:'',
+             // 11.症状
+             患者の症状:{
+               発熱:false,
+               咳:false,
+               咳以外の急性呼吸器の症状:false,
+               肺炎像:false,
+               重篤な肺炎:false,
+               急性呼吸窮迫症候群:false,
+               多臓器不全:false,
+               全身倦怠感:false,
+               頭痛:false,
+               '嘔気/嘔吐':false,
+               下痢:false,
+               結膜炎:false,
+               '嗅覚・味覚障害':false,
+             },
+             患者の症状なし:false,
+             '患者の酸素飽和度（室内気）':'',
+             患者の症状のその他:'',
+             // 12.診断方法
+             '分離・同定による病原体の検出の結果':false,
+             '分離・同定による病原体の検出の採取日':'',
+             '分離・同定による病原体の検出の検体':'',
+             '分離・同定による病原体の検出の検体のその他':'',
+             '検体から核酸増減法（ＰＣＲ法・ＬＡＭＰ法など）の検出の採取日':'',
+             '検体から核酸増減法（ＰＣＲ法・ＬＡＭＰ法など）の検出の検体':'',
+             '検体から核酸増減法（ＰＣＲ法・ＬＡＭＰ法など）の検出の検体のその他':'',
+             '検体から核酸増減法（ＰＣＲ法・ＬＡＭＰ法など）の検出の結果':false,
+             '抗原定性検査による病原体の抗原の検出の採取日':'',
+             '抗原定性検査による病原体の抗原の検出の検体':'',
+             '抗原定性検査による病原体の抗原の検出の結果':true,
+             '抗原定量検査による病原体の抗原の検出の採取日':'',
+             '抗原定量検査による病原体の抗原の検出の検体':'',
+             '抗原定量検査による病原体の抗原の検出の結果':true,
+             // 13.年月日
+             初診年月日:'',
+             '診断（検案（※））年月日':'',
+             感染したと推定される年月日:'',
+             発病年月日:'',
+             死亡年月日:'',
+             // 18.感染原因・感染経路・感染地域
+             感染の経路と原因:'',
+             感染の経路は飛沫か飛沫核:'',
+             感染の経路は接触:'',
+             感染の経路はその他:'',
+             感染の地域:'',
+             感染が国内の都道府県名:'',
+             感染が国内の都道府県:'',
+             感染が国内の市区町村名:'',
+             感染が国内の市区町村:'',
+             感染が国外:'',
+             感染が国外の詳細地域:'',
+             感染が国外への出国日:'',
+             感染が国外での帰国日:'',
+             コロナのワクチン１回目の接種:'',
+             コロナのワクチン２回目の接種:'',
+             コロナのワクチン３回目の接種:'',
+             コロナのワクチン１回目の年齢:0,
+             コロナのワクチン１回目の接種年月日:'',
+             コロナのワクチン１回目の種類:'',
+             コロナのワクチン１回目の製造会社:'',
+             コロナのワクチン２回目の年齢:0,
+             コロナのワクチン２回目の接種年月日:'',
+             コロナのワクチン２回目の種類:'',
+             コロナのワクチン２回目の製造会社:'',
+             コロナのワクチン３回目の年齢:0,
+             コロナのワクチン３回目の接種年月日:'',
+             コロナのワクチン３回目の種類:'',
+             コロナのワクチン３回目の製造会社:'',
+             // 19.患者の症状のその他感染症のまん延の防止及び患者の医療のために医師が必要と認める事項
+             届出時点の入院有無:false,
+             入院年月日:'',
+             重症化のリスク因子:{
+               悪性腫瘍:false,
+              '慢性閉塞性肺疾患（COPD）':false,
+               慢性腎臓病:false,
+               高血圧:false,
+               糖尿病:false,
+               脂質異常症:false,
+               '肥満（BMI30 以上）':false,
+               喫煙歴:false
+             },
+             重症化のリスク因子のその他:'',
+             免疫の機能の低下有無:false,
+             妊娠の有無:false,
+             重症度:'',
+             入院の必要性の有無:false,
+             特例の診療の有無:false,
+             メモ:''
+           })
+         })
+       },
        draw:async function(){
          var doc = await PDFLib.PDFDocument.load(await fetch(`${this.$options.name}.pdf`).then(r=>r.arrayBuffer()))
          doc.registerFontkit(fontkit)
@@ -403,7 +501,7 @@
              page.drawTextZen(date.format('DD'),{x:190,y:403})
              page.drawLine(_.merge(this['分離・同定による病原体の検出の結果'] ? {start:{x:131,y:394},end:{x:148,y:394}} : {start:{x:158,y:394},end:{x:177,y:394}},style.line))
           }
-         var date = moment(this['検体から核酸増減法（ＰＣＲ法・ＬＡＭＰ法など）の採取日'])
+         var date = moment(this['検体から核酸増減法（ＰＣＲ法・ＬＡＭＰ法など）の検出の採取日'])
           if(date.isValid()){
              page.drawTextZen(date.format('MM'),{x:157,y:306})
              page.drawTextZen(date.format('DD'),{x:188,y:306})
@@ -542,8 +640,12 @@
              func(this.コロナのワクチン１回目の接種,378)
              func(this.コロナのワクチン２回目の接種,348)
              func(this.コロナのワクチン３回目の接種,318)
+
+
+          if(this.コロナのワクチン１回目の接種 != '無し'){
              page.drawText(this.コロナのワクチン１回目の種類,{x:444,y:365})
              page.drawText(jaconv.toHan(this.コロナのワクチン１回目の製造会社),{x:480,y:365})
+
           if(this.コロナのワクチン１回目の製造会社.length == 0){
              page.drawLine(_.merge({start:{x:516,y:369},end:{x:534,y:369}},style.line))
           }
@@ -555,13 +657,12 @@
          var 年齢 = moment(this.コロナのワクチン１回目の接種年月日,'YYYY/MM/DD').age(new Date(this.$root.共通.患者の生年月日)).years
              page.drawText(_.toString(this.コロナのワクチン１回目の接種年月日.length > 0 ? 年齢 : this.コロナのワクチン１回目の年齢),{x:367,y:375})
           }
+          }
+
+          if(this.コロナのワクチン２回目の接種 != '無し'){
           if(this.コロナのワクチン２回目の接種年月日.length > 0){
          var 年齢 = moment(this.コロナのワクチン２回目の接種年月日,'YYYY/MM/DD').age(new Date(this.$root.共通.患者の生年月日)).years
              page.drawText(_.toString(this.コロナのワクチン２回目の接種年月日.length > 0 ? 年齢 : this.コロナのワクチン２回目の年齢),{x:367,y:345})
-          }
-          if(this.コロナのワクチン３回目の接種年月日.length > 0){
-         var 年齢 = moment(this.コロナのワクチン３回目の接種年月日,'YYYY/MM/DD').age(new Date(this.$root.共通.患者の生年月日)).years
-             page.drawText(_.toString(this.コロナのワクチン３回目の接種年月日.length > 0 ? 年齢 : this.コロナのワクチン３回目の年齢),{x:367,y:315})
           }
              page.drawText(this.コロナのワクチン２回目の種類,{x:444,y:335,size:9})
              page.drawText(jaconv.toHan(this.コロナのワクチン２回目の製造会社),{x:480,y:335,size:9})
@@ -572,6 +673,14 @@
           if(this.コロナのワクチン２回目の接種年月日.length == 0){
              page.drawLine(_.merge({start:{x:440,y:329},end:{x:458,y:329}},style.line))
           }
+          }
+
+          if(this.コロナのワクチン３回目の接種 != '無し'){
+          if(this.コロナのワクチン３回目の接種年月日.length > 0){
+         var 年齢 = moment(this.コロナのワクチン３回目の接種年月日,'YYYY/MM/DD').age(new Date(this.$root.共通.患者の生年月日)).years
+             page.drawText(_.toString(this.コロナのワクチン３回目の接種年月日.length > 0 ? 年齢 : this.コロナのワクチン３回目の年齢),{x:367,y:315})
+          }
+
              page.drawText(this.コロナのワクチン３回目の種類,{x:444,y:305,size:9})
              page.drawText(jaconv.toHan(this.コロナのワクチン３回目の製造会社),{x:480,y:305,size:9})
           if(this.コロナのワクチン３回目の製造会社.length == 0){
@@ -581,6 +690,14 @@
           if(this.コロナのワクチン３回目の接種年月日.length == 0){
              page.drawLine(_.merge({start:{x:440,y:299},end:{x:458,y:299}},style.line))
           }
+          }
+
+
+
+
+
+
+
              page.drawCircle(_.merge(this.届出時点の入院有無 ? {x:412,y:261} : {x:428,y:261},style.circle))
          var date = moment(this.入院年月日)
           if(date.isValid()){

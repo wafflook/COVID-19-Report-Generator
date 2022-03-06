@@ -49,6 +49,10 @@
       .ui.grid > .row > .column:nth-child(2){
         width:210mm;
       }
+      .ui.grid > .row > .column:nth-child(2) > .ui.segments,
+      .ui.grid > .row > .column:nth-child(2) > .ui.segments > .ui.segment{
+        height:100%;
+      }
    </style>
     <style>
       iframe{
@@ -56,6 +60,7 @@
         height:100%;
         border:none;
         outline:none;
+        display:block;
       }
    </style>
     <style>
@@ -86,7 +91,7 @@
       }
       .column > .ui.segments{
         border-bottom: 2px solid rgba(34,36,38,.15) !important;
-    box-shadow: rgb(16 36 94 / 40%) 0 2px 6px 0 !important;
+        box-shadow: rgb(16 36 94 / 40%) 0 2px 6px 0 !important;
       }
    </style>
     <style>
@@ -108,6 +113,20 @@
            height:100% !important;
          }
        }
+   </style>
+    <style>
+      input::selection{
+        background-color:#0cf;
+      }
+   </style>
+    <style>
+      .ui.selection.list > .item
+      .ui.selection.list .list > .item{
+        color:rgba(0, 0, 0, 1.0) !important;
+      }
+      .ui.selection.list{
+        background-color:beige;
+      }
    </style>
  </head>
   <body>
@@ -163,7 +182,7 @@
             </div>
              <div class='ui segments block'>
                <template v-for='name,i in documents'>
-                 <div class='ui segment block green'>
+                 <div class='ui segment block'>
                    <div class='content fitted'>
                      <div class='ui divided selection list'>
                        <a class='item' @click='(tab == name) ? tab = undefined : tab = name'>
@@ -184,8 +203,11 @@
                              <a class='item' @click='view.dat.expand = !view.dat.expand' v-micron:m2="'pop'">
                                <i :class="['icon', view.dat.expand ? 'i' : 't']" id='m2'></i>
                             </a>
-                             <a class='item' @click='view.fullScreen = !view.fullScreen' v-micron:m4="'pop'">
-                               <i class='icon expand' id='m4'></i>
+                             <a class='item' @click='view.fullScreen = !view.fullScreen' v-micron:m3="'pop'">
+                               <i class='icon expand' id='m3'></i>
+                            </a>
+                             <a class='item' @click='document.clear()' v-micron:m4="'pop'">
+                               <i class='icon earser' id='m4'></i>
                             </a>
                           </div>
                         </div>
@@ -257,9 +279,13 @@
                       </div>
                     </template>
                      <template v-slot:footer>
-                       <dat-gui>
-                         <dat-value @click='download' label='download' ></dat-value>
-                      </dat-gui>
+                       <div class='ui segment block'>
+                         <div class='content fitted'>
+                           <dat-gui>
+                             <dat-value @click='download' label='ダウンロード'></dat-value>
+                          </dat-gui>
+                        </div>
+                      </div>
                      </template>
                   </component>
                 </template>
@@ -267,8 +293,14 @@
             </div>
          </div>
           <div class='column'>
-            <iframe class='viewer' ref='viewer'>
-           </iframe>
+            <div class='ui segments'>
+              <div class='ui segment block' style='flex:1;'>
+                <div class='content fitted'>
+                  <iframe class='viewer' ref='viewer'>
+                 </iframe>
+               </div>
+             </div>
+           </div>
          </div>
        </div>
      </div>
@@ -304,6 +336,7 @@
  <script src='js/vue/vue-jaconv/0.0.1.js'></script>
  <script src='js/vue/vue-moment/4.1.0-custom.js'></script>
  <script src='js/vue/vue-reactive-refs/0.0.2.js'></script>
+ <script src='js/vue/portal-vue/2.1.7-custom.js'></script>
  <script src='js/vue/vue-dat-gui/0.0.1-custom.js'></script>
  <script src='js/vue/v-switch-case/1.0.3-custom.js'></script>
  <script src='js/vue/vue-json-pretty/1.8.0-custom.js'></script>
@@ -318,6 +351,48 @@
    Vue.config.productionTip  = false
 </script>
  <script>
+   var VueToast = {
+     install:function(vue,options){
+       Vue.prototype.$toast = function(type,message){
+         $(document.body).toast({
+           className      : {
+             container    : 'ui toast-container block',
+             box          : 'toast-box floating',
+           },
+           newestOnTop:true,
+           displayTime:this.$root.view.waitToast * 1000,
+           message:message,
+           class:type
+         })
+       }
+       Vue.prototype.$toast_confirm = function(type,message,fnc_yes,fnc_no){
+         $(document.body).toast({
+            className      : {
+              container    : 'ui toast-container block',
+              box          : 'toast-box floating',
+            },
+            newestOnTop:true,
+            classActions:'attached top',
+            message:message,
+            displayTime:this.$root.view.waitToast * 1000,
+            class:type,
+            actions:[{
+              text:'はい',
+              class:'green',
+              click:fnc_yes
+            },{
+             text:'いいえ',
+              class:'red',
+              click:fnc_no
+           }]
+         })
+       }    
+     }
+   }
+</script>
+ <script>
+   Vue.use(VueToast)
+   Vue.use(VuePortal)
    Vue.use(VueDatGui)
    Vue.use(VueSwitch)
    Vue.use(VueMoment)
@@ -373,6 +448,7 @@
        callback = {
          focus:async function(event){
            $(event.target).closest('.cr').addClass('focus')
+           $(event.target).select()
          },
          focusout:function(event){
            $(event.target).closest('.cr').removeClass('focus')
@@ -449,6 +525,9 @@
          var arr = _(this.$options.components).keys().without(this.$options.name).value()
          return (this.search != '') ? _.filter(arr, name=>name.indexOf(this.search) != -1) : arr
        },
+       document:function(){
+         return this.$refs.document[0]
+       },
        file:function(){
          return {
            Language:'ja',
@@ -492,7 +571,7 @@
      },
      created:async function(){
        await this.loadFont()
-
+       this.compute()
        setInterval(() => {
          this.timestamp = moment().valueOf()
        }, 1000)
@@ -502,6 +581,7 @@
          {name:'設定',options:{deep:true}},
          {name:'共通',options:{deep:true}}
        ],_.debounce(async()=>{
+         this.compute()
          await this.loadFont()
          this.$refs.document[0].draw()
          
@@ -566,11 +646,15 @@
          患者の保護者の続柄:'兄'
        }
      },
-
-
-
-
       methods:{
+        compute:function(){
+          var date = moment(this.共通.患者の生年月日)
+          if(date.isValid()){
+            var age = moment().age(new Date(this.共通.患者の生年月日))
+            this.共通.患者の年齢 = _.toString(age.years)
+            this.共通.患者の年齢のヶ月目 = _.toString(age.months)
+          }
+        },
         download:async function(){
           _.each(this.file,(value,name)=>this.doc[`set${name}`](value))
           var ファイル名 = [
@@ -610,4 +694,13 @@
    @import url('ttf/index.css');
    @import url('js/index.css');
    @import url('css/index.css');
+
+   .dg li:not(.folder){
+        height:24px;
+        line-height:24px;
+      }
+      .dg .c input[type=text]{
+        padding:2px;
+      }
+
 </style>

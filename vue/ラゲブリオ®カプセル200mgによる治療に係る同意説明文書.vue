@@ -75,7 +75,16 @@
      },
      methods:{
        clear:function(){
-         this.pad.clear()
+         this.$toast_confirm('warning','全ての入力をクリアしますか？',()=>{
+           _.merge(this.$data,{
+              署名:null,
+              記入日:'',
+              処方箋交付年月日:'',
+              本剤について:false,
+              女性の場合は以下についてチェックしてください:false,
+              同意及び情報提供に関する特記事項:false
+           })
+         })
        },
        draw:async function(){
 
