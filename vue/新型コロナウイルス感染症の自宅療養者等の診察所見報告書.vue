@@ -1,6 +1,6 @@
  <template>
    <div v-enter-to-next-input>
-     <div class='ui segments block basic'>
+
        <slot name='header'>
       </slot>
        <div class='ui segment block fitted'>
@@ -119,11 +119,12 @@
       </div>
        <slot name='footer'>
       </slot>
-    </div>
+
   </div>
 </template>
  <script>
    module.exports={
+     mixins:[pdf],
      mounted:function(){
        tabIndent.render(this.$refs.multiline.$_controller.__input)
        $('input.birthday').each(function(i,input){
@@ -203,17 +204,17 @@
              size:5,
              opacity:0.5,
              thickness:9,
-             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.設定.listColor.mark).toFloatRgb()))
+             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.mark).toFloatRgb()))
            },
            line:{
              opacity:0.5,
              thickness:9,
-             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.設定.listColor.mark).toFloatRgb()))
+             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.mark).toFloatRgb()))
            }
          }
 
          var form = doc.getForm()
-         var embedfont = await doc.embedFont(this.$root.font)
+         var embedfont = await doc.embedFont(this.$root.pdfLib.font)
 
          /*
           * https://github.com/Hopding/pdf-lib/issues/1152
@@ -227,7 +228,7 @@
              page.setFontSize(9)
              page.setFont(embedfont)  
              page.drawText('診療時間外',{x:390,y:687,size:9})
-             page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.設定.listColor.text).toFloatRgb())))
+             page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.text).toFloatRgb())))
              page.drawText(this.宛先,{x:40,y:757,size:11})
          var date = moment(this.$root.共通.患者の生年月日)
           if(date.isValid()){
@@ -269,7 +270,7 @@
               width:517,
               height:165,
               font:embedfont,
-              textColor:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.設定.listColor.text).toFloatRgb()))
+              textColor:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.text).toFloatRgb()))
             })
             page.drawTextZen(this.体温,{x:158,y:220,size:10})
             page.drawEllipse(_.merge(this.解熱剤の使用８時間以内 ? {x:372,y:224,xScale:15,yScale:10} : {x:424,y:224,xScale:15,yScale:10},style.ellipse))
@@ -307,6 +308,15 @@
      },
      data:function(){
        return{
+         tab:{
+           info:{
+             title:'新型コロナウイルス感染症自宅療養者等の診察所見報告書',
+             author:'???',
+             version:'1970/01/01 00:00:00',
+             description:'',
+             link:'???'
+           }
+         },
          宛先:'名古屋市保健所 保健センター所長',
          診察日:'2021/08/27',
          受診種別:'電話WEB診療',

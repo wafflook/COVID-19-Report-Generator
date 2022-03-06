@@ -1,6 +1,6 @@
  <template>
    <div v-enter-to-next-input>
-     <div class='ui segments block basic'>
+  
        <slot name='header'>
       </slot>
        <div class='ui segment block fitted'>
@@ -44,11 +44,12 @@
       </div>
        <slot name='footer'>
       </slot>
-    </div>
+
   </div>
 </template>
  <script>
    module.exports={
+     mixins:[pdf],
      watch:{
        '$data':{
          deep:true,
@@ -100,22 +101,22 @@
              size:5,
              opacity:0.5,
              thickness:9,
-             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.設定.listColor.mark).toFloatRgb()))
+             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.mark).toFloatRgb()))
            },
            line:{
              opacity:0.5,
              thickness:9,
-             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.設定.listColor.mark).toFloatRgb()))
+             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.mark).toFloatRgb()))
            }
          }
 
          var form = doc.getForm()
-         var embedfont = await doc.embedFont(this.$root.font)
+         var embedfont = await doc.embedFont(this.$root.pdfLib.font)
 
         var page = doc.getPages()[2]
             page.setFontSize(11)
             page.setFont(embedfont)
-            page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.設定.listColor.text).toFloatRgb())))
+            page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.text).toFloatRgb())))
          if(this.本剤について){
             page.drawCheckBox(true,{x:59,y:709})
          }
@@ -159,7 +160,7 @@
         var page = doc.getPages()[3]
             page.setFontSize(11)
             page.setFont(embedfont)
-            page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.設定.listColor.text).toFloatRgb())))
+            page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.text).toFloatRgb())))
 
 
          if(this.本剤について){
@@ -209,6 +210,16 @@
      },
      data:function(){
        return{
+         tab:{
+           info:{
+             title:'ラゲブリオ®カプセル200mgによる治療に係る同意説明文書',
+             author:'Nishiyama, Michiyo',
+             version:'2022/01/27 11:33',
+             description:'',
+             link:'https://www.msdconnect.jp/products/lagevrio/'
+           }
+         },
+
          署名:null,
          記入日:'1991/11/07',
          処方箋交付年月日:'1991/11/07',

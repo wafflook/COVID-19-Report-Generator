@@ -1,6 +1,6 @@
  <template>
    <div v-enter-to-next-input>
-     <div class='ui segments block basic'>
+
        <slot name='header'>
       </slot>
        <div class='ui segment block fitted'>
@@ -18,11 +18,12 @@
       </div>
        <slot name='footer'>
       </slot>
-    </div>
+
   </div>
 </template>
  <script>
    module.exports={
+     mixins:[pdf],
      watch:{
        '$data':{
          deep:true,
@@ -56,7 +57,7 @@
 
             var page = doc.getPages()[1]
             page.setFontSize(11)
-                var embedfont = await doc.embedFont(this.$root.font)
+                var embedfont = await doc.embedFont(this.$root.pdfLib.font)
             page.setFont(embedfont)
 
          var style = {
@@ -68,17 +69,17 @@
              size:5,
              opacity:0.5,
              thickness:9,
-             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.設定.listColor.mark).toFloatRgb()))
+             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.mark).toFloatRgb()))
            },
            line:{
              opacity:0.5,
              thickness:9,
-             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.設定.listColor.mark).toFloatRgb()))
+             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.mark).toFloatRgb()))
            }
          }
 
             
-            page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.設定.listColor.text).toFloatRgb())))
+            page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.text).toFloatRgb())))
 
      
             page.drawText(this.$root.共通.医師の従事病院または診療所の名称,{x:185,y:620})
@@ -111,6 +112,16 @@
      },
      data:function(){
        return{
+         tab:{
+           info:{
+             title:'ラゲブリオ®カプセル200mg処方にあたっての適格性情報チェックリスト',
+             author:'Kojima, Yukari',
+             version:'2021/12/27 14:33:00',
+             description:'',
+             link:'https://www.msdconnect.jp/products/lagevrio/'
+           }
+         },
+
          同意及び情報提供に関する特記事項:true,
          'SARS-CoV-2による感染症':true,
          禁忌事項_本剤の成分に対し過敏症の既往歴のある患者ではない:true,

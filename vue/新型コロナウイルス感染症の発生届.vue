@@ -1,6 +1,6 @@
  <template>
    <div v-enter-to-next-input>
-     <div class='ui segments block basic'>
+
        <slot name='header'>
       </slot>
        <div class='ui segment block fitted'>
@@ -209,8 +209,8 @@
           </dat-gui>
         </div>
       </div>
-       <div class='ui segment block fitted orange'>
-         <div class="ui label floating point right pointing orange">
+       <div class='ui segment block fitted green'>
+         <div class="ui label floating point right pointing green">
            接種
         </div>
          <div class='content fitted'>
@@ -238,11 +238,12 @@
       </div>
        <slot name='footer'>
       </slot>
-    </div>
+
   </div>
 </template>
  <script>
    module.exports={
+     mixins:[pdf],
      mounted:function(){
        tabIndent.render(this.$refs.multiline.$_controller.__input)
        $('input.birthday').each(function(i,input){
@@ -374,7 +375,8 @@
        draw:async function(){
          var doc = await PDFLib.PDFDocument.load(await fetch(`${this.$options.name}.pdf`).then(r=>r.arrayBuffer()))
          doc.registerFontkit(fontkit)
-         var embedfont = await doc.embedFont(this.$root.font)
+
+         var embedfont = await doc.embedFont(this.$root.pdfLib.font)
          var style = {
            ellipse:{
              borderColor:PDFLib.rgb(0,0,0),
@@ -384,12 +386,12 @@
              size:5,
              opacity:0.5,
              thickness:9,
-             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.設定.listColor.mark).toFloatRgb()))
+             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.mark).toFloatRgb()))
            },
            line:{
              opacity:0.5,
              thickness:9,
-             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.設定.listColor.mark).toFloatRgb()))
+             color:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.mark).toFloatRgb()))
            }
          }
          var page = doc.getPages()[0]
@@ -397,7 +399,7 @@
              page.setFont(embedfont)
              page.drawText('病院の患者の管理ＩＤ',{x:60,y:704})
              page.drawText('診療時間外の電話番号',{x:60,y:684})
-             page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.設定.listColor.text).toFloatRgb())))
+             page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.text).toFloatRgb())))
          var date = moment(this.報告年月日)
           if(date.isValid()){
              page.drawTextZen(date.format('yy'),{x:457,y:734})
@@ -740,13 +742,22 @@
               width:297,
               height:27,
               font:embedfont,
-              textColor:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.設定.listColor.text).toFloatRgb()))
+              textColor:PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.text).toFloatRgb()))
             },9)
          this.$emit('update',doc)
        }
      },
      data:function(){
        return{
+         tab:{
+           info:{
+             title:'新型コロナウイルス感染症の発生届',
+             author:'福島 銀史郎',
+             version:'2021/11/29 18:03:00',
+             description:'厚生労働省の発行する新型コロナウイルス感染症のドキュメントです',
+             link:'https://www.mhlw.go.jp/bunya/kenkou/kekkaku-kansenshou11/01-shitei-01.html'
+           }
+         },
          報告年月日 :'2021/08/27',
          患者の類型:'患者（確定例）',
          // 11.症状
