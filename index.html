@@ -781,19 +781,7 @@
        },
        load:async function(doc){
          this.pdfLib.doc = doc
-         //https://wafflook.github.io/js/pdf.js/2.9.359/web/viewer.html?file=blob%3Ahttps%3A%2F%2Fwafflook.github.io%2Fae9ecc2d-ebdc-4752-b872-5eb41c91f8a3#page=1&zoom=80&search=&pagemode=none
-         //https://wafflook.github.io/js/pdf.js/2.9.359/web/viewer.html?file=blob%3Ahttps%3A%2F%2Fwafflook.github.io%2F2c3d0cda-6a30-4db3-87bf-3b18b1901afb
-
-         //https://wafflook.github.io/js/pdf.js/2.9.359/web/viewer.html?file=blob%3Ahttps%3A%2F%2Fwafflook.github.io%2F95571a60-7e4d-4a2c-87e3-9de73b64c0f2
-
-         var x = URL.createObjectURL(new Blob([await doc.save()],{type:'application/pdf'}))
-         var url = new URL('js/pdf.js/2.9.359/web/viewer.html',window.location.origin)
-             url.searchParams.append('file',x)
-             url.hash = $.param(this.pdfViewer.settings)
-         this.$refs.viewer.src = url.href
-         console.log(
-          url.href
-         )
+         this.$refs.viewer.src = 'js/pdf.js/2.9.359/web/viewer.html?file=' + URL.createObjectURL(new Blob([await doc.save()],{type:'application/pdf'})) + '#' + $.param(this.pdfViewer.settings)
        },
        save:async function(){
          _.each(this.file,(value,property)=>{
