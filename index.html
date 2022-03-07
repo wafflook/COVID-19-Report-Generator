@@ -784,8 +784,11 @@
          this.pdfLib.doc = doc
          var url = new URL('js/pdf.js/2.9.359/web/viewer.html',window.location.origin)
              url.searchParams.append('file',URL.createObjectURL(new Blob([await doc.save()],{type:'application/pdf'})))
-             url.hash = $.param(this.pdfViewer.settings)
+             //url.hash = $.param(this.pdfViewer.settings)
          this.$refs.viewer.src = url.href
+         console.log(
+          url.href
+         )
        },
        save:async function(){
          _.each(this.file,(value,property)=>{
