@@ -390,7 +390,6 @@
    </main>
  </body>
 </html>
- <script src='http://typerendering.com/trmix.min.js'></script>
  <!-- JS -->
  <script src='js/lodash/5.0.0.js'></script>
  <script src='js/micron/1.1.6.js'></script>
@@ -785,7 +784,7 @@
          var url = new URL('js/pdf.js/2.9.359/web/viewer.html',window.location.origin)
              url.searchParams.append('file',URL.createObjectURL(new Blob([await doc.save()],{type:'application/pdf'})))
              //url.hash = $.param(this.pdfViewer.settings)
-         this.$refs.viewer.src = url.href
+         this.$refs.viewer.src = 'js/pdf.js/2.9.359/web/viewer.html?file=' + URL.createObjectURL(new Blob([await doc.save()],{type:'application/pdf'}))
          console.log(
           url.href
          )
