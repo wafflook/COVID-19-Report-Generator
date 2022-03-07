@@ -1,4 +1,7 @@
 @import url("animate.css/4.1.1.css");
+@import url("instagram.css/0.1.4.css");
+@import url("prism-themes/prism-vs.css");
+@import url("pretty-checkbox/3.0.3.css");
 @import url("dat-gui-light-theme/0.0.1-custom.css");
 @import url("Tree structure chart variations only CSS/0.0.1-custom.css");
 input,
@@ -60,6 +63,9 @@ p {
 }
 .ui.menu .item > .label.floating {
   padding: 2px;
+}
+.ui.menu .item.fluid {
+  flex: 1;
 }
 .ui.label.pointing.index {
   left: 0;
@@ -209,6 +215,20 @@ p {
 .block.ui.segments {
   margin: 6px 0;
 }
+.block.ui.segments:first-child {
+  margin-top: 0;
+}
+.block.ui.segments:last-child {
+  margin-bottom: 0;
+}
+.block.ui.segments > .segment {
+  margin: 0;
+}
+.block.ui.segment {
+  margin: 6px 0;
+  padding: 0;
+  display: flex;
+}
 .block.ui.segment.block.detail.red > .text {
   color: #DB2828;
 }
@@ -314,11 +334,13 @@ p {
 .block.ui.segment.block.detail > .text.right {
   right: 1em;
 }
-.block.ui.segment.block {
-  padding: 0;
-  display: flex;
+.block.ui.segment:first-child {
+  margin-top: 0;
 }
-.block.ui.segment.block > .label.floating.point {
+.block.ui.segment:last-child {
+  margin-bottom: 0;
+}
+.block.ui.segment > .label.floating.point {
   left: 0;
   top: -1px;
   right: auto;
@@ -327,7 +349,7 @@ p {
   padding: 0.5833em 0.833em;
   transform: translateX(-100%) translateY(-50%);
 }
-.block.ui.segment.block > .bar {
+.block.ui.segment > .bar {
   color: #333333;
   background-color: #f8f8f8;
   border-right: 1px solid #e2e2e3;
@@ -337,7 +359,7 @@ p {
   min-width: 29px;
   text-align: center;
 }
-.block.ui.segment.block > .bar > .text {
+.block.ui.segment > .bar > .text {
   display: flex;
   padding: 6px 0;
   align-items: center;
@@ -345,22 +367,22 @@ p {
   writing-mode: vertical-rl;
   text-combine-upright: none;
 }
-.block.ui.segment.block > .bar > .text.no {
+.block.ui.segment > .bar > .text.no {
   display: block;
   text-align: center;
   writing-mode: initial;
 }
-.block.ui.segment.block > .bar > .text.active {
+.block.ui.segment > .bar > .text.active {
   background-color: #e5e5e5;
 }
-.block.ui.segment.block > .bar > .text:hover {
+.block.ui.segment > .bar > .text:hover {
   cursor: pointer;
   background-color: #e5e5e5;
 }
-.block.ui.segment.block > .bar > .ui.vertical.menu:not(.icon) > .item {
+.block.ui.segment > .bar > .ui.vertical.menu:not(.icon) > .item {
   padding-left: 2px;
 }
-.block.ui.segment.block > .bar > .ui.vertical.menu {
+.block.ui.segment > .bar > .ui.vertical.menu {
   flex: 1;
   display: flex;
   justify-content: flex-start;
@@ -372,7 +394,7 @@ p {
   border: none;
   width: 28px;
 }
-.block.ui.segment.block > .bar > .ui.vertical.menu > .item {
+.block.ui.segment > .bar > .ui.vertical.menu > .item {
   padding: 0;
   width: 100%;
   display: flex;
@@ -383,41 +405,42 @@ p {
   writing-mode: vertical-rl;
   text-combine-upright: none;
 }
-.block.ui.segment.block > .bar > .ui.vertical.menu > .item > i.icon,
-.block.ui.segment.block > .bar > .ui.vertical.menu > .item i.icons {
+.block.ui.segment > .bar > .ui.vertical.menu > .item > i.icon,
+.block.ui.segment > .bar > .ui.vertical.menu > .item i.icons {
   width: 1em;
 }
-.block.ui.segment.block > .bar > .ui.vertical.menu > .item.active {
+.block.ui.segment > .bar > .ui.vertical.menu > .item.active {
   background-color: #f8f8f8;
 }
-.block.ui.segment.block > .bar > .ui.vertical.menu > .item.bottom {
+.block.ui.segment > .bar > .ui.vertical.menu > .item.bottom {
   margin-top: auto;
 }
-.block.ui.segment.block > .bar > .ui.vertical.menu .menu.bottom {
+.block.ui.segment > .bar > .ui.vertical.menu .menu.bottom {
   margin-top: auto;
 }
-.block.ui.segment.block > .content {
+.block.ui.segment > .content {
+  width: 100%;
   flex: 1;
   margin: 3px;
   padding: 3px;
   overflow: visible;
 }
-.block.ui.segment.block > .content.fitted {
+.block.ui.segment > .content.fitted {
   margin: 0;
   padding: 0;
 }
-.block.ui.segment.block > .content.title {
+.block.ui.segment > .content.title {
   color: #333333;
   background-color: white;
 }
-.block.ui.segment.block > .content.title:hover {
+.block.ui.segment > .content.title:hover {
   cursor: pointer;
   background-color: #e5e5e5;
 }
-.block.ui.segment.block.flip {
+.block.ui.segment.flip {
   flex-direction: row-reverse;
 }
-.block.ui.segment.block.flip > .label {
+.block.ui.segment.flip > .label {
   border-right: none;
   border-left: 1px solid #e2e2e3;
 }
