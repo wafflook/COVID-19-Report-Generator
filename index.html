@@ -2,11 +2,11 @@
  <html>
   <head>
 
-    <title>無題</title>
+    <title>COVID-19 Report Generator</title>
 
     <meta charset='utf-8'>
     <meta content='Yusuke Sano' name='author'>
-    <meta content='新型コロナウイルス感染症の文書をＰＣから入力' name='description'>
+    <meta content='新型コロナウイルス感染症の関連文書' name='description'>
     <meta content='telephone=no,address=no,email=no,date=no,url=no' name='format-detection'>
     <meta content='noimageindex,notranslate,nosnippet,noarchive,nofollow,noindex' name='robots'>
     <meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no' name='viewport'>
@@ -16,199 +16,41 @@
     <link href='asset/favicon.ico' rel='icon'>
 
     <style>
-      html,
-      body{
-        -webkit-text-stroke:.3px;
-        font:12px 'M+2VM+IPAG circle Regular';
-      }
-      html,
-      body,
-      main,
-      main .ui.grid,
-      main .ui.grid > .row,
-      main .ui.grid > .row > .column{
-        height:100vh;
-      }
-      body{
-        background-color:#fafafa;
-      }
-      main{
-        float:right;
-        width:fit-content;
-      }
+      @import url('ttf/index.css');
+      @import url('js/index.css');
+      @import url('css/index.css');
    </style>
-    <style>
-      .ui.grid.celled > .row > .column:nth-child(3){
-        padding:0;
-      }
-   </style>
-    <style>
-      .ui.grid > .row > .column{
-        height:100vh;
-        overflow-y:scroll;
-      }
-      .ui.grid > .row > .column::-webkit-scrollbar{
-        display:none;
-      }
-      .ui.grid > .row > .column:nth-child(1),      .ui.grid > .row > .column:nth-child(2){
-        width:428px;
-        padding-left:5em !important;
-      }
-      .ui.grid > .row > .column:nth-child(3){
-        width:210mm;
-      }
-      .ui.grid > .row > .column:nth-child(3) > .ui.segments > .ui.segment,
-      .ui.grid > .row > .column:nth-child(3) > .ui.segments{
-        height:100%;
-      }
-   </style>
-    <style>
-      iframe{
-        width:100%;
-        height:100%;
-        border:none;
-        outline:none;
-        display:block;
-      }
-   </style>
-    <style>
 
-   </style>
-    <style>
-      /*
-       * FontAwesome v6.0.0
-       */
-       i.icon.i:before {
-         content:"\49";
-       }
-       i.icon.t:before{
-         content:"\54";
-       }
-       i.icon.earser:before{
-         content:"\f12d";
-       }
-    </style>
-     <style>
-       .item .property-name{
-         display:none;
-       }
-       .item .c{
-         flex:1;
-       }
-    </style>
-     <style>
-      .dg .cr.focus{
-        background:beige;
-      }
-      .column > .ui.segments{
-        border-bottom: 2px solid rgba(34,36,38,.15) !important;
-        box-shadow: rgb(16 36 94 / 40%) 0 2px 6px 0 !important;
-      }
-   </style>
-    <style>
-       @media only screen and (max-width: 820px) {
-         .ui.grid.celled{
-           width:100vw;
-           overflow:hidden;
-         }
-         .ui.grid.celled > .row{
-           display:flex;
-           overflow-x:auto;
-           flex-wrap:nowrap;
-           scroll-snap-type:x mandatory;
-         }
-         .ui.grid.celled > .row > .column{
-           width:100vw !important;
-           min-width:100vw !important;
-           scroll-snap-align: start;
-           height:100% !important;
-         }
-       }
-   </style>
-    <style>
-      input::selection{
-        background-color:#0cf;
-      }
-   </style>
-    <style>
-      .ui.selection.list > .item
-      .ui.selection.list .list > .item{
-        color:rgba(0, 0, 0, 1.0) !important;
-      }
-      .ui.selection.list{
-        background-color:beige;
-      }
-   </style>
-    <style>
-      .ui.selection.dropdown{
-        border:none;
-        height:auto;
-        min-height:auto;
-        padding:0.28571429em 3.2em 0.28571429em 1em;
-      }
-      .ui.search.dropdown > .text{
-        width:100%;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow:ellipsis;
-      }
-
-      .ui.search.dropdown > .text,
-      .ui.menu .ui.dropdown .menu > .item{
-
-        white-space:nowrap;
-        word-break:keep-all;
-
-      }
-      .ui.menu .ui.dropdown .menu > .item{
-        padding:0.26190476rem 1.14285714rem !important;
-      }
-      .ui.search.selection.dropdown > input.search{
-        padding:0.26190476rem 1.14285714rem;
-      }
-
-      .ui.selection.dropdown > .dropdown.icon{
-        padding:0.41666667em
-      }
-      .ui.selection.dropdown .menu > .item{
-        min-height:1.285714285rem;
-      }
-   </style>
-    <style>
-      .column > .ui.segments:nth-child(1){
-        z-index:999;
-      }
-   </style>
  </head>
   <body>
-    <main v-enter-to-next-input>
+    <main>
       <div class='ui grid internally celled'>
         <div class='row'>
           <div class='column'>
-            <div class='ui segments block animate__animated animate__bounce'>
+
+            <div class='ui segments block'>
               <div class='ui segment block'>
                 <div class='content fitted'>
                   <div class='ui card fluid basic'>
                     <div class='content'>
-                      <img class='ui image floated left mini' src='asset/me.jpg'>
                       <div class='header'>
-                        Repola
+                        COVID-19 Report Generator
                      </div>
                       <div class='meta'>
-                        Yusuke Sano
+                        簡単にＰＤＦを作成（新型コロナウイルス感染症版）
                      </div>
                       <div class='description'>
-                        <p>発生届をＰＣから入力可能にしました。問題があれば連絡下さい</p>
+                        <p>あなたは無料でスピーディにＰＤＦを作成し、印刷し、発生届をすぐにＦＡＸできます。ライセンスはМＩＴ、改良し、再配布や販売もできます。但し、著作権は私にあって利用は自己責任です</p>
                      </div>
                    </div>
                  </div>
                </div>
                 <a class='ui label corner' href='https://twitter.com/wafflook' target='_blank'>
-                  <i class='icon twitter'></i>
+                  <i class='icon twitter blue'></i>
                </a>
              </div>
               <div class='ui segment block teal'>
-                <div class="ui label floating point right pointing teal">
+                <div class="ui label floating tip right pointing teal">
                   設定
                </div>
                 <div class='content fitted'>
@@ -225,104 +67,232 @@
                </div>
              </div>
            </div>
-            <div class='ui segments block'>
-              <div class='ui segment block'>
-                <div class='content'>
-                  <p>...</p>
+            <step class='animate__animated animate__fadeInDown' @change-page='testx'>
+              <step-page v-model='共通' title='医師の情報' meta='医師の情報を入力します'>
+                <template v-slot:content='props'>
+                  <div class='ui segment block'>
+                    <div class='content fitted'>
+                      <dat-gui>
+                       <dat-value v-model='props.pass.医師の氏名' label='氏名' id='医師の氏名'></dat-value>
+                     </dat-gui>
+                   </div>
+                 </div>
+                  <div class='ui segment block blue'>
+                    <div class='ui label floating tip right pointing blue'>
+                      医師
+                    </div>
+                     <div class='content fitted'>
+                       <dat-gui>
+                         <dat-value v-model='props.pass.医師の診療科' label='診療科'></dat-value>
+                         <dat-value v-model='props.pass.医師の氏名カナ' label='氏名カナ' id='氏名カナ' placeholder='カタカナ'></dat-value>
+                      </dat-gui>
+                    </div>
+                 </div>
+
+               </template>
+
+             </step-page>
+           </step>
+            <step class='animate__animated animate__fadeInDown' @change-page='testx'>
+              <step-page v-model='共通' title='病院の情報' meta='病院の情報を入力します'>
+                <template v-slot:content='props'>
+                <div class='ui segment block'>
+                  <div class='content fitted'>
+                    <dat-gui>
+                      <dat-value v-model='props.pass.病院の名称' label='名称' id='病院の名称'></dat-value>
+                   </dat-gui>
+                 </div>
                </div>
-             </div>
-              <div class='ui segment block'>
-                <div class='content fitted'>
-                  <dat-gui>
-                    <dat-value v-model='共通.医師の従事病院または診療所の名称' label='病院は？'></dat-value>
-                 </dat-gui>
+                <div class='ui segment block blue'>
+                  <div class='ui label floating tip right pointing blue'>
+                    病院
+                 </div>
+                  <div class='content fitted'>
+                    <dat-gui>
+                      <dat-value v-model='props.pass.病院の名称カナ' label='名称カナ'></dat-value>
+                      <dat-value v-model='props.pass.病院の住所' label='住所' id='住所'></dat-value>
+                      <dat-value v-model='props.pass.病院の住所カナ' label='住所カナ'></dat-value>
+                      <dat-value phone v-model='props.pass.病院の連絡先' label='連絡先' placeholder='半角数字'></dat-value>
+                      <dat-value phone v-model='props.pass.病院の連絡先の時間外' label='連絡先の時間外' placeholder='半角数字'></dat-value>
+                   </dat-gui>
+                 </div>
                </div>
-             </div>
-              <div class='ui segment block blue'>
-                <div class='ui label floating point right pointing blue'>
-                  病院
-               </div>
-                <div class='content fitted'>
-                  <dat-gui>
-                    <dat-value v-model='共通.医師の従事病院または診療所の所在地' label='病院の住所は？'></dat-value>
-                    <dat-value v-model='共通.医師の従事病院または診療所の電話番号'label='病院の連絡先は？' type='phone'></dat-value>
-                    <dat-value v-model='共通.医師の従事病院または診療所の時間外の電話番号' label='診療時間外の連絡先は？' comment='診療時間外の連絡先' type='phone'></dat-value>
-                 </dat-gui>
-               </div>
-             </div>
-           </div>
-            <div class='ui segments block'>
-              <div class='ui segment block'>
-                <div class='content'>
-                  <p>...</p>
-               </div>
-             </div>
-              <div class='ui segment block'>
-                 <div class='content fitted'>
-                   <dat-gui>
-                    <dat-value v-model='共通.医師の氏名' label='氏名は？'></dat-value>
-                  </dat-gui>
-                </div>
-             </div>
-              <div class='ui segment block blue'>
-                <div class='ui label floating point right pointing blue'>
-                  医師
-                </div>
-                 <div class='content fitted'>
-                   <dat-gui>
-                    <dat-value v-model='共通.医師の氏名の読み仮名' label='読み仮名は？'></dat-value>
-                  </dat-gui>
-                </div>
-             </div>
-           </div>
-            <div class='ui segments block'>
-              <div class='ui segment block'>
-                <div class='content'>
-                  <p>...</p>
-               </div>
-             </div>
-              <div class='ui segment block'>
-                <div class='content fitted'>
-                  <dat-gui>
-                    <dat-value v-model='共通.患者のＩＤ' label='患者ＩＤ' comment='患者のＩＤ'></dat-value>
-                 </dat-gui>
-               </div>
-             </div>
-              <div class='ui segment block blue'>
-                <div class="ui label floating point right pointing blue">
-                  患者
-               </div>
-                <div class='content fitted'>
-                  <dat-gui>
-                    <dat-value v-model='共通.患者の氏名' label='氏名は？' ></dat-value>
-                    <dat-value v-model='共通.患者の読み仮名' label='読み仮名は？' ></dat-value>
-                    <dat-value v-model='共通.患者の性別' label='性別は？' :values="['男','女']"></dat-value>
-                    <dat-value v-model='共通.患者の生年月日' label='誕生は？' type='yyyymmdd' comment='患者の年齢'></dat-value>
-                    <dat-value v-model='共通.患者の年齢' label='年齢は' readonly></dat-value>
-                    <dat-value v-model='共通.患者の年齢のヶ月目' label='年齢のヶ月は' readonly></dat-value>
-                    <dat-value v-model='共通.患者の職業' label='職業は？' comment='患者の職業'></dat-value>
-                    <dat-value v-model='共通.患者の住所の県市区町村' label='住所（都道府県と市）は？' ></dat-value>
-                    <dat-value v-model='共通.患者の住所' label='住所は？' comment='患者の住所'></dat-value>
-                    <dat-value v-model='共通.患者の住所の電話番号' label='住所の連絡先は？'type='phone'></dat-value>
-                    <dat-value v-model='共通.患者の所在地' label='所在地は？' comment='患者の住所と所在地'></dat-value>
-                    <dat-value v-model='共通.患者の所在地の電話番号' label='所在地の連絡先は？' type='phone'></dat-value>
-                 </dat-gui>
-               </div>
-             </div>
-              <div class='ui semgent block' v-show='共通.患者の年齢 < 20'>
-                <div class='content fitted'>
-                  <dat-gui>
-                    <dat-folder :name='`保護（患者の${共通.患者の保護者の続柄}/${共通.患者の保護者の氏名}）` | toZen'>
-                      <dat-value v-model='共通.患者の保護者の続柄' label='続柄は？' ></dat-value>
-                      <dat-value v-model='共通.患者の保護者の氏名' label='氏名は？' ></dat-value>
-                      <dat-value v-model='共通.患者の保護者の読み仮名' label='読み仮名は？' ></dat-value>
-                      <dat-value v-model='共通.患者の保護者の住所' label='住所は？' ></dat-value>
-                      <dat-value v-model='共通.患者の保護者の電話番号' label='連絡先は？' type='phone'></dat-value>
-                  </dat-folder>
-                 </dat-gui>
-               </div>
-             </div>
-           </div>
+               </template>
+             </step-page>
+           </step>
+            <step class='animate__animated animate__fadeInDown' @change-page='testx'>  
+              <step-page
+                v-model='共通'
+                title='患者の情報'
+                meta='簡単にＰＤＦを作成（新型コロナウイルス感染症版）'
+                description='外国籍の場合、氏名：パスポートの記載名、氏名カナ：全角カナ'>
+                <template v-slot:content='props'>
+                    <div class='ui segment block'>
+                      <div class='content fitted'>
+                        <dat-gui>
+                          <dat-value v-model='props.pass.患者の氏名' label='氏名' id='患者の氏名'></dat-value>
+                       </dat-gui>
+                     </div>
+                   </div>
+                    <div class='ui segment block blue'>
+                      <div class="ui label floating tip right pointing blue">
+                        患者
+                     </div>
+                      <div class='content fitted'>
+                        <dat-gui>
+                          <dat-value v-model='props.pass.患者の氏名カナ' label='氏名カナ' placeholder='カタカナ'></dat-value>
+                          <dat-value v-model='props.pass.患者の職業' label='職業'></dat-value>
+                          <dat-value v-model='props.pass.患者の性別' label='性別' :values="sex"></dat-value>
+                          <dat-value date v-model='props.pass.患者の生年月日' label='生年月日' placeholder='YYYY/MM/DD'></dat-value>
+                          <dat-value v-model='props.pass.患者のＩＤ' label='ＩＤ'></dat-value>
+                          <dat-value v-model='props.pass.患者の年齢' label='年齢' readonly></dat-value>
+                          <dat-value v-model='props.pass.患者の年齢のヶ月目' label='年齢のヶ月' readonly></dat-value>
+                       </dat-gui>
+                     </div>
+                   </div>
+               </template>
+             </step-page>
+              <step-page
+              v-model='共通'
+                title='患者の保護者の情報'
+                meta='簡単にＰＤＦを作成（新型コロナウイルス感染症版）'
+                description='患者が未成年の場合、保護者の情報及び緊急連絡先も入力します' v-if='共通.患者の年齢 < 20'>
+                <template v-slot:content='props'>
+                  <div class='ui segment block'>
+                    <div class='content fitted'>
+                      <dat-gui>
+                        <dat-value v-model='props.pass.患者の保護者の氏名' label='氏名'></dat-value>
+                     </dat-gui>
+                   </div>
+                 </div>
+                  <div class='ui segment block'>
+                    <div class='content fitted'>
+                      <dat-gui>
+                        <dat-value zip v-model='props.pass.患者の保護者の住所の郵便番号' label='郵便番号' id='患者の保護者の郵便番号' placeholder='半角数字'></dat-value>
+                     </dat-gui>
+                   </div>
+                 </div>
+                  <div class='ui segment block'>
+                    <div class='content fitted'>
+                      <dat-gui>
+                        <dat-value label='住所一覧' v-model='x' :values='addressList' @finishchange='test3' placeholder='半角数字'></dat-value>
+                     </dat-gui>
+                   </div>
+                 </div>
+                  <div class='ui segment block blue'>
+                    <div class='ui label floating tip right pointing blue'>
+                      保護
+                   </div>
+                    <div class='content fitted'>
+                      <dat-gui>
+                        <dat-value v-model='props.pass.患者の保護者の読み仮名' label='氏名カナ' ></dat-value>
+                        <dat-value v-model='props.pass.患者の保護者の続柄' label='続柄' ></dat-value>
+                        <dat-value v-model='props.pass.患者の保護者の住所の都道府県' label='都道府県' :values="prefs" placeholder='半角数字'></dat-value>
+                        <dat-value v-model='props.pass.患者の保護者の住所の市区町村' label='市区町村' placeholder='全角'></dat-value>
+                        <dat-value v-model='props.pass.患者の保護者の住所の町域番地' label='町域番地' placeholder='全角'></dat-value>
+                        <dat-value v-model='props.pass.患者の保護者の住所の建物号室' label='建物号室' placeholder='全角'></dat-value>
+                        <dat-value v-model='props.pass.患者の保護者の住所カナ' label='住所カナ' ></dat-value>
+                        <dat-value phone v-model='props.pass.患者の保護者の電話番号' label='連絡先'></dat-value>
+                     </dat-gui>
+                   </div>
+                 </div>
+                 </template>
+             </step-page>
+              <step-page
+                v-model='共通'
+                title='患者の住所'
+                meta='簡単にＰＤＦを作成（新型コロナウイルス感染症版）'
+                description='現住所を入力します。住民票・免許証に登録済住所を入力します'>
+                <template v-slot:content='props'>
+                    <div class='ui segment block'>
+                      <div class='content fitted'>
+                        <dat-gui>
+                          <dat-value zip v-model='props.pass.患者の住所の郵便番号' label='郵便番号' id='患者の住所の郵便番号' placeholder='半角数字'></dat-value>
+                       </dat-gui>
+                     </div>
+                   </div>
+                    <div class='ui segment block' v-show='_.keys(補完.患者の住所一覧を郵便番号から).length > 0'>
+                      <div class='content fitted'>
+                        <dat-gui>
+                          <dat-value label='住所一覧' :values='補完.患者の住所一覧を郵便番号から' @finishchange='test2' placeholder='半角数字'></dat-value>
+                       </dat-gui>
+                     </div>
+                   </div>
+                    <div class='ui segment block blue'>
+                      <div class="ui label floating tip right pointing blue">
+                        住所
+                     </div>
+                      <div class='content fitted'>
+                        <dat-gui>
+                          <dat-value v-model='props.pass.患者の住所の都道府県' label='都道府県' :values="jpPrefecture.getAll('pref', 'name')" placeholder='半角数字'></dat-value>
+                          <dat-value v-model='props.pass.患者の住所の市区町村' label='市区町村' placeholder='全角'></dat-value>
+                          <dat-value v-model='props.pass.患者の住所の町域番地' label='町域番地' placeholder='全角'></dat-value>
+                          <dat-value v-model='props.pass.患者の住所の建物号室' label='建物号室' placeholder='全角'></dat-value>
+                          <dat-value phone v-model='props.pass.患者の住所の電話番号' label='電話番号'></dat-value>
+                       </dat-gui>
+                     </div>
+                   </div>
+                  </template>
+             </step-page>
+              <step-page
+              v-model='共通'
+                title='患者の居所'
+                meta='簡単にＰＤＦを作成（新型コロナウイルス感染症版）'
+                description='現居所を入力します。入院中:病院、帰省中:実家、入居中：施設'>
+                <template v-slot:content='props'>
+                    <div class='ui segment block'>
+                      <div class='content fitted'>
+                        <dat-gui>
+                          <dat-value zip v-model='props.pass.患者の居所の郵便番号' label='郵便番号' id='患者の居所の郵便番号' placeholder='半角数字'></dat-value>
+                       </dat-gui>
+                     </div>
+                   </div>
+                    <div class='ui segment block' v-show='_.keys(補完.患者の居所一覧を郵便番号から).length > 0'>
+                      <div class="ui label floating tip right pointing blue">
+                        選択
+                     </div>
+                      <div class='content fitted'>
+                        <dat-gui>
+                          <dat-value label='住所一覧' :values='補完.患者の居所一覧を郵便番号から' @finishchange='test1' placeholder='半角数字'></dat-value>
+                       </dat-gui>
+                     </div>
+                   </div>
+
+                    <div class='ui segment block blue'>
+                      <div class="ui label floating tip right pointing blue">
+                        居所
+                     </div>
+                      <div class='content fitted'>
+                        <dat-gui>
+                          <dat-value v-model='props.pass.患者の居所の都道府県' label='都道府県' :values="jpPrefecture.getAll('pref', 'name')" placeholder='半角数字'></dat-value>
+                          <dat-value v-model='props.pass.患者の居所の市区町村' label='市区町村' placeholder='全角'></dat-value>
+                          <dat-value v-model='props.pass.患者の居所の町域番地' label='町域番地' placeholder='全角'></dat-value>
+                          <dat-value v-model='props.pass.患者の居所の建物号室' label='建物号室' placeholder='全角'></dat-value>
+                          <dat-value phone v-model='props.pass.患者の居所の電話番号' label='電話番号'></dat-value>
+                       </dat-gui>
+                     </div>
+                   </div>
+                  </template>
+             </step-page>
+           </step>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
          </div>
           <div class='column'>
             <div class='ui segments block'>
@@ -364,7 +334,7 @@
                </div>
              </div>
               <div class='ui segment block fitted teal'>
-                <div class="ui label floating point right pointing teal">
+                <div class="ui label floating tip right pointing teal">
                   文書
                </div>
                 <div class='content fitted'>
@@ -390,6 +360,9 @@
    </main>
  </body>
 </html>
+ <script src='signature_pad.umd.js'></script>
+ <script src='js/jp-prefecture/0.0.8.js'></script>
+
  <!-- JS -->
  <script src='js/lodash/5.0.0.js'></script>
  <script src='js/micron/1.1.6.js'></script>
@@ -404,12 +377,15 @@
  <script src='js/localForage/1.9.0.js'></script>
  <script src='js/FileSaver.js/2.0.5.js'></script>
  <script src='js/tabindent.js/0.1.8.js'></script>
- <script src='signature_pad.umd.js'></script>
  <script src='js/screenfull.js/5.1.0.js'></script>
  <script src='js/dat.gui/0.7.7-custom.js'></script>
  <script src='js/TinyColor/1.4.2-custom.js'></script>
+ <script src='js/phone-number-jp/0.2.5-custom.js'></script>
+ <script src='js/cleave.js/addons/cleave-phone.jp.js'></script>
+ <script src='js/zipcode-jp/0.4.0-20220301-custom.js'></script>
  <!-- JQUERY -->
  <script src='js/jquery/4.0.0.js'></script>
+ <script src='js/jquery/autoKana2/1.0.31-custom.js'></script>
  <script src='js/jquery/Fomantic-UI/2.8.8-custom.js'></script>
  <!-- VUE -->
  <script src='js/vue/2.6.14-custom.js'></script>
@@ -467,13 +443,155 @@
    }
 </script>
  <script>
+
+</script>
+ <script>
+
+
+
    Vue.use(VueToast)
    Vue.use(VueDatGui)
    Vue.use(VueMoment)
    Vue.use(VueJaconv)
    Vue.use(VueLoader)
    Vue.use(VueWatchAll)
-   Vue.use(FocusTrapVue.DynamicReactiveRefs)
+ 
+
+
+</script>
+ <script>
+   Vue.component('step-page',{
+     props:{
+       title:{
+         type:String,
+         default:''
+       },
+       meta:{
+         type:String,
+         default:''
+       },
+       value:{
+         type:Object,
+         default:{}
+       },
+       description:{
+         type:String,
+         default:''
+       }
+     },
+     template:`<div class='ui segments block basic'>
+        <slot name='content' :pass='value'>
+       </slot>
+     </div>`,
+     beforeCreate:function(){
+      var a = Math.random().toString(36).slice(-5)
+      // this.$set(this.$vnode,'key',a)
+      // this.$set(this.$vnode.data,'key',a)
+     },
+     created:function(){
+      // _.merge(this.$parent,this.$options.propsData)
+     },
+     mounted:function(){
+       this.$emit('mount',this.$el)
+       this.$parent.$parent.title = this.title
+       this.$parent.$parent.meta = this.meta
+       this.$parent.$parent.description = this.description
+
+
+
+
+
+     }
+   })
+   Vue.component('step',{
+     data:function(){
+       return{
+         page:1,
+         meta:'',
+         title:'',
+         description:''
+       }
+     },
+     computed:{
+       currentPage:function(){
+         return [...this.$slots.default.filter((vnode) => vnode.tag !== undefined)][this.page-1]
+       },
+       pages:function(){
+         return [...this.$slots.default.filter((vnode) => vnode.tag !== undefined)]
+       },
+       min:function(){
+         return 1
+       },
+       max:function(){
+         return  [...this.$slots.default.filter((vnode) => vnode.tag !== undefined)].length
+       }
+     },
+     watch:{
+       currentPage:{
+         immediate:true,
+         handler:function(){
+           this.$nextTick(()=>{
+             this.$emit('change-page',this.$el,this.title)
+           })
+         }
+       }
+     },
+     methods:{
+       nextPage:function(){
+         this.page = ((this.page) % this.max) + 1
+       }
+     },
+     components: {
+        Vnodes: {
+          render: function(h, ctx) {
+            var pages = [...this.$parent.$slots.default.filter((vnode) => vnode.tag !== undefined)]
+            pages[this.$parent.page - 1].key = this.$parent.page
+            return [pages[this.$parent.page - 1]]
+          }
+        }
+      },
+     template:`
+       <div class='ui segments block' v-enter-to-next-input:namespace>
+         <div class='ui segment block'>
+           <div class='content fitted'>
+            <div class='ui segment block basic'>
+                    <div class='content fitted'>
+                      <div class='ui card fluid basic'>
+                        <div class='content'>
+                          <div class='header'>
+                            {{title}}
+                         </div>
+                          <a class='ui label corner' @click='nextPage'>
+                            <i class='icon arrow right'></i>
+                         </a>
+                          <div class='meta'>
+                            {{meta}}
+                         </div>
+                          <div class='description'>
+                            <p>{{description}}</p>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+          </div>
+        </div>
+         <div class='ui segment block'>
+           <div class='content fitted'>
+             <vnodes>
+            </vnodes>
+          </div>
+        </div>
+         <div class='ui segment block' v-if='pages.length > 1'>
+           <div class='content fitted'>
+             <dat-gui>
+               <dat-value v-model='page' label='次の入力に進む' :min='min' :max='max' :step='1' :empty='0'></dat-value>   
+            </dat-gui>
+          </div>
+        </div>
+      </div>
+     `
+   })
 </script>
  <script>
    Vue.mixin({
@@ -491,6 +609,14 @@
 </script>
  <script>
    var pdf = {
+     watch:{
+       '$root.共通':{
+         deep:true,
+         handler:_.debounce(async function(){
+           await this.draw()
+         },1500)
+       }
+     },
      created:function(){
        _.merge(this.$root.tab.info,this.tab.info)
      }
@@ -534,6 +660,15 @@
          },
          keydown:function(event){
            if(event.keyCode == 13){
+            input = $([
+         'button:visible',
+         'select:visible',
+         'input[type=text]:visible',
+         'input[type=checkbox]:visible',
+         'input[type=password]:visible'
+       ].join(','),el)
+
+
              var i = input.index(this)
              var n = (i+1) % input.length
              self.$nextTick(function(){
@@ -549,8 +684,20 @@
        }
        _.map(callback,function(func,event){
          event = event + '.' + namespace
-         input.off(event)
-         input.on(event,func)
+         $(el).off(event,[
+         'button:visible',
+         'select:visible',
+         'input[type=text]:visible',
+         'input[type=checkbox]:visible',
+         'input[type=password]:visible'
+       ].join(','))
+         $(el).on(event,[
+         'button:visible',
+         'select:visible',
+         'input[type=text]:visible',
+         'input[type=checkbox]:visible',
+         'input[type=password]:visible'
+       ].join(','),func)
        })
      })
    })
@@ -597,6 +744,8 @@
        'ラゲブリオ®カプセル200mg処方にあたっての適格性情報チェックリスト':'url:vue/ラゲブリオ®カプセル200mg処方にあたっての適格性情報チェックリスト.vue'
      },
      data:{
+       x:'',
+       sex:['男','女'],
        fonts:{
          'あずきフォント':'1.21.ttf',
          'うずらフォント':'1.00.ttf',
@@ -641,35 +790,75 @@
          }
        },
        timestamp:0,
+       address:'a',
+        sample:[
+          'a'
+        ],
+       page:0,
+       補完:{
+         患者の住所一覧を郵便番号から:{},
+         患者の居所一覧を郵便番号から:{},
+         保護者の住所一覧を郵便番号から:{}
+       },
        共通:{
-         医師の氏名:'山田 茉',
-         医師の氏名の読み仮名:'ヤマダ シオ',
-         医師の印鑑:'',
-         医師の従事病院または診療所の名称 :'山田医療東部センター',
-         医師の従事病院または診療所の所在地:'秋田県北秋田郡上小阿仁村大字沖田面字小蒲野',
-         医師の従事病院または診療所の電話番号:'827-128-9800',
-         医師の従事病院または診療所の時間外の電話番号:'827-128-9800',
-         患者のＩＤ:'3030896',
-         患者の氏名:'山田 塩',
-         患者の読み仮名:'ヤマダ シオ',
+         医師の氏名:'山田　恵',
+         医師の氏名カナ:'ヤマタ　メグミ',
+         医師の診療科:'感染症内科',
+         病院の名称 :'山田医療東部センター',
+         病院の名称カナ:'ヤマタイリョウトウブセンター',
+         病院の住所:'秋田県北秋田郡上小阿仁村大字沖田面字小蒲野',
+         病院の住所カナ:'アキタケンキタアキタグンカミコアニムラオキタオモテオガマノ',
+         病院の連絡先:'052120120',
+         病院の連絡先の時間外:'07012001200',
+
+         患者のＩＤ:'',
+         患者の氏名:'山田　緑',
+         患者の氏名カナ:'ヤマダ　ミドリ',
          患者の性別:'男',
-         患者の生年月日:'1991/11/07',
+         患者の生年月日:'2012/11/07',
          患者の年齢:'',
          患者の年齢のヶ月目:'',
-         患者の職業:'医療関係者',
-         患者の住所の県市区町村:'愛知県名古屋市海部郡',
-         患者の住所:'飛島村大字飛島新田字竹之郷ヨタレ南ノ割（社宅）',
-         患者の住所の電話番号:'050-5555-9800',
-         患者の所在地:'東京都千代田区千代田１-１（現在・実家に帰省中）',
-         患者の所在地の電話番号:'827-128-9800',
-         患者の保護者の氏名:'霞が関',
-         患者の保護者の読み仮名:'かすみがせき',
+         患者の職業:'医療機関関係者',
+         患者の住所の郵便番号:'011191919',
+         患者の住所の都道府県:'',
+         患者の住所の市区町村:'',
+         患者の住所の町域番地:'',
+         患者の住所の建物号室:'',
+         患者の住所の電話番号:'01200000000',
+         患者の居所の郵便番号:'',
+         患者の居所の都道府県:'',
+         患者の居所の市区町村:'',
+         患者の居所の町域番地:'',
+         患者の居所の建物号室:'',
+         患者の居所の電話番号:'09011112222',
+
+         患者の保護者の氏名:'山田　博',
+         患者の保護者の読み仮名:'ヤマダ　ハク',
          患者の保護者の住所:'東京都千代田区霞が関三丁目２番５号',
-         患者の保護者の電話番号:'827-128-9800',
+         患者の保護者の住所の郵便番号:'',
+         患者の保護者の住所の都道府県:'',
+         患者の保護者の住所の市区町村:'',
+         患者の保護者の住所の町域番地:'',
+         患者の保護者の住所の建物号室:'',
+
+         患者の保護者の住所カナ:'トウキョウトチヨダクカスミガセキ',
+         患者の保護者の電話番号:'8271289800',
          患者の保護者の続柄:'兄'
        }
      },
      computed:{
+       addressList:function(){
+         return _(zip.lookup(this.共通.患者の保護者の住所の郵便番号)).reduce((o,p)=>{
+           o[p.pref+p.city+p.town]=JSON.stringify(p)
+           return o
+         },{})
+       },
+       prefs:function(){
+         return jpPrefecture.getAll('pref', 'name')
+       },
+       jpPrefecture:function(){
+         return window['jpPrefecture']
+       },
        list:function(){
          return _(this.$options.components).keys().without(this.$options.name).value()
        },
@@ -691,6 +880,30 @@
        }
      },
      watch:{
+       '共通.患者の住所の郵便番号':{
+         handler:function(code){
+           this.補完.患者の住所一覧を郵便番号から = _(zip.lookup(code)).reduce((o,p)=>{
+             o[p.pref+p.city+p.town]=JSON.stringify(p)
+             return o
+           },{})
+         }
+       },
+       '共通.患者の居所の郵便番号':{
+         handler:function(code){
+           this.補完.患者の居所一覧を郵便番号から = _(zip.lookup(code)).reduce((o,p)=>{
+             o[p.pref+p.city+p.town]=JSON.stringify(p)
+             return o
+           },{})
+         }
+       },
+       '共通.患者の保護者の住所の郵便番号':{
+         handler:function(code){
+           this.補完.患者の保護者の住所一覧を郵便番号から = _(zip.lookup(code)).reduce((o,p)=>{
+             o[p.pref+p.city+p.town]=JSON.stringify(p)
+             return o
+           },{})
+         }
+       },
        'form.open':{
          handler:function(b){
            _(this.controllers).filter(o=>o.key=='DatFolder').map(o=>o.$_gui).each(folder=>folder[b ? 'open' : 'close']())
@@ -728,6 +941,13 @@
        moment.locale('ja')
      },
      mounted:function(){
+
+
+      
+
+
+
+
        var list = _.map(this.list,name=>{
          return{
            name:name,
@@ -736,35 +956,46 @@
        })
 
        list[0].selected = true
-
-       this.$nextTick(()=>{
-         $(this.$refs.dropdown).dropdown({
-           values:list,
-           placeholder:'文書を検索',
-           onChange:(value,text,$choice)=>{
-             this.tab.is = value
-           }
-         })
-       })
-
-       document.addEventListener('webviewerloaded',()=>{
-         var run = ()=>{
-           this.pdfViewer.app = this.$refs.viewer.contentWindow['PDFViewerApplication']
-           this.pdfViewer.options = this.$refs.viewer.contentWindow['PDFViewerApplicationOptions']
-           this.pdfViewer.options.set('viewerCssTheme',1)
-           this.pdfViewer.app._forceCssTheme();
+       
+       $(this.$refs.dropdown).dropdown({
+         values:list,
+         placeholder:'文書を検索',
+         onChange:(value,text,$choice)=>{
+           this.tab.is = value
          }
-         this.$refs.viewer.contentWindow['PDFViewerApplication'].initializedPromise.then(run)
        })
+
+
+
+
+
+
+
+
+
+
+
+
 
      },
      created:async function(){
-       this.init()
 
+    
+       this.init()
+       this.initPdfJs()
+
+
+
+       
+       /*
        setInterval(() => {
          this.timestamp = moment().valueOf()
        },1000)
-       
+       */
+
+
+
+
        this.$watch('共通.患者の生年月日',function(yyyymmdd){
          var date = moment(yyyymmdd)
           if(date.isValid()){
@@ -776,10 +1007,86 @@
 
      },
      methods:{
+       testx:function(el,title){
+         console.dir(title)
+         switch(title){
+           case '医師の情報':
+             $.fn.autoKana2('#医師の氏名',null,{katakana:true,emptyInputCallback:()=>{this.共通.医師の氏名カナ=''},addRubyCallback:(text)=>this.共通.医師の氏名カナ+=text})
+           case '病院の情報':
+             $.fn.autoKana2('#病院の名称',null,{katakana:true,emptyInputCallback:()=>{this.共通.病院の名称カナ=''},addRubyCallback:(text)=>this.共通.病院の名称カナ+=text})
+             $.fn.autoKana2('#病院の住所',null,{katakana:true,emptyInputCallback:()=>{this.共通.病院の住所カナ=''},addRubyCallback:(text)=>this.共通.病院の住所カナ+=text})
+             break
+           case '患者の情報':
+             $.fn.autoKana2('#患者の氏名',null,{katakana:true,emptyInputCallback:()=>{this.共通.患者の氏名カナ=''},addRubyCallback:(text)=>this.共通.患者の氏名カナ+=text})
+             break
+         }
+        /*
+         * https://github.com/nosir/cleave.js/issues/614
+         */
+         function CleavePhone(element,value){
+           var arr = phone.get(value)
+           return new Cleave(element,{
+             numericOnly:true,
+             delimiters:['(', ')', ' ','-'],
+             blocks:arr.length > 1 ? [0,arr[0],0,arr[1],4] : [0,3,0,4,4],
+             onValueChanged:function(e){
+               if(arr[0] != phone.get(e.target.rawValue)[0]){
+                 this.destroy()
+                 CleavePhone(element,e.target.rawValue)
+               }
+             }
+           })
+         }
+         $('[phone]',el).each(function(i,input){CleavePhone(input,input.value)})
+         $('[zip]',el).each(function(i,input){new Cleave(input,{blocks:[3,4],delimiter:'-',numericOnly:true})})
+         $('[date]',el).each(function(i,input){new Cleave(input,{date:true,delimiter:'/',datePattern: ['Y','m','d']})})
+       },
+       test1:function(o){
+         var lookup = JSON.parse(o)
+         this.共通.患者の居所の都道府県 = lookup.pref
+         this.共通.患者の居所の市区町村 = lookup.city
+         this.共通.患者の居所の町域番地 = lookup.town
+       },
+       test2:function(o){
+         var lookup = JSON.parse(o)
+         this.共通.患者の住所の都道府県 = lookup.pref
+         this.共通.患者の住所の市区町村 = lookup.city
+         this.共通.患者の住所の町域番地 = lookup.town
+       },
+       test3:function(o){
+         var lookup = JSON.parse(o)
+         this.共通.患者の保護者の住所の都道府県 = lookup.pref
+         this.共通.患者の保護者の住所の市区町村 = lookup.city
+         this.共通.患者の保護者の住所の町域番地 = lookup.town
+       },
        init:function(){
          this.tab.is = '新型コロナウイルス感染症の発生届'
        },
+       initPdfJs:function(){
+         document.addEventListener('webviewerloaded',()=>{
+           var run = ()=>{
+             this.pdfViewer.app = this.$refs.viewer.contentWindow['PDFViewerApplication']
+             this.pdfViewer.options = this.$refs.viewer.contentWindow['PDFViewerApplicationOptions']
+             this.pdfViewer.options.set('viewerCssTheme',1)
+             this.pdfViewer.app._forceCssTheme();
+           }
+           this.$refs.viewer.contentWindow['PDFViewerApplication'].initializedPromise.then(run)
+         })
+       },
+
+
+
+
+
+
+
+
+
+
        load:async function(doc){
+
+
+
          this.pdfLib.doc = doc
          this.$refs.viewer.src = 'js/pdf.js/2.9.359/web/viewer.html?file=' + URL.createObjectURL(new Blob([await doc.save()],{type:'application/pdf'})) + '#' + $.param(this.pdfViewer.settings)
        },
@@ -801,20 +1108,171 @@
      }
    })
 </script>
- <style>
-   @import url('ttf/index.css');
-   @import url('js/index.css');
-   @import url('css/index.css');
 
-   .dg li:not(.folder){
-    height:24px;
-        line-height:24px;
+
+
+
+<style>
+  html,
+  body{
+    -webkit-text-stroke:.3px;
+    font:12px 'M+2VM+IPAG circle Regular';
+  }
+  html,
+  body,
+  main,
+  main .ui.grid,
+  main .ui.grid > .row,
+  main .ui.grid > .row > .column{
+    height:100vh;
+  }
+  body{
+    background-color:#F8FAFC;
+  }
+  main{
+    float:right;
+    width:fit-content;
+  }
+</style>
+<style>
+  .ui.grid.celled > .row > .column:nth-child(3){
+    padding:0;
+  }
+</style>
+<style>
+  .ui.grid > .row > .column{
+    height:100vh;
+    overflow-y:scroll;
+  }
+  .ui.grid > .row > .column::-webkit-scrollbar{
+    display:none;
+  }
+  .ui.grid > .row > .column:nth-child(1),      .ui.grid > .row > .column:nth-child(2){
+    width:428px;
+    padding-left:5em !important;
+  }
+  .ui.grid > .row > .column:nth-child(3){
+    width:210mm;
+  }
+  .ui.grid > .row > .column:nth-child(3) > .ui.segments > .ui.segment,
+  .ui.grid > .row > .column:nth-child(3) > .ui.segments{
+    height:100%;
+  }
+</style>
+<style>
+  iframe{
+    width:100%;
+    height:100%;
+    border:none;
+    outline:none;
+    display:block;
+  }
+</style>
+<style>
+
+</style>
+<style>
+  /*
+   * FontAwesome v6.0.0
+   */
+   i.icon.i:before {
+     content:"\49";
    }
-   .dg li:not(.folder):not(.title){
-        padding:0 2px 0 5px;  
-      }
-      .dg .c input[type=text]{
-        padding:2px;
-      }
+   i.icon.t:before{
+     content:"\54";
+   }
+   i.icon.earser:before{
+     content:"\f12d";
+   }
+</style>
+ <style>
+   .item .property-name{
+     display:none;
+   }
+   .item .c{
+     flex:1;
+   }
+</style>
+ <style>
+  .dg .cr.focus{
+    background:beige;
+  }
+  .column > .ui.segments{
+    border-bottom: 2px solid rgba(34,36,38,.15) !important;
+    box-shadow: rgb(16 36 94 / 40%) 0 2px 6px 0 !important;
+  }
+</style>
+<style>
+   @media only screen and (max-width: 820px) {
+     .ui.grid.celled{
+       width:100vw;
+       overflow:hidden;
+     }
+     .ui.grid.celled > .row{
+       display:flex;
+       overflow-x:auto;
+       flex-wrap:nowrap;
+       scroll-snap-type:x mandatory;
+     }
+     .ui.grid.celled > .row > .column{
+       width:100vw !important;
+       min-width:100vw !important;
+       scroll-snap-align: start;
+       height:100% !important;
+     }
+   }
+</style>
+<style>
+  input::selection{
+    background-color:#0cf;
+  }
+</style>
+<style>
+  .ui.selection.list > .item
+  .ui.selection.list .list > .item{
+    color:rgba(0, 0, 0, 1.0) !important;
+  }
+  .ui.selection.list{
+    background-color:beige;
+  }
+</style>
+<style>
+  .ui.selection.dropdown{
+    border:none;
+    height:auto;
+    min-height:auto;
+    padding:0.28571429em 3.2em 0.28571429em 1em;
+  }
+  .ui.search.dropdown > .text{
+    width:100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+  }
 
+  .ui.search.dropdown > .text,
+  .ui.menu .ui.dropdown .menu > .item{
+
+    white-space:nowrap;
+    word-break:keep-all;
+
+  }
+  .ui.menu .ui.dropdown .menu > .item{
+    padding:0.26190476rem 1.14285714rem !important;
+  }
+  .ui.search.selection.dropdown > input.search{
+    padding:0.26190476rem 1.14285714rem;
+  }
+
+  .ui.selection.dropdown > .dropdown.icon{
+    padding:0.41666667em
+  }
+  .ui.selection.dropdown .menu > .item{
+    min-height:1.285714285rem;
+  }
+</style>
+<style>
+  .column > .ui.segments:nth-child(1){
+    z-index:999;
+  }
 </style>

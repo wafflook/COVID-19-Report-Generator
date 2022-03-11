@@ -102,6 +102,7 @@
          </span>\
         ",
         name: 'DatValue',
+        inheritAttrs:false,
         props: {
           value: {
             type: [Number, String, Boolean, undefined],
@@ -139,23 +140,23 @@
           },
           readonly: {
             type: Boolean,
-            default: false
+            default: null
           },
           password: {
             type: Boolean,
-            default: false
+            default: null
           },
           title: {
             type: String,
-            default: ''
+            default: null
           },
           type:{
             type:String,
-            default:''
+            default: null
           },
           comment: {
             type: String,
-            default: ''
+            default: null
           }
         },
         inject: ['context'],
@@ -190,8 +191,23 @@
             this.$_controller && this.$_controller.empty(value)
           },
           values:function(list) {
-            /*
+            var self = this
+
+
+
+
             this.$_controller = this.$_controller.options(list)
+            this.$_controller.onFinishChange(function(obj){
+              var has_selected_option = this.__select.selectedOptions.length > 0
+              if(has_selected_option){
+                self.$emit('finishchange',obj)
+              }
+            })
+
+            this.$_controller.updateDisplay()
+
+
+                        /*
             var html = ''
             var type = Object.prototype.toString.call(list).slice(8,-1).toLowerCase()
 
@@ -253,7 +269,7 @@
             this.$_controller.onFinishChange(function(obj){
               var has_selected_option = this.__select.selectedOptions.length > 0
               if(has_selected_option){
-                self.$emit('change',this.__select.selectedOptions[0].innerText)
+                self.$emit('finishchange',obj)
               }
             })
           } else if (this.min != null && this.max != null && this.step != null) {
@@ -277,13 +293,20 @@
             this.$_controller.onChange(function(value){
               self.$emit('change',value)
             })
-            this.$_controller.placeholder(this.placeholder)
-            this.$_controller.readonly(this.readonly)
-            this.$_controller.password(this.password)
-            this.$_controller.type(this.type)
+
+            this.placeholder && this.$_controller.placeholder(this.placeholder)
+            this.readonly && this.$_controller.readonly(this.readonly)
+            this.password && this.$_controller.password(this.password)
+            this.type && this.$_controller.type(this.type)
+
+            for(k in this.$attrs){
+              this.$_controller.__input.setAttribute(k,this.$attrs[k])
+            }
           }
-          this.$_controller.comment(this.comment)
-          this.$_controller.title(this.title)
+
+          this.comment && this.$_controller.comment(this.comment)
+          this.title && this.$_controller.title(this.title)
+
         }
       })
 
@@ -337,7 +360,7 @@
             switch(true){
               case this.$_controller instanceof dat.controllers.NumberController:
               case this.$_controller instanceof dat.controllers.NumberControllerBox:
-                this.$emit('input', newVal == this.empty_n ? '' : newVal)
+                this.$emit('input', newVal == this.empty ? '' : newVal)
                 break;
               default:
                 this.$emit('input', newVal)

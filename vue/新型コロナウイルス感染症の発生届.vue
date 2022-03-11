@@ -11,7 +11,7 @@
         </div>
       </div>
        <div class='ui segment block fitted green'>
-         <div class="ui label floating point right pointing green">
+         <div class="ui label floating tip right pointing green">
            検査
         </div>
          <div class='content fitted'>
@@ -49,7 +49,7 @@
          </div>
       </div>
        <div class='ui segment block fitted green'>
-         <div class="ui label floating point right pointing green">
+         <div class="ui label floating tip right pointing green">
            入院
         </div>
          <div class='content fitted'>
@@ -74,7 +74,7 @@
         </div>
       </div>
        <div class='ui segment block fitted green'>
-         <div class="ui label floating point right pointing green">
+         <div class="ui label floating tip right pointing green">
            症状
         </div>
          <div class='content fitted'>
@@ -107,7 +107,7 @@
         </div>
       </div>
        <div class='ui segment block fitted green'>
-         <div class="ui label floating point right pointing green">
+         <div class="ui label floating tip right pointing green">
            因子
         </div>
          <div class='content fitted'>
@@ -141,7 +141,7 @@
         </div>
       </div>
        <div class='ui segment block fitted green'>
-         <div class="ui label floating point right pointing green">
+         <div class="ui label floating tip right pointing green">
            病院
         </div>
          <div class='content fitted'>
@@ -161,7 +161,7 @@
         </div>
       </div>
        <div class='ui segment block fitted green' v-if="感染の経路と原因 != '不明'">
-         <div class="ui label floating point right pointing green">
+         <div class="ui label floating tip right pointing green">
            経路
         </div>
          <div class='content fitted'>
@@ -182,7 +182,7 @@
         </div>
       </div>
        <div class='ui segment block fitted green' v-if="感染の地域 != '不明'">
-         <div class="ui label floating point right pointing green">
+         <div class="ui label floating tip right pointing green">
            地域
         </div>
          <div class='content fitted'>
@@ -210,7 +210,7 @@
         </div>
       </div>
        <div class='ui segment block fitted green'>
-         <div class="ui label floating point right pointing green">
+         <div class="ui label floating tip right pointing green">
            接種
         </div>
          <div class='content fitted'>
@@ -246,12 +246,14 @@
      mixins:[pdf],
      mounted:function(){
        tabIndent.render(this.$refs.multiline.$_controller.__input)
+
+       /*
        $('input.birthday').each(function(i,input){
          new Cleave(input,{delimiter:'-',blocks:[4,2,2]})
        })
-       $('input.phone').each(function(i,input){
-         new Cleave(input,{delimiter:'-',blocks:[3,4,4]})
-       })
+
+
+
        $('input.mmdd').each(function(i,input){
          new Cleave(input,{date:true,datePattern:['m','d']})
        })
@@ -261,6 +263,7 @@
        $('input.yyyymmdd').each(function(i,input){
          new Cleave(input,{date:true,datePattern:['Y','m','d']})
        })
+       */
        this.$nextTick(()=>{
          $(this.$refs.first.$_controller.__input).focus()
        })
@@ -397,7 +400,7 @@
          var page = doc.getPages()[0]
              page.setFontSize(9)
              page.setFont(embedfont)
-             page.drawText('病院の患者の管理ＩＤ',{x:60,y:704})
+             page.drawText('病院の患者のＩＤ',{x:60,y:704})
              page.drawText('診療時間外の電話番号',{x:60,y:684})
              page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.text).toFloatRgb())))
          var date = moment(this.報告年月日)
@@ -406,15 +409,16 @@
              page.drawTextZen(date.format('MM'),{x:484,y:734})
              page.drawTextZen(date.format('DD'),{x:511,y:734})
           }
-             page.drawText(`${this.$root.共通.医師の氏名} ${this.$root.共通.医師の氏名の読み仮名}`,{x:290,y:721})
-             page.drawText(this.$root.共通.医師の従事病院または診療所の名称,{x:290,y:709})
-             page.drawText(this.$root.共通.医師の従事病院または診療所の所在地,{x:290,y:697})
-         var phne = this.$root.共通.医師の従事病院または診療所の電話番号.split('-')
+             page.drawText(`${this.$root.共通.医師の氏名} ${this.$root.共通.医師の氏名カナ}`,{x:290,y:721})
+             page.drawText(this.$root.共通.病院の名称,{x:290,y:709})
+             page.drawText(this.$root.共通.病院の住所,{x:290,y:697})
+
+         var phne = phone.split(this.$root.共通.病院の連絡先)
              page.drawTextZen(phne[0] || '',{x:280,y:685})
              page.drawTextZen(phne[1] || '',{x:338,y:685})
              page.drawTextZen(phne[2] || '',{x:405,y:685})
              page.drawTextZen(this.$root.共通.患者のＩＤ,{x:60,y:694})
-             page.drawTextZen(this.$root.共通.医師の従事病院または診療所の時間外の電話番号.split('-').join('-') || '',{x:60,y:672})
+             page.drawTextZen(phone.format(this.$root.共通.病院の連絡先の時間外) || '',{x:60,y:672})
              page.drawLine(_.merge({
               '':{start:{x:0,y:0},end:{x:0,y:0}},
               '患者（確定例）':{start:{x:70,y:650},end:{x:130,y:650}},
@@ -425,7 +429,7 @@
              }[this.患者の類型],
                style.line
              ))
-             page.drawText(jaconv.toHan(this.$root.共通.患者の読み仮名),{x:61,y:608})
+             page.drawText(jaconv.toHan(this.$root.共通.患者の氏名カナ),{x:61,y:608})
              page.drawCircle(_.merge({
                '':{x:0,y:0},
               '男':{x:201,y:612},
@@ -442,20 +446,20 @@
              page.drawTextZen(this.$root.共通.患者の年齢,{x:340,y:609})
              page.drawTextZen(this.$root.共通.患者の年齢のヶ月目,{x:397,y:609})}
              page.drawText(this.$root.共通.患者の職業,{x:448,y:609})
-             page.drawText([this.$root.共通.患者の住所の県市区町村,this.$root.共通.患者の住所].join(''),{x:128,y:594})
-         var phne = this.$root.共通.医師の従事病院または診療所の電話番号.split('-')
+             page.drawText([this.$root.共通.患者の住所の都道府県,this.$root.共通.患者の住所の市区町村,this.$root.共通.患者の住所の町域番地,this.$root.共通.患者の住所の建物号室].join(''),{x:128,y:594})
+         var phne = phone.split(this.$root.共通.患者の住所の電話番号)
              page.drawText(phne[0] || '',{x:457,y:595})
              page.drawText(phne[1] || '',{x:485,y:595})
              page.drawText(phne[2] || '',{x:517,y:595})
-             page.drawText(this.$root.共通.患者の所在地,{x:140,y:581})
-         var phne = this.$root.共通.患者の所在地の電話番号.split('-')
+             page.drawText([this.$root.共通.患者の居所の都道府県,this.$root.共通.患者の居所の市区町村,this.$root.共通.患者の居所の町域番地,this.$root.共通.患者の居所の建物号室].join(''),{x:148,y:581})
+         var phne = phone.split(this.$root.共通.患者の居所の電話番号)
              page.drawText(phne[0] || '',{x:457,y:581})
              page.drawText(phne[1] || '',{x:485,y:581})
              page.drawText(phne[2] || '',{x:517,y:581})
           if(_.toNumber(this.$root.共通.患者の年齢) < 20){
              page.drawText(this.$root.共通.患者の保護者の読み仮名,{x:61,y:556})
              page.drawText(this.$root.共通.患者の保護者の住所,{x:198,y:556})
-         var phne = this.$root.共通.患者の保護者の電話番号.split('-')
+         var phne = phone.split(this.$root.共通.患者の保護者の電話番号)
              page.drawText(phne[0] || '',{x:457,y:556})
              page.drawText(phne[1] || '',{x:485,y:556})
              page.drawText(phne[2] || '',{x:517,y:556})}

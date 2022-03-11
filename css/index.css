@@ -340,7 +340,7 @@ p {
 .block.ui.segment:last-child {
   margin-bottom: 0;
 }
-.block.ui.segment > .label.floating.point {
+.block.ui.segment > .label.floating.tip {
   left: 0;
   top: -1px;
   right: auto;
