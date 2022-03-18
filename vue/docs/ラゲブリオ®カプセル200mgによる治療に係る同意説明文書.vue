@@ -6,12 +6,12 @@
        <div class='ui segment block fitted'>
          <div class='content fitted'>
            <dat-gui>
-             <dat-value v-model='処方箋交付年月日' label='処方箋交付日' type='yyyymmdd' ref='first'></dat-value>
+             <dat-value :option="date('処方箋交付年月日')" v-model='処方箋交付年月日' label='処方箋交付日' ref='first'></dat-value>
           </dat-gui>
         </div>
       </div>
        <div class='ui segment block fitted blue'>
-         <div class="ui label floating tip right pointing blue">
+         <div class="ui label floating point right pointing blue">
            処方
         </div>
          <div class='content fitted'>
@@ -60,9 +60,6 @@
        }
      },
      mounted:function(){
-
-
-
        this.pad = new SignaturePad(this.$refs.canvas,{
               minWidth:0.1,
               maxWidth:1,
@@ -78,6 +75,15 @@
        })
      },
      methods:{
+       date:function(name){
+         return{
+           cleave:{
+             date:true,
+             delimiter:'/',
+             datePattern: ['Y','m','d']
+           }
+         }
+       },
        clear:function(){
          this.$toast_confirm('warning','全ての入力をクリアしますか？',()=>{
            _.merge(this.$data,{
@@ -91,6 +97,7 @@
          })
        },
        draw:async function(){
+
      var doc = await PDFLib.PDFDocument.load(await fetch(`${this.$options.name}.pdf`).then(r=>r.arrayBuffer()))
          doc.registerFontkit(fontkit)
      
@@ -119,9 +126,6 @@
             page.setFontSize(11)
             page.setFont(embedfont)
             page.setFontColor(PDFLib.rgb.apply(null,_.values(tinycolor(this.$root.pdfLib.settings.color.text).toFloatRgb())))
-
-
-  
          if(this.本剤について){
             page.drawCheckBox(true,{x:59,y:709})
          }
@@ -131,6 +135,7 @@
          if(this.同意及び情報提供に関する特記事項){
             page.drawCheckBox(true,{x:59,y:484})
          }
+
 
 
 
@@ -147,7 +152,7 @@
               })
             }
 
-            page.drawText(this.$root.共通.患者の住所,{x:135,y:310})
+            page.drawText([this.$root.共通.患者の住所の都道府県,this.$root.共通.患者の住所の市区町村,this.$root.共通.患者の住所の町域番地,this.$root.共通.患者の住所の建物号室].join(''),{x:135,y:310})
         var date = moment(this.記入日)
          if(date.isValid()){
             page.drawTextZen(date.format('yy'),{x:426,y:327})
@@ -157,7 +162,7 @@
 
             page.drawText(this.$root.共通.医師の氏名,{x:135,y:122})
             page.drawText(this.$root.共通.病院の名称,{x:135,y:98})
-            page.drawText(this.$root.共通.病院の連絡先,{x:415,y:98})
+            page.drawText(phone.format(this.$root.共通.病院の連絡先),{x:415,y:98})
         var date = moment(this.記入日)
          if(date.isValid()){
             page.drawTextZen(date.format('yy'),{x:415,y:122})
@@ -193,7 +198,11 @@
                 height:jpgDims.height
               })
             }
-            page.drawText(this.$root.共通.患者の住所,{x:135,y:310})
+
+
+
+
+            page.drawText([this.$root.共通.患者の住所の都道府県,this.$root.共通.患者の住所の市区町村,this.$root.共通.患者の住所の町域番地,this.$root.共通.患者の住所の建物号室].join(''),{x:135,y:310})
         var date = moment(this.記入日)
          if(date.isValid()){
             page.drawTextZen(date.format('yy'),{x:426,y:327})
@@ -201,9 +210,12 @@
             page.drawTextZen(date.format('DD'),{x:498,y:327})
          }
 
+
+ 
+
             page.drawText(this.$root.共通.医師の氏名,{x:135,y:122})
             page.drawText(this.$root.共通.病院の名称,{x:135,y:98})
-            page.drawText(this.$root.共通.病院の連絡先,{x:415,y:98})
+            page.drawText(phone.format(this.$root.共通.病院の連絡先),{x:415,y:98})
         var date = moment(this.記入日)
          if(date.isValid()){
             page.drawTextZen(date.format('yy'),{x:415,y:122})
@@ -227,6 +239,7 @@
              link:'https://www.msdconnect.jp/products/lagevrio/'
            }
          },
+
          署名:null,
          記入日:'1991/11/07',
          処方箋交付年月日:'1991/11/07',

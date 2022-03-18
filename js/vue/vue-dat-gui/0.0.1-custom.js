@@ -48,6 +48,7 @@
           this.$_gui && this.$_gui.destroy()
         }
       })
+
       Vue.component('DatFolder',{
         template:"\
           <span>\
@@ -96,14 +97,61 @@
           }
         }
       })
+
       Vue.component('DatValue',{
+        name: 'DatValue',
         template:"\
           <span>\
          </span>\
         ",
-        name: 'DatValue',
         inheritAttrs:false,
+        mounted:function(){
+          if('__input' in this.$_controller){
+
+
+            
+
+
+            this.autoKana = $.fn.autoKana2('#病院の名称',null,this.autoKanaOption) 
+            this.cleave = new Cleave(this.$_controller.__input,this.cleaveOption)
+
+
+
+            
+
+          }
+        },
+        methods:{
+          onValueChanged:function(event) {
+            let value = this.raw ? event.target.rawValue : event.target.value
+            this.$emit('input',value)
+            if (typeof this.onValueChangedFn === 'function'){
+              this.onValueChangedFn.call(this, event)
+            }
+          },
+          onBlur:function(event) {
+            this.$emit('blur', this.value)
+          }
+        },
+        data:function(){
+          return{
+            cleave: null,
+            autoKana: null,
+            onValueChangedFn: null
+          }
+        },
         props: {
+          option:{
+            type:Object,
+            default:function(){
+              return{
+              }
+            }
+          },
+          raw:{
+            type:Boolean,
+            default:true
+          },
           value: {
             type: [Number, String, Boolean, undefined],
             default: undefined
@@ -161,16 +209,62 @@
         },
         inject: ['context'],
         computed: {
+          autoKanaOption:function(){
+            return Object.assign({},this.option.autoKana,{
+
+            })
+          },
+          cleaveOption:function(){
+            if(this.option.cleave){
+              this.onValueChangedFn = this.option.cleave.onValueChanged
+            }
+            return Object.assign({}, this.option.cleave, {
+              onValueChanged: this.onValueChanged
+            })
+          },
           valueInner:function() {
             return this.context && this.context[this.label]
           }
         },
+        beforeUnmount:function(){
+          if (!this.cleave){
+            return
+          }
+
+          this.cleave.destroy()
+          this.cleave = null
+          this.onValueChangedFn = null
+        },
         watch: {
-          value:function(value) {
-            this.$_controller && this.$_controller.setValue(value)
+          option:{
+            deep:true,
+            handler:function(o){
+              this.cleave.destroy()
+              this.cleave = new Cleave(this.$_controller.__input, this.cleaveOption)
+              this.cleave.setRawValue(this.value)
+            }
           },
-          valueInner:function(newVal){
-            this.$emit('input', newVal)
+          value:function(newValue) {
+            /* istanbul ignore if */
+            if (!this.cleave){
+              return
+            }
+            // when v-model is not masked (raw)
+            if (this.raw && newValue === this.cleave.getRawValue()){
+              return
+            }
+            //  when v-model is masked (NOT raw)
+            if (!this.raw && newValue === this.$_controller.__input.value){
+              return
+            }
+            // Lastly set newValue
+            this.cleave.setRawValue(newValue)
+            this.$_controller && this.$_controller.setValue(newValue)
+
+            this.$emit('input', newValue)
+          },
+          valueInner:function(newValue){
+            this.$emit('input', newValue)
           },
           label:function(value) {
             this.$_controller && this.$_controller.name(value)
@@ -193,9 +287,6 @@
           values:function(list) {
             var self = this
 
-
-
-
             this.$_controller = this.$_controller.options(list)
             this.$_controller.onFinishChange(function(obj){
               var has_selected_option = this.__select.selectedOptions.length > 0
@@ -206,8 +297,7 @@
 
             this.$_controller.updateDisplay()
 
-
-                        /*
+           /*
             var html = ''
             var type = Object.prototype.toString.call(list).slice(8,-1).toLowerCase()
 
@@ -496,7 +586,6 @@
           this.$_controller = this.$parent.$_gui.addObject(this.value, this.label)
         }
       })
-
 
       Vue.component('DatImage',{
         template:"\

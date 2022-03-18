@@ -1009,7 +1009,6 @@ var StringController = function (_Controller) {
     _this2.__input = document.createElement('input');
     _this2.__input.setAttribute('type', 'text');
     dom.bind(_this2.__input, 'keyup', onChange);
-    dom.bind(_this2.__input, 'change', onChange);
     dom.bind(_this2.__input, 'blur', onBlur);
     dom.bind(_this2.__input, 'keydown', function (e) {
       if (e.keyCode === 13) {
@@ -2495,6 +2494,10 @@ function augmentController(gui, li, controller) {
         controller.__li.removeAttribute('comment');
       }
       return controller;
+    },
+    id: function id(v) {
+      console.dir(controller.__input);
+      controller.__input.setAttribute('id', v);
     },
     title: function title(v) {
       if (Common.isString(v)) {
